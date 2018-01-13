@@ -17,9 +17,9 @@ return [
 //         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=114.215.154.112;dbname=gzgkzysjpt',
-            'username' => 'gzgkzysjpt',
-            'password' => 'ph823zll0kp5q0O',
+            'dsn' => 'mysql:host=localhost;dbname=gzgkzysjpt',
+            'username' => 'root',
+            'password' => 'root',
             'charset' => 'utf8',
         ],
         'mailer' => [
