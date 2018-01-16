@@ -1,5 +1,7 @@
 <?php
 namespace backend\controllers;
+use backend\models\AdminUser;
+use backend\models\BackendUser;
 use Yii;
 use yii\web\Controller;
 use yii\web\BadRequestHttpException;
@@ -35,12 +37,16 @@ class BaseController extends Controller
             }
         }
         else{
+            if (AdminUser::isSuper(app()->user->id)) {
+                return true;
+            }
+
             $system_rights = Yii::$app->user->identity->getSystemRights();
             $loginAllowUrl = ['site/index', 'site/logout', 'site/psw', 'site/psw-save'];
             if(in_array($route, $loginAllowUrl) == false){
                if((empty($system_rights) == true || empty($system_rights[$route]) == true)){
                     header("Content-type: text/html; charset=utf-8");
-                    //exit('没有权限访问'.$route);
+                    exit('没有权限访问'.$route);
                }
                $rights = $system_rights[$route];
                if($route != 'system-log/index'){
@@ -98,6 +104,7 @@ class BaseController extends Controller
         }
         return $rightActionData;
     }
+
 }
 
 ?>

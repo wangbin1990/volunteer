@@ -18,6 +18,7 @@ use backend\models\AdminUserRole;
  * @property string $create_date
  * @property string $update_user
  * @property string $update_date
+ * @property int $is_super
  *
  * @property AdminUserRole[] $adminUserRoles
  * @property SystemUserRole[] $systemUserRoles
@@ -39,7 +40,7 @@ class AdminUser extends BackendUser
     {
         return [
             [['uname', 'password', 'create_user', 'create_date', 'update_user', 'update_date'], 'required'],
-            [['status'], 'integer'],
+            [['status', 'is_super'], 'integer'],
             [['create_date', 'update_date'], 'safe'],
             [['uname', 'domain_account', 'create_user'], 'string', 'max' => 100],
             [['password'], 'string', 'max' => 200],
@@ -67,7 +68,23 @@ class AdminUser extends BackendUser
             'create_date' => '创建时间',
             'update_user' => '更新人',
             'update_date' => '更新时间',
+            'is_super' => '是否是超级管理员',
         ];
+    }
+
+    /**
+     * 判断是不是超级管理员
+     *
+     * @param string $userId
+     * @return bool
+     */
+    public static function isSuper($userId)
+    {
+        $userObj = static::findOne([
+            'id' => $userId,
+            'status' => self::STATUS_ACTIVE
+        ]);
+        return $userObj && $userObj->is_super ? true : false;
     }
 
     /**

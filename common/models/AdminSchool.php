@@ -22,6 +22,7 @@ use Yii;
  * @property string $website
  * @property string $create_time
  * @property string $update_time
+ * @property string $professional_score
  */
 class AdminSchool extends \backend\models\BaseModel
 {
@@ -90,7 +91,8 @@ class AdminSchool extends \backend\models\BaseModel
                 [
                     'intro',
                     'brief_intro',
-                    'mold'
+                    'mold',
+                    'professional_score'
                 ],
                 'string'
             ],
@@ -155,6 +157,7 @@ class AdminSchool extends \backend\models\BaseModel
             'email' => '学校 邮箱',
             'website' => '学校网站',
             'score' => '历年分数',
+            'professional_score' => '专业录取分数',
             'create_time' => 'Create Time',
             'update_time' => 'Update Time'
         ];

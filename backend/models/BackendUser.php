@@ -7,6 +7,7 @@ use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use backend\services\SystemModuleService;
 use backend\services\AdminModuleService;
+
 class BackendUser extends ActiveRecord implements IdentityInterface
 {
 

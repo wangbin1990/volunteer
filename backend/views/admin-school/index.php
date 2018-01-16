@@ -398,6 +398,24 @@ $modelLabel = new \common\models\AdminSchool();
               </div>
               <div class="clearfix"></div>
           </div>
+          <div id="intro_div" class="form-group">
+              <label for="intro" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("professional_score")?></label>
+              <div class="col-sm-10">
+				  <?= CKEditor::widget([
+							'editorOptions' => [
+								'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+								'inline' => false, //по умолчанию false
+							    'filebrowserImageUploadUrl' => Url::to(['admin-school/upload']),
+							    'language' => 'zh-cn',
+							],
+							'name' => "AdminSchool[professional_score]",
+							'id' => 'professional_score',
+						]);
+
+				  ?>
+              </div>
+              <div class="clearfix"></div>
+          </div>
 
           <div id="phone_div" class="form-group">
               <label for="phone" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("phone")?></label>
@@ -616,6 +634,7 @@ function orderby(field, op){
 		$("#mold").val('-1');
 		$("#sort").val('');
 		$("#brief_intro").val('');
+        $("#professional_score").val('');
 		$("#intro").val('');
 		$("#phone").val('');
 		$("#email").val('');
@@ -624,6 +643,7 @@ function orderby(field, op){
 		$("#create_time").val('');
 		$("#update_time").val('');
 		CKEDITOR.instances.brief_intro.setData('');
+		CKEDITOR.instances.professional_score.setData('');
 		CKEDITOR.instances.intro.setData('');
 	}
 	else{
@@ -640,6 +660,7 @@ function orderby(field, op){
 		//$("#brief_intro").val(data.brief_intro);
         CKEDITOR.instances.brief_intro.setData(data.brief_intro);
 		CKEDITOR.instances.intro.setData(data.intro);
+		CKEDITOR.instances.professional_score.setData(data.professional_score);
     	//$("#intro").val(data.intro);
     	$("#phone").val(data.phone);
     	$("#email").val(data.email);
@@ -660,6 +681,7 @@ function orderby(field, op){
       $("#mold").attr({readonly:true,disabled:true});
 	  $("#sort").attr({readonly:true,disabled:true});
 	  $("#brief_intro").attr({readonly:true,disabled:true});
+	  $("#professional_score").attr({readonly:true,disabled:true});
       $("#intro").attr({readonly:true,disabled:true});
       $("#phone").attr({readonly:true,disabled:true});
       $("#email").attr({readonly:true,disabled:true});
@@ -681,6 +703,7 @@ function orderby(field, op){
       $("#mold").attr({readonly:false,disabled:false});
 	  $("#sort").attr({readonly:false,disabled:false});
 	  $("#brief_intro").attr({readonly:false,disabled:false});
+	  $("#professional_score").attr({readonly:false,disabled:false});
       $("#intro").attr({readonly:false,disabled:false});
       $("#phone").attr({readonly:false,disabled:false});
       $("#email").attr({readonly:false,disabled:false});
