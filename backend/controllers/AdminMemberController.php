@@ -25,15 +25,16 @@ class AdminMemberController extends BaseController
             foreach($querys as $key=>$value){
                 $value = trim($value);
                 if(empty($value) == false){
-                    $parame[":{$key}"]=$value;
+                    $parame[":{$key}"]='%'.$value.'%';
                     if(empty($condition) == true){
-                        $condition = " {$key}=:{$key} ";
+                        $condition = " {$key} LIKE :{$key} ";
                     }
                     else{
-                        $condition = $condition . " AND {$key}=:{$key} ";
+                        $condition = $condition . " AND {$key} LIKE :{$key} ";
                     }
                 }
             }
+            var_dump($condition,$parame);
             if(count($parame) > 0){
                 $query = $query->where($condition, $parame);
             }
