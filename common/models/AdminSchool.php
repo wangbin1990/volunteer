@@ -82,7 +82,6 @@ class AdminSchool extends \backend\models\BaseModel
                     'batch',
                     'type',
                     'status',
-                    'spec',
                     'sort'
                 ],
                 'integer'
@@ -92,6 +91,7 @@ class AdminSchool extends \backend\models\BaseModel
                     'intro',
                     'brief_intro',
                     'mold',
+                    'spec',
                     'professional_score'
                 ],
                 'string'
@@ -127,7 +127,8 @@ class AdminSchool extends \backend\models\BaseModel
             [
                 [
                     'email',
-                    'website'
+                    'website',
+                    'spec',
                 ],
                 'string',
                 'max' => 255
@@ -244,10 +245,23 @@ class AdminSchool extends \backend\models\BaseModel
             foreach ($cates as $cate) {
                 foreach ($this->_relitaveName as $key => $name) {
                     if ($cate['name'] == $name) {
-                        foreach ($cate['children'] as $val) {
-                            if ($val['id'] == $model->$key) {
-                                $model->$key = $val['name'];
-                                break;
+                        if($key == 'spec') {
+                            $spec = [];
+                            foreach (explode(',', $model->$key) as $specId) {
+                                foreach ($cate['children'] as $val) {
+                                    if ($val['id'] == $specId) {
+                                        $spec[] = $val['name'];
+                                        break;
+                                    }
+                                }
+                            }
+                            $model->$key = implode('|', $spec);
+                        } else {
+                            foreach ($cate['children'] as $val) {
+                                if ($val['id'] == $model->$key) {
+                                    $model->$key = $val['name'];
+                                    break;
+                                }
                             }
                         }
                     }

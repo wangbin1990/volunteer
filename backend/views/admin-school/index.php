@@ -331,12 +331,17 @@ $modelLabel = new \common\models\AdminSchool();
           <div id="spec_div" class="form-group">
               <label for="spec" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("spec")?></label>
               <div class="col-sm-10">
-				   <select id="spec" class="form-control" name="AdminSchool[spec]">
-						<option value="0">请选择：</option>
+                  <!--<select id="spec" class="form-control" name="AdminSchool[spec]">-->
+                      <!--<option value="0">请选择     ：</option>-->
 				  <?php foreach($cates[1]['children'] as $cate):?>
-						 <option value="<?= $cate['id'] ?>"> <?= $cate['name']?></option>
+                          <label class="checkbox-inline">
+                              <input type="checkbox" name="AdminSchool[spec][]" value="<?= $cate['id'] ?>">
+                              <?= $cate['name']?>
+                          </label>
+						<!-- <option value="<?= $cate['id'] ?>"> <?= $cate['name']?></option>-->
 				  <?php endforeach;?>
-				  </select>
+                  <!--</select>-->
+
               </div>
               <div class="clearfix"></div>
           </div>
@@ -630,7 +635,7 @@ function orderby(field, op){
 		$("#batch").val('0');
 		$("#type").val('0');
 	    $("#status").val('-1');
-		$("#spec").val('0');
+		//$("#spec").val('0');
 		$("#mold").val('-1');
 		$("#sort").val('');
 		$("#brief_intro").val('');
@@ -653,9 +658,18 @@ function orderby(field, op){
     	$("#location").val(data.location);
     	$("#batch").val(data.batch);
     	$("#type").val(data.type);
-      $("#status").val(data.status);
-    	$("#spec").val(data.spec);
-    	$("#mold").val(data.mold);
+        $("#status").val(data.status);
+
+//        $("[name = spec]:checkbox").each(function (i, e) {
+//            for (var i = 0; i < data.spec.length; i++) {
+//                if ($(this).val() == data.spec[i]) {
+//                    $(this).attr("checked", true);
+//                }
+//            }
+//        });
+        //$("#spec").val(data.spec);
+
+        $("#mold").val(data.mold);
 		$("#sort").val(data.sort);
 		//$("#brief_intro").val(data.brief_intro);
         CKEDITOR.instances.brief_intro.setData(data.brief_intro);

@@ -136,7 +136,11 @@ class AdminSchoolController extends BaseController
         $id = Yii::$app->request->post('id');
         $model = $this->findModel($id);
         $data = Yii::$app->request->post();
+        if (!empty($data['AdminSchool']['spec'])) {
+            $data['AdminSchool']['spec']  = implode(',', $data['AdminSchool']['spec']);
+        }
         $data['AdminSchool']['update_time'] = date('Y-m-d H:i:s', time());
+
         if ($model->load($data)) {
             if($model->validate() == true && $model->save()){
                 $msg = array('errno'=>0, 'msg'=>'保存成功');
@@ -148,7 +152,7 @@ class AdminSchoolController extends BaseController
             }
         } else {
             $msg = array('errno'=>2, 'msg'=>'数据出错');
-            echo json_encode($msg);
+            echo json_encode($msg, JSON_UNESCAPED_UNICODE);
         }
 
     }

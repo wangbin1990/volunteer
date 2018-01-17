@@ -20,12 +20,12 @@ VALUES
 	(
 		1,
 		'menu_manger',
-		'²Ëµ¥¹ÜÀí',
+		'èœå•ç®¡ç†',
 		1,
-		'²Ëµ¥¹ÜÀí',
-		'²Ëµ¥¹ÜÀí',
+		'èœå•ç®¡ç†',
+		'èœå•ç®¡ç†',
 		1,
-		'²Ëµ¥¹ÜÀí',
+		'èœå•ç®¡ç†',
 		'admin-module/index',
 		'index',
 		'backend\\controllers\\AdminMenuController',
@@ -38,10 +38,21 @@ VALUES
 
 
 ALTER TABLE `admin_user`
-ADD COLUMN `is_super`  tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT 'ÊÇ·ñÊÇ³¬¼¶¹ÜÀíÔ±1ÊÇ£¬0·ñ' AFTER `update_date`;
+ADD COLUMN `is_super`  tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT 'æ˜¯å¦æ˜¯è¶…çº§ç®¡ç†å‘˜1æ˜¯ï¼Œ0å¦';
 
 ALTER TABLE `admin_school`
-ADD COLUMN `professional_score`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '×¨ÒµÂ¼È¡·ÖÊıtext' AFTER `professional_score`;
+ADD COLUMN `professional_score`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT 'ä¸“ä¸šå½•å–åˆ†æ•°text';
+
+
+
+
+
+
+
+ALTER TABLE `admin_school`
+MODIFY COLUMN `spec`  varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT 'ç‰¹æ®Šå±æ€§' AFTER `type`;
+
+
 
 
 
