@@ -335,7 +335,7 @@ $modelLabel = new \common\models\AdminSchool();
                       <!--<option value="0">请选择     ：</option>-->
 				  <?php foreach($cates[1]['children'] as $cate):?>
                           <label class="checkbox-inline">
-                              <input type="checkbox" name="AdminSchool[spec][]" value="<?= $cate['id'] ?>">
+                              <input type="checkbox" class="spec" name="AdminSchool[spec][]" value="<?= $cate['id'] ?>" <?php if($query['spec'] != 0):?>selected="selected"<?php endif;?>>
                               <?= $cate['name']?>
                           </label>
 						<!-- <option value="<?= $cate['id'] ?>"> <?= $cate['name']?></option>-->
@@ -660,13 +660,14 @@ function orderby(field, op){
     	$("#type").val(data.type);
         $("#status").val(data.status);
 
-//        $("[name = spec]:checkbox").each(function (i, e) {
-//            for (var i = 0; i < data.spec.length; i++) {
-//                if ($(this).val() == data.spec[i]) {
-//                    $(this).attr("checked", true);
-//                }
-//            }
-//        });
+        $("[class = spec]:checkbox").each(function (i, e) {
+            for (var i = 0; i < data.spec.length; i++) {
+                if ($(this).val() == data.spec[i]) {
+                    alert(data.spec[i]);
+                    $(this).attr("checked", true);
+                }
+            }
+        });
         //$("#spec").val(data.spec);
 
         $("#mold").val(data.mold);
@@ -714,6 +715,13 @@ function orderby(field, op){
       $("#type").attr({readonly:false,disabled:false});
       $("#status").attr({readonly:false,disabled:false});
       $("#spec").attr({readonly:false,disabled:false});
+        $("[class = spec]:checkbox").each(function (i, e) {
+            for (var i = 0; i < data.spec.length; i++) {
+                if ($(this).val() == data.spec[i]) {
+                    $(this).attr("checked", true);
+                }
+            }
+        });
       $("#mold").attr({readonly:false,disabled:false});
 	  $("#sort").attr({readonly:false,disabled:false});
 	  $("#brief_intro").attr({readonly:false,disabled:false});
