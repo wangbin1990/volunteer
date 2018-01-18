@@ -46,6 +46,8 @@ class AdminSchoolController extends BaseController
                 if (!empty($value)) {
                     if ($key == 'name') {
                         $name = $value;
+                    } elseif ($key == 'spec') {
+                        $spec = $value;
                     } else {
                         $condition[$key] = $value;
                     }
@@ -57,6 +59,9 @@ class AdminSchoolController extends BaseController
             }
             if(!empty($name)){
                 $query = $query->andWhere(['like', 'name', $name]);
+            }
+            if(!empty($spec)){
+                $query = $query->andWhere(['like', 'spec', $spec]);
             }
         }
 

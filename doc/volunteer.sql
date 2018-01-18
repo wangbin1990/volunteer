@@ -44,13 +44,21 @@ ALTER TABLE `admin_school`
 ADD COLUMN `professional_score`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '专业录取分数text';
 
 
-
-
-
-
-
 ALTER TABLE `admin_school`
-MODIFY COLUMN `spec`  varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '特殊属性' AFTER `type`;
+MODIFY COLUMN `spec`  varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '特殊属性';
+
+
+CREATE TABLE `admin_finance` (
+  `id` smallint(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `module_id` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '收费模块id',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '开启状态1：是，0否',
+  `fee` decimal(10,0) NOT NULL DEFAULT '0' COMMENT '收费标准',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
+  `update_user` varchar(128) NOT NULL DEFAULT '' COMMENT '修改人',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
 
 
 
