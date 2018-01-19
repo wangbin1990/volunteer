@@ -1,24 +1,3 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : localhost
-Source Server Version : 50553
-Source Host           : localhost:3306
-Source Database       : gzgkzysjpt
-
-Target Server Type    : MYSQL
-Target Server Version : 50553
-File Encoding         : 65001
-
-Date: 2018-01-18 23:43:43
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for admin_member
--- ----------------------------
-DROP TABLE IF EXISTS `admin_member`;
 CREATE TABLE `admin_member` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL COMMENT '用户名',
@@ -29,8 +8,9 @@ CREATE TABLE `admin_member` (
   `create_user` varchar(100) NOT NULL COMMENT '创建人',
   `create_date` datetime NOT NULL COMMENT '创建时间',
   `update_user` varchar(101) NOT NULL COMMENT '更新人',
-  `update_date` datetime NOT NULL COMMENT '更新时间',
-  `price` varchar(255) DEFAULT '0' COMMENT '账户余额',
-  `price_add_date` datetime DEFAULT NULL COMMENT ' 充值时间',
+  `update_date` datetime DEFAULT NULL COMMENT '更新时间',
+  `wallet_balance` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '账户余额',
+  `wallet_create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '钱包充值时间',
+  `prefix_name` varchar(255) NOT NULL DEFAULT '' COMMENT '前缀名',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5275 DEFAULT CHARSET=utf8;

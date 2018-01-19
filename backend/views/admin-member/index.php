@@ -68,6 +68,7 @@ $modelLabel = new \backend\models\AdminMember();
             $orderby = isset($_GET['orderby']) ? $_GET['orderby'] : '';
 		          echo '<th><input id="data_table_check" type="checkbox"></th>';
               echo '<th onclick="orderby(\'id\', \'desc\')" '.CommonFun::sortClass($orderby, 'id').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('id').'</th>';
+              echo '<th class="sorting" tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('prefix_name').'</th>';
               echo '<th class="sorting" tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('name').'</th>';
               echo '<th class="sorting" tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('password').'</th>';
 //               echo '<th class="sorting" tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('auth_key').'</th>';
@@ -77,8 +78,8 @@ $modelLabel = new \backend\models\AdminMember();
               echo '<th class="sorting" tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('create_user').'</th>';
               echo '<th onclick="orderby(\'id\', \'desc\')" '.CommonFun::sortClass($orderby, 'create_date').' class="sorting" tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('create_date').'</th>';
               echo '<th class="sorting" tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('update_user').'</th>';
-              echo '<th class="sorting" tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('price').'</th>';
-              echo '<th onclick="orderby(\'id\', \'desc\')" '.CommonFun::sortClass($orderby, 'price_add_date').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('price_add_date').'</th>';
+              echo '<th class="sorting" tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('wallet_balance').'</th>';
+              echo '<th onclick="orderby(\'id\', \'desc\')" '.CommonFun::sortClass($orderby, 'wallet_create_time').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('wallet_create_time').'</th>';
             ?>
 	
 
@@ -94,6 +95,7 @@ $modelLabel = new \backend\models\AdminMember();
                 echo '  <td><label><input type="checkbox" value="' . $model->id . '"></label></td>';
 				
                 echo '  <td>' . $model->id . '</td>';
+                echo '  <td>' . $model->prefix_name . '</td>';
                 echo '  <td>' . $model->name . '</td>';
                 echo '  <td>' . $model->password . '</td>';
 //                 echo '  <td>' . $model->auth_key . '</td>';
@@ -104,8 +106,8 @@ $modelLabel = new \backend\models\AdminMember();
                 echo '  <td>' . $model->create_user . '</td>';
                 echo '  <td>' . $model->create_date . '</td>';
                 echo '  <td>' . $model->update_user . '</td>';
-                echo '  <td>' . $model->price . '</td>';
-                echo '  <td>' . $model->price_add_date . '</td>';
+                echo '  <td>' . $model->wallet_balance . '</td>';
+                echo '  <td>' . $model->wallet_create_time . '</td>';
                 echo '  <td class="center">';
                 echo '      <a id="view_btn" onclick="viewAction(' . $model->id . ')" class="btn btn-primary btn-sm" href="#"> <i class="glyphicon glyphicon-zoom-in icon-white"></i>查看</a>';
                  echo '      <a id="edit_btn" onclick="editAction(' . $model->id . ')" class="btn btn-primary btn-sm" href="#"> <i class="glyphicon glyphicon-edit icon-white"></i>修改</a>';
@@ -211,6 +213,13 @@ $modelLabel = new \backend\models\AdminMember();
               </div>
               <div class="clearfix"></div>
           </div>
+          <div id="status_div" class="form-group">
+              <label for="prefix_name" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("prefix_name")?></label>
+              <div class="col-sm-10">
+                  <input type="text" class="form-control" id="prefix_name" name="AdminMember[prefix_name]" placeholder="用户前缀" />
+              </div>
+              <div class="clearfix"></div>
+          </div>
 
           <div id="create_user_div" class="form-group">
               <label for="create_user" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("create_user")?></label>
@@ -269,7 +278,7 @@ $modelLabel = new \backend\models\AdminMember();
           <div id="name_div" class="form-group">
               <label for="name" class="col-sm-2 control-label">账号前缀</label>
               <div class="col-sm-10">
-                  <input type="text" class="form-control" id="addname" name="AdminMember[name]" placeholder="请填写字母前缀" />
+                  <input type="text" class="form-control" id="addname" name="AdminMember[prefix_name]" placeholder="请填写账号前缀" />
               </div>
               <div class="clearfix"></div>
           </div>
@@ -337,6 +346,7 @@ $modelLabel = new \backend\models\AdminMember();
 		$("#last_ip").val('');
 		$("#num").val('');
 		$("#status").val('10');
+		$("#prefix_name").val('');
 		$("#create_user").val('');
 		$("#create_date").val('');
 		$("#update_user").val('');
@@ -350,6 +360,7 @@ $modelLabel = new \backend\models\AdminMember();
     	$("#last_ip").val(data.last_ip);
     	$("#num").val(data.num);
     	$("#status").val(data.status);
+    	$("#prefix_name").val(data.prefix_name);
     	$("#create_user").val(data.create_user);
     	$("#create_date").val(data.create_date);
     	$("#update_user").val(data.update_user);
@@ -363,6 +374,7 @@ $modelLabel = new \backend\models\AdminMember();
       $("#last_ip").attr({readonly:true,disabled:true});
       $("#num").attr({readonly:true,disabled:true});
       $("#status").attr({readonly:true,disabled:true});
+      $("#prefix_name").attr({readonly:true,disabled:true});
       $("#create_user").attr({readonly:true,disabled:true});
       $("#create_date").attr({readonly:true,disabled:true});
       $("#update_user").attr({readonly:true,disabled:true});
@@ -387,6 +399,7 @@ $modelLabel = new \backend\models\AdminMember();
       $("#last_ip").parent().parent().hide();
       $("#num").attr({readonly:false,disabled:false});
       $("#status").attr({readonly:false,disabled:false});
+      $("#prefix_name").attr({readonly:false,disabled:false});
       $("#create_user").attr({readonly:true,disabled:true});
       $("#create_user").parent().parent().hide();
       $("#create_date").attr({readonly:true,disabled:true});

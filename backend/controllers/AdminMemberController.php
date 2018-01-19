@@ -104,17 +104,18 @@ class AdminMemberController extends BaseController
         //$paw = Yii::$app->security->generatePasswordHash($_POST['AdminMember']['password']);
         $num = $_POST['AdminMember']['num'];//账号权限
         $number = $_POST['AdminMember']['status'];//生成账号的个数
+        $prefixName = $_POST['AdminMember']['prefix_name'];
         $create_user = Yii::$app->user->identity->uname;
         $create_date = date('Y-m-d H:i:s');
         $update_user = Yii::$app->user->identity->uname;
         $update_date = date('Y-m-d H:i:s');
-        $keys = ['name','password','num','status','create_user','create_date','update_user','update_date']; 
+        $keys = ['name','password','num','status','create_user','create_date','update_user','update_date', 'prefix_name'];
         for ($i=0; $i < intval($number); $i++) { 
             // var_dump($i);
             $paw = rand(10000000,99999999);
             $rname = intval($_POST['AdminMember']['name'])+rand(100000,999999);
             $name = $_POST['AdminMember']['name'].$rname;
-            $data[] = [$name,$paw,$num,10,$create_user,$create_date,$update_user,$update_date];
+            $data[] = [$name,$paw,$num,10,$create_user,$create_date,$update_user,$update_date, $prefixName];
         }
         $result = Yii::$app->db->createCommand()->batchInsert('admin_member',$keys,$data)->execute();
         if($result){
