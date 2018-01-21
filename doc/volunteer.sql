@@ -60,6 +60,7 @@ CREATE TABLE `admin_finance` (
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 
+###record
 CREATE TABLE `admin_finance_record` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `member_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '充值的会员ID',
