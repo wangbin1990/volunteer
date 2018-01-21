@@ -2,6 +2,7 @@
 namespace backend\services;
 
 use backend\models\AdminRoleRight;
+use backend\models\BackendUser;
 
 class AdminRoleRightService extends AdminRoleRight{
     public function saveRights($rids, $roleId, $userName)
@@ -30,6 +31,8 @@ class AdminRoleRightService extends AdminRoleRight{
             ], $insertData)
             ->execute();
             $transaction->commit();
+            app()->user->identity->initUserModuleList();
+            app()->user->identity->initUserUrls();
             return true;
         } catch (Exception $e) {
             $transaction->rollBack();

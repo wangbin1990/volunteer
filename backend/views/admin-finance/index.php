@@ -37,11 +37,17 @@ $modelLabel = new \common\models\AdminFinance();
                             <!-- row start search-->
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <?php ActiveForm::begin(['id' => 'admin-finance-search-form', 'method'=>'get', 'options' => ['class' => 'form-inline'], 'action'=>Url::toRoute('admin-finance/index')]); ?>
+                                    <?php ActiveForm::begin(['id' => 'admin-finance-search-form', 'method'=>'post', 'options' => ['class' => 'form-inline'], 'action'=>Url::toRoute('admin-finance/index')]); ?>
 
                                     <div class="form-group" style="margin: 5px;">
-                                        <label><?=$modelLabel->getAttributeLabel('id')?>:</label>
-                                        <input type="text" class="form-control" id="query[id]" name="query[id]"  value="<?=isset($query["id"]) ? $query["id"] : "" ?>">
+                                        <label><?=$modelLabel->getAttributeLabel('module_id')?>:</label>
+                                        <select id="module_id" class="form-control" name="query[module_id]">
+                                            <option value="0">请选择：</option>
+                                            <?php foreach(app()->params['charge_module_list'] as $key => $module):?>
+                                                <?php if(!$key) continue;?>
+                                                <option value="<?= $key ?>" <?php if($key == $query['module_id']):?> selected="selected" <?php endif;?>> <?= $module?></option>
+                                            <?php endforeach;?>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <a onclick="searchAction()" class="btn btn-primary btn-sm" href="#"> <i class="glyphicon glyphicon-zoom-in icon-white"></i>搜索</a>

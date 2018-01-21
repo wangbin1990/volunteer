@@ -60,6 +60,20 @@ CREATE TABLE `admin_finance` (
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE `admin_finance_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `member_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '充值的会员ID',
+  `amount` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '金额',
+  `operate_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '操作类型：0是充值，1消费',
+  `remark` varchar(512) NOT NULL DEFAULT '' COMMENT '充值或者消费备注',
+  `operate_name` varchar(128) NOT NULL DEFAULT '' COMMENT '操作人',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `ip` varchar(15) NOT NULL DEFAULT '' COMMENT '操作人IP',
+  PRIMARY KEY (`id`),
+  KEY `index_operate_name` (`operate_name`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+
 
 
 

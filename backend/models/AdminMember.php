@@ -17,7 +17,7 @@ use Yii;
  * @property string $create_date
  * @property string $update_user
  * @property string $update_date
- * @property string $wallet_brance
+ * @property string $wallet_balance
  * @property string $wallet_create_time
  *
  * @property AdminUserRole[] $adminUserRoles

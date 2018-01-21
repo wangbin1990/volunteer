@@ -18,7 +18,7 @@ class AdminMemberController extends BaseController
     public function actionIndex()
     {
         $query = AdminMember::find();
-        $querys = Yii::$app->request->get('query');
+        $querys = Yii::$app->request->post('query');
         if(count($querys) > 0){
             $condition = "";
             $parame = array();
@@ -34,7 +34,6 @@ class AdminMemberController extends BaseController
                     }
                 }
             }
-            var_dump($condition,$parame);
             if(count($parame) > 0){
                 $query = $query->where($condition, $parame);
             }

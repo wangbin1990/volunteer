@@ -123,21 +123,37 @@ class BackendUser extends ActiveRecord implements IdentityInterface
         return $this->getAuthKey() === $authKey;
     }
 
+    /**
+     * 后台管理员菜单列表
+     *
+     * @return array
+     */
+    public function initUserModuleList()
+    {
+        $adminModuleService = new AdminModuleService();
+        $urlList = $adminModuleService->getUserModuleList($this->id);
+        $menus = array();
+        $count = 0;
+        $count1 = 0;
+        $length = count($urlList) - 1;
+        foreach ($urlList as $key => $_url) {
+            if ($key === 0) {
+                $menus[$count]["id"] = $_url["mid"];
+                $menus[$count]["label"] = $_url["mlb"];
+                $menus[$count]["url"] = $_url["furl"];
+                $funcList = array();
+                $count1 = 0;
+                $funcList[$count1]["id"] = $_url["fid"];
+                $funcList[$count1]["label"] = $_url["flb"];
+                $funcList[$count1]["url"] = $_url["furl"];
 
-
-  
-    
-    
-        public function initUserModuleList()
-        {
-            $adminModuleService = new AdminModuleService();
-            $urlList = $adminModuleService->getUserModuleList($this->id);
-            $menus = array();
-            $count = 0;
-            $count1 = 0;
-            $length = count($urlList) - 1;
-            foreach ($urlList as $key => $_url) {
-                if ($key === 0) {
+                $rightList = array();
+                $count11 = 0;
+            } else {
+                if ($menus[$count]["id"] !== $_url["mid"]) {
+                    $funcList[$count1]["rightList"] = $rightList;
+                    $menus[$count]["funcList"] = $funcList;
+                    $count++;
                     $menus[$count]["id"] = $_url["mid"];
                     $menus[$count]["label"] = $_url["mlb"];
                     $menus[$count]["url"] = $_url["furl"];
@@ -146,79 +162,70 @@ class BackendUser extends ActiveRecord implements IdentityInterface
                     $funcList[$count1]["id"] = $_url["fid"];
                     $funcList[$count1]["label"] = $_url["flb"];
                     $funcList[$count1]["url"] = $_url["furl"];
-    
+
                     $rightList = array();
                     $count11 = 0;
-                } else
-                        if ($menus[$count]["id"] !== $_url["mid"]) {
-                            $funcList[$count1]["rightList"] = $rightList;
-                            $menus[$count]["funcList"] = $funcList;
-                            $count ++;
-                            $menus[$count]["id"] = $_url["mid"];
-                            $menus[$count]["label"] = $_url["mlb"];
-                            $menus[$count]["url"] = $_url["furl"];
-                            $funcList = array();
-                            $count1 = 0;
-                            $funcList[$count1]["id"] = $_url["fid"];
-                            $funcList[$count1]["label"] = $_url["flb"];
-                            $funcList[$count1]["url"] = $_url["furl"];
-    
-                            $rightList = array();
-                            $count11 = 0;
-                        } else {
-                            if ($funcList[$count1]["id"] !== $_url["fid"]) {
-                                $funcList[$count1]["rightList"] = $rightList;
-                                $count1 ++;
-                                $funcList[$count1]["id"] = $_url["fid"];
-                                $funcList[$count1]["label"] = $_url["flb"];
-                                $funcList[$count1]["url"] = $_url["furl"];
-    
-                                $rightList = array();
-                                $count11 = 0;
-                            }
-                        }
-                    $rightList[$count11]["id"] = $_url["rid"];
-                    $rightList[$count11]["label"] = $_url["rlb"];
-                    $rightList[$count11]["module"] = $_url["url"];
-                    $rightList[$count11]["controller"] = $_url["para_name"];
-                    $rightList[$count11]["action"] = $_url["para_value"];
-                    $count11 ++;
-    
-                    if ($key === $length) {
+                } else {
+                    if ($funcList[$count1]["id"] !== $_url["fid"]) {
                         $funcList[$count1]["rightList"] = $rightList;
-                        $menus[$count]["funcList"] = $funcList;
+                        $count1++;
+                        $funcList[$count1]["id"] = $_url["fid"];
+                        $funcList[$count1]["label"] = $_url["flb"];
+                        $funcList[$count1]["url"] = $_url["furl"];
+
+                        $rightList = array();
+                        $count11 = 0;
                     }
                 }
-                $this->_menus = $menus;
-                Yii::$app->session['system_menus_'.$this->id] = $menus;
-                return $menus;
-            } 
-    
-        public function initUserUrls($userId = 0)
-        {
-            $adminModuleService = new AdminModuleService();
-            $rightUrls = $adminModuleService->getUserUrls($this->id);
-            $funcs = $adminModuleService->getAllFunctions();
-            $funcData = [];
-            foreach($funcs as $fun){
-                $funcData[$fun['right_id']] = $fun;
             }
-            $rightData = [];
-            foreach($rightUrls as $url){
-                $right_id = $url['right_id'];
-                if(isset($funcData[$right_id])){
-                    $fun = $funcData[$right_id];
-                    $url['right_name'] = $fun['right_name'];
-                    $url['entry_url'] = $fun['entry_url'];
-                    $url['menu_name'] = $fun['menu_name'];
-                    $url['module_name'] = $fun['display_label'];
-                    $rightData[$url['para_name'].'/'.$url['para_value']] = $url;
-                }
-    
+            $rightList[$count11]["id"] = $_url["rid"];
+            $rightList[$count11]["label"] = $_url["rlb"];
+            $rightList[$count11]["module"] = $_url["url"];
+            $rightList[$count11]["controller"] = $_url["para_name"];
+            $rightList[$count11]["action"] = $_url["para_value"];
+            $count11++;
+
+            if ($key === $length) {
+                $funcList[$count1]["rightList"] = $rightList;
+                $menus[$count]["funcList"] = $funcList;
             }
-            Yii::$app->session['system_rights_'.$this->id] = $rightData;
-            return $rightData;
         }
+        $this->_menus = $menus;
+        Yii::$app->session['system_menus_' . $this->id] = $menus;
+        return $menus;
+    }
+
+    /**
+     * 后台管理员权限列表
+     *
+     * @param int $userId
+     * @return array
+     */
+    public function initUserUrls($userId = 0)
+    {
+        $adminModuleService = new AdminModuleService();
+        $rightUrls = $adminModuleService->getUserUrls($this->id);
+        $funcs = $adminModuleService->getAllFunctions();
+        $funcData = [];
+        foreach($funcs as $fun){
+            $funcData[$fun['right_id']] = $fun;
+        }
+        $rightData = [];
+        foreach($rightUrls as $url){
+            $right_id = $url['right_id'];
+            if(isset($funcData[$right_id])){
+                $fun = $funcData[$right_id];
+                $url['right_name'] = $fun['right_name'];
+                $url['entry_url'] = $fun['entry_url'];
+                $url['menu_name'] = $fun['menu_name'];
+                $url['module_name'] = $fun['display_label'];
+                $rightData[$url['para_name'].'/'.$url['para_value']] = $url;
+            }
+
+        }
+        Yii::$app->session['system_rights_'.$this->id] = $rightData;
+        return $rightData;
+    }
 
     
 

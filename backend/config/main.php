@@ -22,7 +22,7 @@ $config = [
 //         ],
         
         'user'=>[
-            'class'=>'yii\web\User',
+            'class'=>'common\base\user',
             'identityClass' => 'backend\models\AdminUser',
             'enableAutoLogin' => true,
             'enableSession'=>true,

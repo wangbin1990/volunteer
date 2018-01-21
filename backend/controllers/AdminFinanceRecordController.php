@@ -2,28 +2,29 @@
 
 namespace backend\controllers;
 
+use backend\models\AdminMember;
 use Yii;
 use yii\data\Pagination;
-use common\models\AdminFinance;
+use common\models\AdminFinanceRecord;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * AdminFinanceController implements the CRUD actions for AdminFinance model.
+ * AdminFinanceRecordController implements the CRUD actions for AdminFinanceRecord model.
  */
-class AdminFinanceController extends BaseController
+class AdminFinanceRecordController extends BaseController
 {
 	public $layout = "lte_main";
 
     /**
-     * Lists all AdminFinance models.
+     * Lists all AdminFinanceRecord models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $query = AdminFinance::find();
+        $query = AdminFinanceRecord::find();
          $querys = Yii::$app->request->post('query');
         if(count($querys) > 0){
             $condition = "";
@@ -47,7 +48,7 @@ class AdminFinanceController extends BaseController
 
         $pagination = new Pagination([
             'totalCount' =>$query->count(), 
-            'pageSize' => '20',
+            'pageSize' => '10', 
             'pageParam'=>'page', 
             'pageSizeParam'=>'per-page']
         );
@@ -62,6 +63,11 @@ class AdminFinanceController extends BaseController
         ->offset($pagination->offset)
         ->limit($pagination->limit)
         ->all();
+        foreach ($models as $model) {
+            $model->create_time = date("Y-m-d H:i:s", $model->create_time);
+            $model->operate_type = $model->operate_type ? '消费' : '充值';
+        }
+
         return $this->render('index', [
             'models'=>$models,
             'pages'=>$pagination,
@@ -70,8 +76,8 @@ class AdminFinanceController extends BaseController
     }
 
     /**
-     * Displays a single AdminFinance model.
-     * @param integer $id
+     * Displays a single AdminFinanceRecord model.
+     * @param string $id
      * @return mixed
      */
     public function actionView($id)
@@ -82,17 +88,17 @@ class AdminFinanceController extends BaseController
     }
 
     /**
-     * Creates a new AdminFinance model.
+     * Creates a new AdminFinanceRecord model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new AdminFinance();
+        $model = new AdminFinanceRecord();
         if ($model->load(Yii::$app->request->post())) {
-        
-              $model->update_user = Yii::$app->user->identity->uname;
-        
+            $model->ip = app()->request->userIP;
+            $model->operate_name = app()->user->uname;
+
             if($model->validate() == true && $model->save()){
                 $msg = array('errno'=>0, 'msg'=>'保存成功');
                 echo json_encode($msg);
@@ -108,18 +114,19 @@ class AdminFinanceController extends BaseController
     }
 
     /**
-     * Updates an existing AdminFinance model.
+     * Updates an existing AdminFinanceRecord model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      */
     public function actionUpdate()
     {
+        return false;
         $id = Yii::$app->request->post('id');
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
         
-              $model->update_user = Yii::$app->user->identity->uname;
+              $model->amount = '0.00';
         
         
             if($model->validate() == true && $model->save()){
@@ -138,15 +145,15 @@ class AdminFinanceController extends BaseController
     }
 
     /**
-     * Deletes an existing AdminFinance model.
+     * Deletes an existing AdminFinanceRecord model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      */
     public function actionDelete(array $ids)
     {
         if(count($ids) > 0){
-            $c = AdminFinance::deleteAll(['in', 'id', $ids]);
+            $c = AdminFinanceRecord::deleteAll(['in', 'id', $ids]);
             echo json_encode(array('errno'=>0, 'data'=>$c, 'msg'=>json_encode($ids)));
         }
         else{
@@ -157,15 +164,15 @@ class AdminFinanceController extends BaseController
     }
 
     /**
-     * Finds the AdminFinance model based on its primary key value.
+     * Finds the AdminFinanceRecord model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return AdminFinance the loaded model
+     * @param string $id
+     * @return AdminFinanceRecord the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = AdminFinance::findOne($id)) !== null) {
+        if (($model = AdminFinanceRecord::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

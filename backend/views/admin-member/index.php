@@ -38,7 +38,7 @@ $modelLabel = new \backend\models\AdminMember();
             <!-- row start search-->
           	<div class="row">
           	<div class="col-sm-12">
-                <?php ActiveForm::begin(['id' => 'admin-member-search-form', 'method'=>'get', 'options' => ['class' => 'form-inline'], 'action'=>Url::toRoute('admin-member/index')]); ?>     
+                <?php ActiveForm::begin(['id' => 'admin-member-search-form', 'method'=>'post', 'options' => ['class' => 'form-inline'], 'action'=>Url::toRoute('admin-member/index')]); ?>
                 
                   <div class="form-group" style="margin: 5px;">
                       <label><?=$modelLabel->getAttributeLabel('id')?>:</label>
@@ -48,6 +48,10 @@ $modelLabel = new \backend\models\AdminMember();
                 <div class="form-group" style="margin: 5px;">
                     <label><?=$modelLabel->getAttributeLabel('name')?>:</label>
                     <input type="text" class="form-control" id="query[name]" name="query[name]"  value="<?=isset($query["name"]) ? $query["name"] : "" ?>">
+                </div>
+                <div class="form-group" style="margin: 5px;">
+                    <label><?=$modelLabel->getAttributeLabel('prefix_name')?>:</label>
+                    <input type="text" class="form-control" id="query[prefix_name]" name="query[prefix_name]"  value="<?=isset($query["prefix_name"]) ? $query["prefix_name"] : "" ?>">
                 </div>
               <div class="form-group">
               	<a onclick="searchAction()" class="btn btn-primary btn-sm" href="#"> <i class="glyphicon glyphicon-zoom-in icon-white"></i>搜索</a>
