@@ -75,6 +75,21 @@ CREATE TABLE `admin_finance_record` (
 ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE `admin_parallel_volunteer` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `volunteer_id` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '平行志愿ID',
+  `max_diff_score` float(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '最大分差',
+  `min_diff_score` float(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '最小分差',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `update_user` varchar(128) NOT NULL DEFAULT '' COMMENT '更新人',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_volunteer_id` (`volunteer_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+
+
+
 
 
 

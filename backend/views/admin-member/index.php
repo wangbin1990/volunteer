@@ -22,12 +22,11 @@ $modelLabel = new \backend\models\AdminMember();
         <div class="box-header">
           <h3 class="box-title">用户管理</h3>
           <div class="box-tools">
-            <div class="input-group input-group-sm" style="width: 150px;">
-              <button id="create_btns" type="button" class="btn btn-xs btn-primary">批量添加</button>
-              |
-              <button id="create_btn" type="button" class="btn btn-xs btn-primary">添&nbsp;&emsp;加</button>
-        			|
-        	    <button id="delete_btn" type="button" class="btn btn-xs btn-danger">批量删除</button>
+            <div class="input-group input-group-sm" style="width: 175px;">
+                <button id="create_btn" type="button" class="btn btn-xs btn-primary">添&nbsp;&emsp;加</button>&nbsp;|&nbsp;
+                <button id="create_btns" type="button" class="btn btn-xs btn-primary">批量添加</button>
+                <button id="export_btn" onclick="exportDate()" type="button" class="btn btn-xs btn-primary">导&nbsp;&emsp;出</button>&nbsp;|&nbsp;
+                <button id="delete_btn" type="button" class="btn btn-xs btn-danger">批量删除</button>
             </div>
           </div>
         </div>
@@ -335,6 +334,32 @@ $modelLabel = new \backend\models\AdminMember();
 <?php $this->beginBlock('footer');  ?>
 <!-- <body></body>后代码块 -->
  <script>
+     function exportDate() {console.log(111);
+         var ids = [];
+         if(!!id == true){
+             ids[0] = id;
+         }
+         else{
+             var checkboxs = $('#data_table :checked');
+             if(checkboxs.size() > 0){
+                 var c = 0;
+                 for(i = 0; i < checkboxs.size(); i++){
+                     var id = checkboxs.eq(i).val();
+                     if(id != ""){
+                         ids[c++] = id;
+                     }
+                 }
+             }
+         }
+         if(ids.length > 0){
+             admin_tool.confirm('请确认是否导出', function(){
+                 window.location.href= "<?=Url::toRoute('admin-member/export')?>" + "&ids=" + ids.join(',');
+             });
+         }
+         else{
+             admin_tool.alert('msg_info', '请先选择要删除的数据', 'warning');
+         }
+     }
  function searchAction(){
 		$('#admin-member-search-form').submit();
 	}
@@ -620,5 +645,6 @@ $('#admin-member-forms').bind('submit', function(e) {
    }
    window.location.href=url;
  }
+
 </script>
 <?php $this->endBlock(); ?>

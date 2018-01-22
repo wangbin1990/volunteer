@@ -191,4 +191,18 @@ class AdminMemberController extends BaseController
     
   
     }
+
+    /**
+     * @param $ids
+     */
+    public function actionExport($ids)
+    {
+        return \moonland\phpexcel\Excel::widget([
+            'models' => AdminMember::find()->where(['id' => 1])->all(),
+            'mode' => 'export', //default value as 'export'
+            'columns' => ['name'], //without header working, because the header will be get label from attribute label.
+            'headers' => ['name' => 'Header Column 1'],
+        ]);
+
+    }
 }
