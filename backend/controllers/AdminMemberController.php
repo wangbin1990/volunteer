@@ -2,6 +2,7 @@
 namespace backend\controllers;
 
 use Yii;
+use yii\base\UserException;
 use yii\data\Pagination;
 use backend\models\AdminMember;
 use yii\web\NotFoundHttpException;
@@ -197,11 +198,13 @@ class AdminMemberController extends BaseController
      */
     public function actionExport($ids)
     {
+        if (!($ids =explode(',', $ids))) {
+            throw new UserException('数据为空');
+        }
         return \moonland\phpexcel\Excel::widget([
-            'models' => AdminMember::find()->where(['id' => 1])->all(),
+            'models' => AdminMember::find()->where(['id' => $ids])->all(),
             'mode' => 'export', //default value as 'export'
-            'columns' => ['name'], //without header working, because the header will be get label from attribute label.
-            'headers' => ['name' => 'Header Column 1'],
+            'columns' => ['name', 'password', 'num', 'wallet_balance', 'wallet_create_time', 'prefix_name'], //without header working, because the header will be get label from attribute label.
         ]);
 
     }
