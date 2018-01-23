@@ -81,9 +81,9 @@ if($otherMenu == false){
   <!-- jvectormap -->
   <link rel="stylesheet" href="<?=Url::base()?>/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
   <!-- Date Picker -->
-  <link rel="stylesheet" href="<?=Url::base()?>/plugins/datepicker/datepicker3.css">
+  <link rel="stylesheet" href="<?=Url::base()?>/plugins/datepicker/bootstrap-datetimepicker.css">
   <!-- Daterange picker -->
-  <link rel="stylesheet" href="<?=Url::base()?>/plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="<?=Url::base()?>/plugins/daterangepicker/datetimerangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?=Url::base()?>/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <!-- DataTables -->
@@ -546,7 +546,7 @@ if($otherMenu == false){
 <script src="<?=Url::base()?>/libs/moment.min.js"></script>
 <script src="<?=Url::base()?>/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- datepicker -->
-<script src="<?=Url::base()?>/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="<?=Url::base()?>/plugins/datepicker/bootstrap-datetimepicker.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="<?=Url::base()?>/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <!-- Slimscroll -->

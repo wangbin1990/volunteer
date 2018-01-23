@@ -25,7 +25,7 @@ class AdminFinanceRecordController extends BaseController
     public function actionIndex()
     {
         $query = AdminFinanceRecord::find();
-         $querys = Yii::$app->request->post('query');
+         $querys = Yii::$app->request->get('query');
         if(count($querys) > 0){
             $condition = "";
             $parame = array();
@@ -45,6 +45,23 @@ class AdminFinanceRecordController extends BaseController
                 $query = $query->where($condition, $parame);
             }
         }
+        $startDate = app()->request->get('startDate', 0);
+        $endDate = app()->request->get('endDate', 0);
+        if ($startDate && $endDate && $startDate > $endDate) {
+            $tmp = $startDate;
+            $startDate = $endDate;
+            $endDate = $tmp;
+        }
+
+        if ($startDate) {
+            $querys['startDate']=$startDate;
+            $query->andWhere(['>=' ,'create_time', strtotime($startDate)]);
+        }
+        if ($endDate) {
+            $querys['endDate']=$endDate;
+            $query->andWhere(['<=', 'create_time', strtotime($endDate)]);
+        }
+
 
         $pagination = new Pagination([
             'totalCount' =>$query->count(), 
@@ -65,7 +82,7 @@ class AdminFinanceRecordController extends BaseController
         ->all();
         foreach ($models as $model) {
             $model->create_time = date("Y-m-d H:i:s", $model->create_time);
-            $model->operate_type = $model->operate_type ? '消费' : '充值';
+            $model->operate_type = $model->operate_type==2 ? '消费' : '充值';
         }
 
         return $this->render('index', [

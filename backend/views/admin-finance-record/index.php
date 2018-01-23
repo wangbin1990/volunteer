@@ -41,12 +41,32 @@ $members = array_column($members, 'name', 'id');
             <!-- row start search-->
           	<div class="row">
           	<div class="col-sm-12">
-                <?php ActiveForm::begin(['id' => 'admin-finance-record-search-form', 'method'=>'post', 'options' => ['class' => 'form-inline'], 'action'=>Url::toRoute('admin-finance-record/index')]); ?>
+                <?php ActiveForm::begin(['id' => 'admin-finance-record-search-form', 'method'=>'get', 'options' => ['class' => 'form-inline'], 'action'=>Url::toRoute('admin-finance-record/index')]); ?>
                 
                   <div class="form-group" style="margin: 5px;">
                       <label><?=$modelLabel->getAttributeLabel('operate_name')?>:</label>
-                      <input type="text" class="form-control" id="query[operate_name]" name="query[operate_name]"  value="<?=isset($query["operate_name"]) ? $query["id"] : "" ?>">
+                      <input type="text" class="form-control" id="query[operate_name]" name="query[operate_name]"  value="<?=isset($query["operate_name"]) ? $query["operate_name"] : "" ?>">
                   </div>
+                    <div class="form-group" style="margin: 5px;">
+                        <label><?=$modelLabel->getAttributeLabel('operate_type')?>:</label>
+                        <select id="query[operate_type]"  class="form-control" name="query[operate_type]">
+                            <option value=0 <?php if(0 == $query["operate_type"]):?> selected="selected"<?php endif;?>>请选择</option>
+                            <option value=1 <?php if(1 == $query["operate_type"]):?> selected="selected"<?php endif;?>>充  值</option>
+                            <option value=2 <?php if(2 == $query["operate_type"]):?> selected="selected"<?php endif;?>>消  费</option>
+                        </select>
+                    </div>
+                <div class="form-group input-append date form_datetime" style="margin: 5px;">
+                    <label><?=$modelLabel->getAttributeLabel('create_time')?>:</label>
+                    <input size="16" type="text" name="startDate"  class="form-control"value="<?=isset($query['startDate']) ?$query['startDate'] : '' ?>" readonly >
+                    <span class="add-on"><i class="icon-remove"></i></span>
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                </div>
+                <div class="form-group input-append date form_datetime" style="margin: 5px;">
+                    <label><?= '-'?></label>
+                    <input size="16" type="text" name="endDate" class="form-control"value="<?=isset($query['endDate']) ?$query['endDate'] : '' ?>" readonly>
+                    <span class="add-on"><i class="icon-remove"></i></span>
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                </div>
               <div class="form-group">
               	<a onclick="searchAction()" class="btn btn-primary btn-sm" href="#"> <i class="glyphicon glyphicon-zoom-in icon-white"></i>搜索</a>
            	  </div>
@@ -181,8 +201,8 @@ $members = array_column($members, 'name', 'id');
               <label for="operate_type" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("operate_type")?></label>
               <div class="col-sm-10">
                   <select id="operate_type" class="form-control" name="AdminFinanceRecord[operate_type]">
-                          <option value="0"> 充值</option>
-                          <option value="1"> 消费</option>
+                          <option value="1"> 充值</option>
+                          <option value="2"> 消费</option>
                   </select>
               </div>
               <div class="clearfix"></div>
@@ -207,7 +227,9 @@ $members = array_column($members, 'name', 'id');
 </div>
 <?php $this->beginBlock('footer');  ?>
 <!-- <body></body>后代码块 -->
- <script>
+
+<script>
+
 function orderby(field, op){
 	 var url = window.location.search;
 	 var optemp = field + " desc";
@@ -404,5 +426,14 @@ $('#admin-finance-record-form').bind('submit', function(e) {
 });
 
  
+</script>
+<script type="text/javascript">
+    $(".form_datetime").datetimepicker({
+        format: "yyyy-mm-dd hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        pickerPosition: "bottom-right",
+        todayHighlight: true
+    });
 </script>
 <?php $this->endBlock(); ?>
