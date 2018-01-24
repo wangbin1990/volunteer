@@ -9,8 +9,9 @@ use common\models\AdminFinanceRecord;
 use backend\models\AdminMember;
 
 $modelLabel = new \common\models\AdminFinanceRecord();
-$members = AdminMember::find()->select('id,name')->where(['status' => 10])->asArray()->all();
-$members = array_column($members, 'name', 'id');
+$membersModel= AdminMember::find()->select('id,name,prefix_name')->where(['status' => 10])->asArray()->all();
+$members = array_column($membersModel, 'name', 'id');
+$prefixNames = array_column($membersModel, 'prefix_name', 'id');
 
 ?>
 
@@ -47,6 +48,14 @@ $members = array_column($members, 'name', 'id');
                       <label><?=$modelLabel->getAttributeLabel('operate_name')?>:</label>
                       <input type="text" class="form-control" id="query[operate_name]" name="query[operate_name]"  value="<?=isset($query["operate_name"]) ? $query["operate_name"] : "" ?>">
                   </div>
+                  <div class="form-group" style="margin: 5px;">
+                      <label><?= '会员前缀'?>:</label>
+                      <input type="text" class="form-control" id="prefix_name" name="prefix_name"  value="<?=isset($query["prefix_name"]) ? $query["prefix_name"] : "" ?>">
+                  </div>
+                    <div class="form-group" style="margin: 5px;">
+                        <label><?= '会员名'?>:</label>
+                        <input type="text" class="form-control" id="member_name" name="member_name"  value="<?=isset($query["member_name"]) ? $query["member_name"] : "" ?>">
+                    </div>
                     <div class="form-group" style="margin: 5px;">
                         <label><?=$modelLabel->getAttributeLabel('operate_type')?>:</label>
                         <select id="query[operate_type]"  class="form-control" name="query[operate_type]">
@@ -86,6 +95,7 @@ $members = array_column($members, 'name', 'id');
               $orderby = isset($_GET['orderby']) ? $_GET['orderby'] : '';
 		      echo '<th><input id="data_table_check" type="checkbox"></th>';
               echo '<th onclick="orderby(\'id\', \'desc\')" '.CommonFun::sortClass($orderby, 'id').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('id').'</th>';
+              echo '<th onclick="" '. '会员前缀' .' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.'会员前缀</th>';
               echo '<th onclick="orderby(\'member_id\', \'desc\')" '.CommonFun::sortClass($orderby, 'member_id').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('member_id').'</th>';
               echo '<th onclick="orderby(\'amount\', \'desc\')" '.CommonFun::sortClass($orderby, 'amount').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('amount').'</th>';
               echo '<th onclick="orderby(\'operate_type\', \'desc\')" '.CommonFun::sortClass($orderby, 'operate_type').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('operate_type').'</th>';
@@ -106,6 +116,7 @@ $members = array_column($members, 'name', 'id');
                 echo '<tr id="rowid_' . $model->id . '">';
                 echo '  <td><label><input type="checkbox" value="' . $model->id . '"></label></td>';
                 echo '  <td>' . $model->id . '</td>';
+                echo '  <td>' . $prefixNames[$model->member_id] . '</td>';
                 echo '  <td>' . $members[$model->member_id] . '</td>';
                 echo '  <td>' . $model->amount . '</td>';
                 echo '  <td>' . $model->operate_type . '</td>';
@@ -260,6 +271,7 @@ function orderby(field, op){
  function initEditSystemModule(data, type){
 	if(type == 'create'){
 		$("#id").val('');
+		$("#member_id").val('');
 		$("#amount").val('');
 		$("#operate_type").val(0);
 		$("#remark").val('');
@@ -270,6 +282,7 @@ function orderby(field, op){
 	}
 	else{
 		$("#id").val(data.id);
+		$("#member_id").val(data.member_id);
     	$("#amount").val(data.amount);
     	$("#operate_type").val(data.operate_type);
     	$("#remark").val(data.remark);
@@ -279,6 +292,7 @@ function orderby(field, op){
     	}
 	if(type == "view"){
       $("#id").attr({readonly:true,disabled:true});
+      $("#member_id").attr({readonly:true,disabled:true});
       $("#amount").attr({readonly:true,disabled:true});
       $("#operate_type").attr({readonly:true,disabled:true});
       $("#remark").attr({readonly:true,disabled:true});
@@ -289,6 +303,7 @@ function orderby(field, op){
 	}
 	else{
       $("#id").attr({readonly:false,disabled:false});
+      $("#member_id").attr({readonly:false,disabled:false});
       $("#amount").attr({readonly:false,disabled:false});
       $("#operate_type").attr({readonly:false,disabled:false});
       $("#remark").attr({readonly:false,disabled:false});

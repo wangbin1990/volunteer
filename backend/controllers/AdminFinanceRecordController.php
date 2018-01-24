@@ -25,7 +25,8 @@ class AdminFinanceRecordController extends BaseController
     public function actionIndex()
     {
         $query = AdminFinanceRecord::find();
-         $querys = Yii::$app->request->get('query');
+        $querys = Yii::$app->request->get('query');
+
         if(count($querys) > 0){
             $condition = "";
             $parame = array();
@@ -60,6 +61,25 @@ class AdminFinanceRecordController extends BaseController
         if ($endDate) {
             $querys['endDate']=$endDate;
             $query->andWhere(['<=', 'create_time', strtotime($endDate)]);
+        }
+
+        if ($prefixName = app()->request->get('prefix_name', 0)) {
+            $querys['prefix_name'] = $prefixName;
+            $memberIds  = AdminMember::find()->select('id')->where(['like', 'prefix_name', $prefixName])->asArray()->all();
+            if ($memberIds) {
+                $query->andWhere(['in', 'member_id', array_column($memberIds, 'id')]);
+            } else {
+                $query->andWhere('1=0');
+            }
+        }
+        if ($memberName = app()->request->get('member_name', 0)) {
+            $querys['member_name'] = $memberName;
+            $memberIds  = AdminMember::find()->select('id')->where(['like', 'name', $memberName])->asArray()->all();
+            if ($memberIds) {
+                $query->andWhere(['in', 'member_id', array_column($memberIds, 'id')]);
+            } else {
+                $query->andWhere('1=0');
+            }
         }
 
 
