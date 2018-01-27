@@ -10,6 +10,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * AdminFinanceRecordController implements the CRUD actions for AdminFinanceRecord model.
@@ -135,6 +136,9 @@ class AdminFinanceRecordController extends BaseController
         if ($model->load(Yii::$app->request->post())) {
             $model->ip = app()->request->userIP;
             $model->operate_name = app()->user->uname;
+            if ($model->operate_type != 2) {
+                return ['errno' => 2, 'msg' => '后台只能消费操作'];
+            }
 
             if($model->validate() == true && $model->save()){
                 $msg = array('errno'=>0, 'msg'=>'保存成功');
@@ -214,5 +218,34 @@ class AdminFinanceRecordController extends BaseController
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    /**
+     * 异步获取支付信息
+     *
+     * @param $memberId
+     * @param $amount
+     * @param $remark
+     * @return array
+     */
+    public function actionGetPayCode($memberId, $amount, $remark = '')
+   {
+        app()->response->format = Response::FORMAT_JSON;
+        if (!is_numeric($memberId) || !is_numeric($amount) || $amount <= 0) {
+            return [
+                'data' => [],
+                'message' => '会员ID或金额错误',
+                'code' => -1,
+            ];
+        }
+        if (!AdminMember::findOne($memberId)) {
+            return [
+                'data' => [],
+                'message' => '会员不存在',
+                'code' => -1,
+            ];
+        }
+
+        return app()->wxpay->goPay($memberId, $amount, $remark);
     }
 }

@@ -1,6 +1,9 @@
 <?php
 namespace backend\controllers;
 
+use common\base\wechatPay\lib\dataProcess\WxPayUnifiedOrder;
+use common\base\wechatPay\lib\WxPayConfig;
+use common\base\wechatPay\NativePay;
 use Yii;
 use yii\web\Controller;
 use backend\models\AdminUser;

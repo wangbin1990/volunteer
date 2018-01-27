@@ -184,12 +184,12 @@ $prefixNames = array_column($membersModel, 'prefix_name', 'id');
 				<button type="button" class="close" data-dismiss="modal">×</button>
 				<h3>Settings</h3>
 			</div>
-			<div class="modal-body">
+            <div class="modal-body">
                 <?php $form = ActiveForm::begin(["id" => "admin-finance-record-form", "class"=>"form-horizontal", "action"=>Url::toRoute("admin-finance-record/save")]); ?>                      
                  
           <input type="hidden" class="form-control" id="id" name="id" />
-
           <div id="amount_div" class="form-group">
+              <div id="msg_info"></div>
               <label for="amount" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("member_id")?></label>
               <div class="col-sm-10">
                   <select id="member_id" class="form-control" name="AdminFinanceRecord[member_id]">
@@ -224,6 +224,7 @@ $prefixNames = array_column($membersModel, 'prefix_name', 'id');
               <div class="col-sm-10">
                   <input type="text" class="form-control" id="remark" name="AdminFinanceRecord[remark]" placeholder="<?php echo $modelLabel->getAttributeLabel("remark")?>" />
               </div>
+              <img id="payImage" alt="模式二扫码支付" src="" style="width:150px;height:150px;display: none;margin: 0 auto;"/>
               <div class="clearfix"></div>
           </div>
 
@@ -400,6 +401,16 @@ function getSelectedIdValues(formId)
 
 $('#edit_dialog_ok').click(function (e) {
     e.preventDefault();
+    var operate_type = $('#operate_type').val();
+    if (operate_type == 1) {
+        $("#msg_info").html('');
+        var memberId = $('#member_id').val();
+        var amount = $('#amount').val();
+        var remark = $('#remark').val();
+        getPayCode(memberId, amount, remark);
+        return;
+    }
+    $('#payImage').css('display', 'none');
 	$('#admin-finance-record-form').submit();
 });
 
@@ -418,7 +429,7 @@ $('#admin-finance-record-form').bind('submit', function(e) {
 	var id = $("#id").val();
 	var action = id == "" ? "<?=Url::toRoute('admin-finance-record/create')?>" : "<?=Url::toRoute('admin-finance-record/update')?>";
     $(this).ajaxSubmit({
-    	type: "post",
+        type: "post",
     	dataType:"json",
     	url: action,
     	success: function(value) 
@@ -439,6 +450,29 @@ $('#admin-finance-record-form').bind('submit', function(e) {
     	}
     });
 });
+
+function getPayCode (memberId, amount, remark) {
+    $.ajax({
+        type: "GET",
+        url: "<?=Url::toRoute('admin-finance-record/get-pay-code')?>",
+        data: {"memberId":memberId, "amount":amount, "remark":remark},
+        cache: false,
+        dataType:"json",
+        error: function (xmlHttpRequest, textStatus, errorThrown) {
+            admin_tool.alert('msg_info', '出错了，' + textStatus, 'warning');
+        },
+        success: function(data){
+            if (data.code !== 0) {
+                admin_tool.alert('msg_info', '出错了，' + data.message, 'warning');
+                return;
+            }
+            var url ="http://paysdk.weixin.qq.com/example/qrcode.php?data=" + encodeURIComponent(data.data);
+            $('#payImage').css('display', 'block');
+            $('#payImage').attr('src', url);
+
+        }
+    });
+}
 
  
 </script>

@@ -34,10 +34,11 @@ class AdminFinanceRecord extends \backend\models\BaseModel
             [['amount', 'member_id'], 'required'],
             [['amount'], 'number'],
             [['operate_type', 'create_time', 'member_id'], 'integer'],
-            [['operate_type'], 'in', 'range' => [0, 1]],
+            [['operate_type'], 'in', 'range' => [1, 2]],
             [['remark'], 'string', 'max' => 512],
             [['operate_name'], 'string', 'max' => 128],
-            [['ip'], 'string', 'max' => 15]
+            [['ip'], 'string', 'max' => 15],
+            [['order_sn', 'pay_sn'], 'string', 'max' => 64],
         ];
     }
 

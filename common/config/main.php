@@ -5,6 +5,9 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'wxpay' => [
+            'class' => 'common\base\WechatPay',
+        ],
 //         'cache' => [
 //             'class' => 'yii\caching\MemCache',
 //             'servers' => [

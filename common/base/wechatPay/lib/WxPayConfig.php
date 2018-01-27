@@ -2,6 +2,7 @@
 /**
 * 	配置账号信息
 */
+namespace common\base\wechatPay\lib;
 
 class WxPayConfig
 {
@@ -26,7 +27,7 @@ class WxPayConfig
 	const MCHID = '1495319932';
 	const KEY = 'fHo4hMmWe1gLzwiZZKva1zOOeQOlcBlO';
 	const APPSECRET = 'fHo4hMmWe1gLzwiZZKva1zOOeQOlcBlO';
-	
+
 	//=======【证书路径设置】=====================================
 	/**
 	 * TODO：设置商户证书路径
@@ -36,7 +37,7 @@ class WxPayConfig
 	 */
 	const SSLCERT_PATH = '../cert/apiclient_cert.pem';
 	const SSLKEY_PATH = '../cert/apiclient_key.pem';
-	
+
 	//=======【curl代理设置】===================================
 	/**
 	 * TODO：这里设置代理机器，只有需要代理的时候才设置，不需要代理，请设置为0.0.0.0和0
@@ -46,7 +47,7 @@ class WxPayConfig
 	 */
 	const CURL_PROXY_HOST = "0.0.0.0";//"10.152.18.220";
 	const CURL_PROXY_PORT = 0;//8080;
-	
+
 	//=======【上报信息配置】===================================
 	/**
 	 * TODO：接口调用上报等级，默认紧错误上报（注意：上报超时间为【1s】，上报无论成败【永不抛出异常】，
