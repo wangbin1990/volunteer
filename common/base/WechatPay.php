@@ -44,7 +44,7 @@ class WechatPay extends \yii\base\Component {
         $input->SetTime_expire(date("YmdHis", time() + 600)); //二维码有效期10分钟
         $input->SetGoods_tag(static::GOODSTAG);
         $input->SetTrade_type("NATIVE");
-        $input->SetNotify_url(app()->urlManager->createAbsoluteUrl('api/wxpay-notify')); //回调地址写成前台的地址
+        $input->SetNotify_url(app()->params['wxPayNotifyUrl'] . 'api/wxpay-notify'); //回调地址写成前台的地址
         $input->SetProduct_id("123456789");
 
         //业务参数

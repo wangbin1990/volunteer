@@ -9,6 +9,7 @@ return [
     'imgUrl' => function () {
         return app()->urlManager->baseUrl . '/uploadImages';
     },
+    'wxPayNotifyUrl' => '',
     'charge_module_list' => [
         '0'  => 'unknow module',
         '1'  => '按地区筛选学校',
