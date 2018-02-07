@@ -1,0 +1,96 @@
+*{margin: 0;padding: 0;}
+img{max-width: 100%;}
+select,input{height: 30px;border: 1px solid #ccc;border-radius: 5px;padding: 2px 5px;}
+.clearfix{clear:both;}
+.container{width: 1200px;margin: 0 auto;}
+#content .list-banner img{max-width: 100%;}
+#content h3{text-align: center;font-size: 18px;}
+.main h3{margin: 35px 0;font-size: 22px;}
+.main .center{text-align: center;}
+.main-moni{padding:50px 0}
+.main-moni ul {padding: 55px;border: 1px solid #ede6e6;border-radius:5px;;}
+.main-moni ul li{float: left;width:25%;line-height: 18px;text-align: center;}
+.main-moni ul li span{font-size: 18px;line-height: 18px;font-weight: 700;color:#ed0202}
+.main-moni .btn-box{margin: 35px auto;text-align: center;}
+.main-moni .btn{width: 85px;height: 35px;line-height: 35px;background:#ed0202;color:#fff; border: 0;border-radius:5px;}
+.main-moni .btn:hover{width: 85px;height: 35px;line-height: 35px;background:#870707;color:#fff; border: 0;border-radius:5px;}
+
+.main-moni .fencha-box{position: fixed;width: 100%;height: 100%;background: rgba(13, 13, 13, 0.45);top:0;left:0;z-index: 9999;display: none}
+.main-moni .fencha-box .fenccha-nei{position: relative;width: 100%;height: 100%;}
+.main-moni .fencha-box .fenccha-nei .text{position: absolute;top:50%;left:50%;width: 350px;height: 250px;border: 1px solid #fff;border-radius:8px;margin-top:-135px;margin-left:-175px;background: #fff;text-align: center;}
+.main-moni .fencha-box .fenccha-nei .close-btn{position: absolute;top:50%;left:50%;width: 30px;height: 30px;border: 1px solid #fff;border-radius:8px;margin-top:-135px;margin-left:135px;background: #fff;color:red;text-align: center;}
+.main-moni .fencha-box .fenccha-nei .close-btn a{display: block;line-height: 30px;color:#333;}
+.main-moni .fencha-box .fenccha-nei .text p{padding: 35px;}
+.main-moni .fencha-box .fenccha-nei .text h1{font-size: 30px;color:red;}
+
+.main-moni .fencha-box .fenccha-nei .text2{height: 380px;margin-top:-190px;}
+.main-moni .fencha-box .fenccha-nei .close-btn2{margin-top:-165px}
+.main-moni .text2 .choose ul{padding: 15px;}
+.main-moni .text2 .choose h4{margin: 15px 0;}
+.main-moni .text2 .choose ul li{width:50%;}
+.main-moni .text2 .choose ul li{width:50%;}
+.main-moni .text2 .btn-box{margin: 5px 0}
+
+.main-moni .choose-school .list{line-height: 50px;padding: 0 10px;border:solid 1px #ccc;margin: 10px 0;position: relative;}
+.main-moni .choose-school .gray{background: #e1dddd}
+.main-moni .choose-school .left{width: 750px;float: left;}
+.main-moni .choose-school .left span{padding: 0px 30px 0 0;font-size: 16px;font-weight: 600;}
+.main-moni .choose-school .left input{width:80%;}
+.main-moni .choose-school .btn-more{float: left;color:#fff;}
+.main-moni .choose-school .btn-more a{padding: 6px;color:#fff;background: red;border-radius: 5px;}
+.main-moni .choose-school .school-list{padding: 0 15px;color:#fff;background: #f2f2f2;border-radius: 5px;height: 460px;width:300px;border:1px solid #ccc;position: absolute;right:-2px;top:5px;z-index: 9999;color:#333;display: none;}
+.main-moni .choose-school .school-list-box{overflow: scroll;overflow-x:hidden;height: 350px;;width:100%;padding: 0 5px;}
+.main-moni .choose-school .school-list ul{border:0;padding: 0}
+.main-moni .choose-school .school-list ul li{width:100%;text-align: left;}
+.main-moni .choose-school .school-list .school-list-box a{display: block;float: right}
+.main-moni .choose-school .school-list ul li i{text-align: right;}
+.main-moni .choose-school .school-list .close-btn{height: 35px;margin: 5px}
+.main-moni .choose-school .school-list .close-btn button{height: 30px;width: 50px;line-height: 30px;border-radius: 5px;border:0;background: red;color: #fff;float: right;}
+.main-moni .choose-school .school-list .db-btn-box{}
+.main-moni .choose-school .school-list .db-btn {width:100%;height: 30px;background: red;color:#fff;text-align: center;}
+.main-moni .choose-school .school-list .db-btn a{color:#fff;line-height: 30px;display: block;}
+.main-moni .choose-school .moni-btn button{color:#fff;line-height: 35px;display: block;width:80px;background: red;border: 0;border-radius: 5px;margin: 0 auto;}
+.main-moni .choose-school .moni-btn{margin: 35px 0}
+
+.main .list-news ul li{margin: 35px 0;border-bottom:1px solid #ccc;padding-bottom: 15px;}
+.main .list-news .imgs{float: left;width:300px;}
+.main .list-news .imgs img{width:280px;}
+.main .list-news .text {float: left;width:75%;}
+.main .list-news .list-new-date {margin: 10px 0;font-weight: 600;width:80%;float: left;}
+.main .list-news .list-new-more {width:20%;float: right;margin: 10px 0;text-align: right;}
+.main .list-news .news-content {margin: 35px 0}
+.main .list-comparison{margin: 30px 0;}
+.main .list-comparison select{width:170px;}
+.main .list-comparison h5{margin: 15px 0 0 0 }
+.main .comparison01{margin: 30px auto;width:170px;}
+.main .comparison01 button {
+    float: left;
+    width: 137px;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    background: url(../images/button.gif) no-repeat 0 0;
+    margin: 50px auto ;
+    border: 0
+}
+.main .comparison01 .button-mini {
+    padding: 1px 5px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+.fr{float: right;height: 35px;border: 0px solid #ccc;padding: 8px}
+.main .comparison02 .area{width:300px;line-height: 35px;}
+.main .comparison02 .fencha{width:350px;line-height: 35px;}
+.main .comparison02 .fencha input{width:80px;}
+.main .comparison02 .comparison02-btn{width:100px;line-height: 35px;line-height: 35px;}
+.main .comparison02 .comparison02-moni{width:100px;line-height: 35px;}
+.main .comparison02 .fl{float: left;border: 0px solid #ccc;height: 35px;margin-right:70px;padding: 8px}
+.main .comparison02  h4{width:50px;float: left;}
+.main .comparison02 button{background: red;color:#fff;border: 0;width:45px;line-height: 30px;}
+.main .comparison02 .comparison02-btn button,
+.main .comparison02 .comparison02-moni button{width:100px;}
+.main .doc-content {margin: 50px 0}
+.main .doc-content .span2{float: left;}
+.main .doc-content .span2 a{color: #2e2d2d}
