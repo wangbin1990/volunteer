@@ -5,8 +5,17 @@ use yii\bootstrap\ActiveForm;
 use backend\models\AdminMember;
 use yii\helpers\Url;
 use common\utils\CommonFun;
+use common\models\AdminUserPrefix;
 
 $modelLabel = new \backend\models\AdminMember();
+$modelPrefixNames = AdminUserPrefix::find()
+    ->select('prefix')
+    ->asArray()
+    ->all();
+$modelPrefixNames = array_column($modelPrefixNames, 'prefix');
+
+dump(uniqid());
+
 ?>
 
 <?php $this->beginBlock('header');  ?>
@@ -219,7 +228,12 @@ $modelLabel = new \backend\models\AdminMember();
           <div id="status_div" class="form-group">
               <label for="prefix_name" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("prefix_name")?></label>
               <div class="col-sm-10">
-                  <input type="text" class="form-control" id="prefix_name" name="AdminMember[prefix_name]" placeholder="用户前缀" />
+                  <select id="prefix_name" class="form-control" name="AdminMember[prefix_name]">
+                      <option value="">请选择：</option>
+                      <?php foreach ($modelPrefixNames as $prefixName):?>
+                          <option value="<?=$prefixName ?>"><?=$prefixName ?></option>
+                      <?php endforeach;?>
+                  </select>
               </div>
               <div class="clearfix"></div>
           </div>
@@ -279,20 +293,25 @@ $modelLabel = new \backend\models\AdminMember();
       <div class="modal-body">
                 <?php $form = ActiveForm::begin(["id" => "admin-member-forms", "class"=>"form-horizontal", "action"=>Url::toRoute("admin-member/adds")]); ?>  
           <div id="name_div" class="form-group">
-              <label for="name" class="col-sm-2 control-label">账号前缀</label>
+              <label for="name" class="col-sm-2 control-label">会员前缀</label>
               <div class="col-sm-10">
-                  <input type="text" class="form-control" id="addname" name="AdminMember[prefix_name]" placeholder="请填写账号前缀" />
+                  <select  id="addname" class="form-control" name="AdminMember[prefix_name]">
+                      <option value="">请选择：</option>
+                      <?php foreach ($modelPrefixNames as $prefixName):?>
+                          <option value="<?=$prefixName ?>"><?=$prefixName ?></option>
+                      <?php endforeach;?>
+                  </select>
               </div>
               <div class="clearfix"></div>
           </div>
 
-<!--           <div id="name_div" class="form-group">
-              <label for="lname" class="col-sm-2 control-label">账号后缀</label>
+        <div id="name_div" class="form-group">
+              <label for="name" class="col-sm-2 control-label">账号通用名称</label>
               <div class="col-sm-10">
-                  <input type="text" class="form-control" id="addlname" name="AdminMember[lname]" placeholder="请填写数字初始" />
+                  <input type="text" class="form-control" id="addname" name="AdminMember[name]" placeholder="账号通用名称" />
               </div>
               <div class="clearfix"></div>
-          </div> -->
+          </div>
 
 
 <!--           <div id="password_div" class="form-group">
