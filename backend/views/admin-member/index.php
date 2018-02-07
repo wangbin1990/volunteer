@@ -14,7 +14,6 @@ $modelPrefixNames = AdminUserPrefix::find()
     ->all();
 $modelPrefixNames = array_column($modelPrefixNames, 'prefix');
 
-dump(uniqid());
 
 ?>
 
