@@ -28,6 +28,9 @@ return [
                     'levels' => ['error', 'warning', 'info'],
                 ],
             ],
+            'except' => [
+                'yii\web\HttpException:404',
+            ],
         ],
     	'urlManager' => [
     		'showScriptName' => true,    // 这一步是将代码里链接的index.php隐藏掉。

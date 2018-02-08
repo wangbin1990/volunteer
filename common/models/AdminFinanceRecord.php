@@ -54,6 +54,8 @@ class AdminFinanceRecord extends \backend\models\BaseModel
             'operate_type' => '操作类型',
             'remark' => '备注',
             'operate_name' => '操作人',
+            'order_sn' => '订单号',
+            'pay_sn' => '支付单号',
             'create_time' => '操作时间',
             'ip' => '操作人IP',
         ];

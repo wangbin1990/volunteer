@@ -101,9 +101,11 @@ $prefixNames = array_column($membersModel, 'prefix_name', 'id');
               echo '<th onclick="orderby(\'operate_type\', \'desc\')" '.CommonFun::sortClass($orderby, 'operate_type').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('operate_type').'</th>';
               echo '<th onclick="orderby(\'remark\', \'desc\')" '.CommonFun::sortClass($orderby, 'remark').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('remark').'</th>';
               echo '<th onclick="orderby(\'operate_name\', \'desc\')" '.CommonFun::sortClass($orderby, 'operate_name').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('operate_name').'</th>';
+              echo '<th onclick="orderby(\'order_sn\', \'desc\')" '.CommonFun::sortClass($orderby, 'order_sn').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('order_sn').'</th>';
+              echo '<th onclick="orderby(\'pay_sn\', \'desc\')" '.CommonFun::sortClass($orderby, 'pay_sn').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('pay_sn').'</th>';
               echo '<th onclick="orderby(\'create_time\', \'desc\')" '.CommonFun::sortClass($orderby, 'create_time').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('create_time').'</th>';
               echo '<th onclick="orderby(\'ip\', \'desc\')" '.CommonFun::sortClass($orderby, 'ip').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('ip').'</th>';
-         
+
 			?>
 	
             <th tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >操作</th>
@@ -122,6 +124,8 @@ $prefixNames = array_column($membersModel, 'prefix_name', 'id');
                 echo '  <td>' . $model->operate_type . '</td>';
                 echo '  <td>' . $model->remark . '</td>';
                 echo '  <td>' . $model->operate_name . '</td>';
+                echo '  <td>' . $model->order_sn . '</td>';
+                echo '  <td>' . $model->pay_sn . '</td>';
                 echo '  <td>' . $model->create_time . '</td>';
                 echo '  <td>' . $model->ip . '</td>';
                 echo '  <td class="center">';
