@@ -70,9 +70,14 @@ CREATE TABLE `admin_finance_record` (
   `operate_name` varchar(128) NOT NULL DEFAULT '' COMMENT '操作人',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `ip` varchar(15) NOT NULL DEFAULT '' COMMENT '操作人IP',
+  `order_sn` varchar(64) NOT NULL DEFAULT '' COMMENT '用户支付订单号',
+  `pay_sn` varchar(64) NOT NULL DEFAULT '' COMMENT '支付单号',
   PRIMARY KEY (`id`),
-  KEY `index_operate_name` (`operate_name`)
+  KEY `index_operate_name` (`operate_name`),
+  KEY `index_order_sn` (`order_sn`),
+  KEY `index_pay_sn` (`pay_sn`)
 ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
 
 
 CREATE TABLE `admin_parallel_volunteer` (

@@ -77,7 +77,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-		if (app()->request->isPost) {    
+        if (app()->request->isPost) {
             app()->cache->set('index_cache', app()->request->post('img'));
         }
         $session = Yii::$app->session;app()->user->isGuest;
