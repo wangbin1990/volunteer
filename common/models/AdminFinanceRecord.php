@@ -68,6 +68,8 @@ class AdminFinanceRecord extends \backend\models\BaseModel
     {
         if ($insert) {
             $member = AdminMember::findOne(['id' => $this->member_id]);
+
+            \yii::info($this->getAttributes(), 'wpay_test');
             $member->wallet_balance = $this->operate_type
                 ? bcsub($member->wallet_balance, $this->amount, 2) : bcadd($member->wallet_balance, $this->amount, 2);
             $member->save(false);
