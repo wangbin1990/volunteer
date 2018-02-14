@@ -1,502 +1,578 @@
-<?php
-use yii\widgets\LinkPager;
-use yii\base\Object;
-use yii\bootstrap\ActiveForm;
-use common\utils\CommonFun;
-use frontend\assets\AppAsset;
-use yii\helpers\Url;
-use yii\helpers\Html;
+<div class="grid-body">
+    <!-- 首页-banner start -->
+    <div class="index-banner index-banner__page" id="J-index-banner">
 
-/* @var $this yii\web\View */
+        <div class="login login-s">
+            <div class="bg bg_top">
+                <div class="login-close-btn"><a href="javascript:vido(0)">X</a></div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="form">
+                <h2>高考志愿数据查询系统</h2>
+                <fieldset id="J-index-banner-login" data-action="">
+                    <div class="collection">
+                        <div class="action">
+                            <a href="/sjdb1.html"><button id="J-index-banner-login-submit" class="g-button g-button-main" type="button">免&nbsp;&nbsp;费&nbsp;&nbsp;登&nbsp;&nbsp;录</button></a>
+                        </div>
+                        <div class="action">
+                            <button id="login-submit-btn" class="g-button g-button-main" type="button">会&nbsp;&nbsp;员&nbsp;&nbsp;登&nbsp;&nbsp;录</button>
+                        </div>
+                        <div class="portion opt">
+                            <label class="g-input-checkbox">
+                                <input type="checkbox" name="isRemeberMe" value="1">
+                                记住账号</label>
+                            <a href="#" title="点击找回密码">忘记密码？</a> </div>
+                    </div>
 
-$this->title = '贵州高考志愿咨询数据平台';
-AppAsset::register($this);
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<link href="http://zytbxt.angougou.cn/frontend/web/css/icon.css" rel="stylesheet">
-<link href="http://zytbxt.angougou.cn/frontend/web/css/index.css" rel="stylesheet">
-<script src="http://zytbxt.angougou.cn/frontend/web/js/jquery-1.4.2.min.js"></script>
-<script src="http://zytbxt.angougou.cn/frontend/web/js/jquery.form.min.js"></script>
-<script src="http://zytbxt.angougou.cn/frontend/web/js/slider.js"></script>
-
-<!--<script type="text/javascript" src="/frontend/web/js/jquery-1.2.6.pack.js"></script>-->
-<script type="text/javascript" src="/frontend/web/js/content_zoom.js"></script>
-<link rel="stylesheet" href="/frontend/web/css/common.css" type="text/css" />
-<script type="text/javascript">
-$(document).ready(function() {
-	$('div.small_pic a').fancyZoom({scaleImg: true, closeOnClick: true});
-	$('#zoom_word_1').fancyZoom({width:400, height:200});
-	$('#zoom_word_2').fancyZoom();
-	$('#zoom_flash').fancyZoom();
-});
-</script>
-<title>贵州高考志愿咨询数据平台</title>
-<body>
-<div class="top f14">
-<div style="width:1200px;margin: 0 auto;height:50px;">
-<form method="post" action="#">
-  <div class="w1200">
-     <div class="top-phone fl">欢迎访问本网站,
-                     <?php if(!empty($username)):?>
-                    <?= $username?>&nbsp;&nbsp;<a href="<?=Url::toRoute('site/lsucc')?>" target="_blank">贵州高考志愿咨询数据平台</a>
-                    <a href="<?=Url::toRoute('site/exit')?>" style="color:red;">退出登录</a>
-                <?php else:?>
-                <a href="#login">登录查询平台</a>
-                <?php endif;?>
-      </div>
-     <div class="top-right fr">
-
-       <div class="top-input fl"><input name="keywords" type="text" placeholder="请输入关键词搜索" /><input name="" type="submit" value="" /></div>
-       <div class="top-login fl">
-        <a href="#login">学子登录</a>|<a href="http://wpa.qq.com/msgrd?v=3&uin=337406395&site=qq&menu=yes" target="_blank">开通账号</a>
-               </div>
-
-     </div>
-     <div class="clear"></div>
-  </div>
-  </form>
-  </div>
-</div>
-<div class="clear"></div>
-<!--大图-->
-<div class="banner" style="positio:relative">
-<!--轮播图-->
-<div id="banner_tabs" class="flexslider h400">
-  <ul class="slides">
-      <li><a title="" href="#"><img style="background: url(http://zytbxt.angougou.cn/frontend/web/images/b1.jpg) no-repeat center;"></a></li>
-      <li><a title="" href="#"><img style="background: url(http://zytbxt.angougou.cn/frontend/web/images/b1.jpg) no-repeat center;"></a></li>
-  </ul>
-  <ul class="flex-direction-nav">
-      <li><a class="flex-prev" href="javascript:;">Previous</a></li>
-      <li><a class="flex-next" href="javascript:;">Next</a></li>
-  </ul>
-  <ol id="bannerCtrl" class="flex-control-nav flex-control-paging">
-      <li class="active"><a>1</a></li>
-      <li><a>2</a></li>
-  </ol>
-<!--导航-->
-<div class="top-nav">
-    <div class="w1200">
-        <div class="logo">
-            <a href="#"><img src="http://zytbxt.angougou.cn/frontend/web/images/logo.png" alt=""></a>
+                    <div class="other"> <a class="qq" href="#">快速开通<i></i></a> <a class="register" href="/register">免费注册</a> </div>
+                </fieldset>
+            </div>
+            <div class="bg bg_bottom"></div>
         </div>
 
-        <div class="nav_bar">
-            <ul>
-			<li><a href="<?=Url::toRoute('site/index')?>">首页</a></li>
-			<li><a href="<?=Url::toRoute('site/article-list')?>">新闻资讯</a></li>
-            <li><a href="<?=Url::toRoute(['site/article-list', 'type_id' => 207])?>">关于志愿</a></li>
-            <li class="l1"><a href="<?=Url::toRoute('site/free-list')?>">免费专区</a></li>
-            <li class="l1"><a href="<?=Url::toRoute('site/article-212')?>">关于我们</a></li>
-            <li class="l1"><a href="<?=Url::toRoute('site/article-242')?>">联系我们</a></li>
 
-            </ul>
+
+        <div class="slide banner-slide">
+            <div class="g-carousel" id="J-index-banner-slide">
+                <div class="g-carousel-viewport">
+                    <ul class="g-carousel-inner">
+                        <li><a href="#" style="background-image:url(images/20170906113803.jpg);" title="学习提升"></a></li>
+                        <li><a href="#" style="background-image:url(images/20170906113803.jpg);" title="高考志愿智能模拟"></a></li>
+                        <li><a href="#" style="background-image:url(images/20170906113803.jpg);" title="专家一对一咨询"></a></li>
+                    </ul>
+                </div>
+                <ul class="g-carousel-indicators">
+                </ul>
+            </div>
         </div>
-
     </div>
-</div>
-<div class="clear"></div>
-<!--登录-->
-<div style="padding:0; box-sizing:content-box;position:absolute;top:20%;left:50%;margin:0 0 0 -550px;">
-<div class="w1251">
-  <div class="login fr" id="login">
-     <form  role="form" action="<?=Url::toRoute('site/login-succ')?>" method="post"  class="form-horizontal" id="login-form">
-     <div class="form-signin">
-      <?php if(!empty($username)):?>
-          <div style="text-align:center">
-          你已登录
-          <br>
-          <a href="<?=Url::toRoute('site/lsucc')?>" target="_blank">贵州高考志愿咨询数据平台</a>
-          <br>
-          <a href="<?=Url::toRoute('site/exit')?>" style="color:red;">退出登录</a>
-          </div>
-      <?php else:?>
-     <div class="mt">
-     <h1>登录</h1>
-     <div class="extra-r">
-     <div class="regist-link">还没注册账户？<a href="http://wpa.qq.com/msgrd?v=3&uin=337406395&site=qq&menu=yes" target="_blank">立即开通账号</a></div>
-     </div>
-     </div>
-     <div class="form-group">
-     <label class="login-label">账户</label>
-     <input placeholder="" maxlength="30" name="username" id="username" class="form-control" style="height:38px;">
-     </div>
-     <div class="form-group">
-     <label class="login-label">密码</label>
-     <input placeholder="" maxlength="32" name="password" id="password" class="form-control" type="password" style="height:38px;">
-     </div>
+    <!-- 首页-banner end -->
+    <!-- 首页-功能入口 start -->
+    <div class="index-section  index-servicePlatform">
+        <div class="hd">
+            <h2><span>高考志愿咨询数据平台</span></h2>
+            <h5>掌握数据您就是志愿专家</h5>
+        </div>
+        <div class="bd">
+            <div class="g-wrapper">
+                <ul class="service-list cf">
+                    <li><a href="/zymn1.html">
+                            <div class="icon"><i></i><span class="g-iconfont">&#57367;</span></div>
+                            <h3>志愿模拟</h3>
+                            <p>多种填报模式，99.9%成功率</p>
+                        </a></li>
+                    <li><a href="sjdb1.html">
+                            <div class="icon"><i></i><span class="g-iconfont">&#57368;</span></div>
+                            <h3>历年数据查询</h3>
+                            <p>5年官方权威数据</p>
+                        </a> </li>
+                    <li><a href="sjdb1.html">
+                            <div class="icon"><i></i><span class="g-iconfont">&#57369;</span></div>
+                            <h3>按地区筛选学校</h3>
+                            <p>地区精准定位筛选</p>
+                        </a></li>
+                    <li> <a href="sjdb1.html">
+                            <div class="icon"><i></i><span class="g-iconfont">&#57376;</span></div>
+                            <h3>按分差筛选学校</h3>
+                            <p>历年院校分差数据</p>
+                        </a></li>
 
-     <div class="checkbox">
-     <label><input name="zidong" type="checkbox" value="1" checked="checked" style="position: relative;">下次自动登录</label>&nbsp;&nbsp;
-     <a href="http://wpa.qq.com/msgrd?v=3&uin=337406395&site=qq&menu=yes"  target="_blank" style="color:#c00">忘记密码？</a>
-     </div>
-	 <input type="hidden" name="url" value="#">
-     <button name="imageField" class="btn-block"  align="absmiddle" id="login_btn">登录</button>
-     </div>
-     <?php endif;?>
-     </form>
-  </div>
-  <div class="clear"></div>
-</div>
-</div>
-
-</div>
-
-<div class="clear"></div>
-</div>
-
-
-<script src="js/slider.js"></script>
-<script type="text/javascript">
-$(function() {
-  var bannerSlider = new Slider($('#banner_tabs'), {
-      time: 6000,
-      delay: 600,
-      event: 'hover',
-      auto: true,
-      mode: 'fade',
-      controller: $('#bannerCtrl'),
-      activeControllerCls: 'active'
-  });
-  $('#banner_tabs .flex-prev').click(function() {
-      bannerSlider.prev()
-  });
-  $('#banner_tabs .flex-next').click(function() {
-      bannerSlider.next()
-  });
-})
-</script>
-<!--平台-->
-<div class="clear"></div>
-<!--关于我们-->
-
-<div class="bg2">
-<div class="w1200">
-  <div class="index-title">
-     <div class="index-title-line"></div>
-     <h2 style="background:#FAFAFA;height:37px;width:450px;padding:0"><img src="/frontend/web/images/title_bg.png"/><span class="line1"></span><span class="line2"></span></h2>
-     <p>贵州高考志愿咨询数据平台</p>
-  </div>
-      <ul class="index-mf mf">
-	    <h2>免费专区<span class="index-more"><a href="/frontend/web/index.php/site/article-list?type_id=207" target="_blank">更多>></a></span></h2>
-		
-        <?php if(!empty($schools)):?>
-          <?php foreach ($schools as $school):?>
-            <li class="t01"><a href=" <?=app()->urlManager->createUrl('school-' . $school['id'])?>" target="_blank"><?= $school['name']?></a></li>
-          <?php endforeach;?>
-        <?php endif;?>
-		
-		<!---<div class="mf-img" style="margin-top:5px;"><a href="/frontend/web/index.php/article-301" target="_blank"><img src="/frontend/web/images/index_zymnt.jpg" width="257px"/></a></div> -->
-<li class="t02"><a href="/frontend/web/index.php/article-301" target="_blank">查看模拟志愿参考</a></li>
-       <div class="clear"></div>
-    </ul>
-  <div class="index_contact">
-       <div class="index-news">
-	  <div class="index-news-title">
-		 <div class="news-title"></div>
-		 <h2>关于志愿<span class="index-more"><a href="<?=Url::toRoute(['site/article-list', 'type_id' => 207]);?>" target="_blank">更多>></a></span></h2>
-
-	  </div>
-	  <div class="new-left">
-
-	  <div class="new-text">
-		  <div class="new-img"><a href="/frontend/web/index.php/article-284" target="_blank"><img src="/frontend/web/images/zn.jpg" width="215px" height="145px"/></a></div>
-		</div>
-		<div class="new-text">
-		  <div class="new-img">
-		  <a href="/frontend/web/index.php/article-299" target="_blank"><img src="http://zytbxt.angougou.cn/frontend/web/images/02.jpg" width="215px" height="145px;"/></a>
-		  
-		  	 <!--<div class="small_pic">
-                        <a href="#pic_noe">
-                            <img src="/frontend/web/images/02.jpg" />
-                        </a>
-                    </div>
-  
-
-            <div id="pic_noe" style="display:none;"><img src="/frontend/web/images/02.jpg" /></div>-->
-  
-		  
-		  </div>
-		</div>
-	  </div>
-	  <div class="new-right">
-		<ul class="new-list" style="height:350px">
-							<?php if(!empty($content_a)):?>
-							<?php foreach ($content_a as $content_a):?>
-								<li><em style="float:right;"><?= $content_a['update_date']?></em><a href="<?=app()->urlManager->createUrl('article-' . $content_a['id'])?>" target="_blank"><?= $content_a['title']?></a></li>
-							<?php endforeach;?>
-						<?php endif;?>
-
-		<div class="clear"></div>
-		</ul>
-		<div class="more"><a href="<?=Url::toRoute(['site/article-list', 'type_id' => 207]);?>" target="_blank">查看全部</a></div>
-	  </div>
-	  <div class="clear"></div>
-	</div>
-  </div>
-
-  <div class="clear"></div>
-
-</div>
-</div>
-<div class="bg1">
-<div class="w1200">
- <!-- <div class="index-title">
-     <div class="index-title-line"></div>
-     <h2>贵州高考志愿咨询数据平台<span class="line1"></span><span class="line2"></span></h2>
-     <p>贵州高考志愿咨询数据平台，您身边的报考专家</p>
-  </div>-->
-  <div class="w1200">
-   
-	<div class="index-news">
-	  <div class="index-news-title">
-		 <div class="news-title"></div>
-		 <h2>历届高考资讯<span class="index-more"><a href="<?=Url::toRoute(['site/article-list', 'type_id' => 208]);?>" target="_blank">更多>></a></span></h2>
-
-	  </div>
-	  <div class="new-left">
-
-	  <div class="new-text">
-		  <div class="new-img">
-		  <div class="small_pic">
-                        <a href="#pic_two">
-                            <img src="/frontend/web/images/01.jpg" />
-                        </a>
+                </ul>
             </div>
-
-
-          <div id="pic_two" style="display:none;"><img src="/frontend/web/images/01.jpg" /></div>
-		 <!-- <a href="#"><img src="http://zytbxt.angougou.cn/frontend/web/images/01.jpg" width="215px" height="145px" /></a>-->
-		  
-		  </div>
-		</div>
-		<div class="new-text">
-		  <div class="new-img">
-		  <div class="small_pic">
-                        <a href="#pic_three">
-                            <img src="/frontend/web/images/04.jpg" />
-                        </a>
-            </div>
-
-
-          <div id="pic_three" style="display:none;"><img src="/frontend/web/images/04.jpg" /></div>
-		 <!--- <a href="#"><img src="http://zytbxt.angougou.cn/frontend/web/images/02.jpg" width="215px" height="145px" /></a>-->
-		 </div>
-
-		</div>
-
-	  </div>
-	  <div class="new-right">
-		<ul class="new-list" style="height:350px">
-							<?php if(!empty($content_b)):?>
-							<?php foreach ($content_b as $content_b):?>
-								<li><em style="float:right;"><?= $content_b['update_date']?></em><a href="<?=app()->urlManager->createUrl('article-' . $content_b['id'])?>"><?= $content_b['title']?></a></li>
-							<?php endforeach;?>
-						<?php endif;?>
-
-		<div class="clear"></div>
-		</ul>
-		<div class="more"><a href="<?=Url::toRoute(['site/article-list', 'type_id' => 208]);?>" target="_blank">查看全部</a></div>
-	  </div>
-	  <div class="clear"></div>
-	</div>
-
-		<ul class="index-mf">
-				<h2>最新公告<span class="index-more"><a href="<?=Url::toRoute(['site/article-list', 'type_id' => 210]);?>" target="_blank">更多>></a></span></h2>
-								 <?php if(!empty($content_d)):?>
-								<?php foreach ($content_d as $content_d):?>
-									<li class="t01"><a href="<?=app()->urlManager->createUrl('article-' . $content_d['id'])?>" target="_blank"><?= $content_d['title']?></a></li>
-								<?php endforeach;?>
-									
-								
-							<?php endif;?>
-
-			   <div class="clear"></div>
-			</ul>
-
-
-
-  </div>
-  
-</div>
-
-<!------->
-
-<div class="w1200">
-
-  <div class="w1200">
-    <ul class="index-mf">
-	    <h2>关于我们<span class="index-more"><a href="/frontend/web/index.php/site/article-list" target="_blank">更多>></a></span></h2>
-                         <?php if(!empty($content_c)):?>
-                        <?php foreach ($content_c as $content_c):?>
-                            <li class="t01"><a href="<?=app()->urlManager->createUrl('article-' . $content_c['id'])?>" target="_blank"><?= $content_c['title']?></a></li>
-                        <?php endforeach;?>
-                    <?php endif;?>
-
-       <div class="clear"></div>
-    </ul>
-	<!----->
-	<div class="index-news">
-	  <div class="index-news-title">
-		 <div class="news-title"></div>
-		 <h2>考前准备<span class="index-more"><a href="<?=Url::toRoute(['site/article-list', 'type_id' => 211]);?>" target="_blank">更多>></a></span></h2>
-
-	  </div>
-	  <div class="new-left">
-
-	  <div class="new-text">
-		  <div class="new-img">
-		  <!--<a href="#"><img src="http://zytbxt.angougou.cn/frontend/web/images/03.jpg" width="215px" height="145px" /></a>-->
-		  <div class="small_pic">
-                        <a href="#pic_five">
-                            <img src="/frontend/web/images/03.jpg" />
-                        </a>
-            </div>
-
-
-          <div id="pic_five" style="display:none;"><img src="/frontend/web/images/03.jpg" /></div>
-		  </div>
-		</div>
-		<div class="new-text">
-		  <div class="new-img">
-		  <!--<a href="#"><img src="http://zytbxt.angougou.cn/frontend/web/images/04.jpg" width="215px" height="145px" /></a>-->
-		  <div class="small_pic">
-                        <a href="#pic_four">
-                            <img src="/frontend/web/images/002.jpg" />
-                        </a>
-                    </div>
-    <!-- 要放大显示的div -->
-
-          <div id="pic_four" style="display:none;"><img src="/frontend/web/images/002.jpg" /></div>
-		  
-		  
-		  </div>
-
-		</div>
-
-	  </div>
-	  <div class="new-right">
-		<ul class="new-list" style="height:350px">
-
-		  <?php if(!empty($content_e)):?>
-			<?php foreach ($content_e as $content_e):?>
-				<li><em style="float:right;"><?= $content_e['update_date']?></em><a href=" <?=app()->urlManager->createUrl('article-' . $content_e['id'])?>" target="_blank">
-				<?= $content_e['title']?></a>
-				
-				</li>
-			<?php endforeach?>
-		<?php endif;?>
-
-		<div class="clear"></div>
-		</ul>
-		<div class="more"><a href="<?=Url::toRoute(['site/article-list', 'type_id' => 211]);?>" target="_blank">查看全部</a></div>
-	  </div>
-	  <div class="clear"></div>
-	</div>
-	
-  </div>
-  
-  
-</div>
-
-
-
-
-
-
-
-
-</div>
- <div class="clear"></div>
-
-<div class="link">
-<div class="link-box" style=""><span>友情链接：</span>
-<a href="http://www.gzszk.com" target="_blank">省招生考试院官网</a>
-</div>
-</div>
-<!--版权-->
-
-<div class="footer">
-  <div class="w1200">
-    <div class="fl">© 2016 贵州乾元通鸣教育信息咨询有限公司 All rights reserved. 黔ICP备14003012号</div>
-    <div class="fr"> <a href="<?=Url::toRoute('site/index')?>" target="_blank">首页</a>|<a href="<?=Url::toRoute('site/free-list')?>" target="_blank">免费板块</a>|
-    <a href="<?=Url::toRoute('site/article-list')?>" target="_blank">政策法规</a>|<a href="<?=Url::toRoute('site/article-212')?>" target="_blank">关于我们</a>|
-    <a href="<?=Url::toRoute('site/article-242')?>" target="_blank">联系我们</a>
+        </div>
     </div>
-  </div>
-</div>
-</body>
-<script type="text/javascript">
-//placeholder IE8
-var _placeholderSupport = function() {
- var t = document.createElement("input");
- t.type = "text";
- return (typeof t.placeholder !== "undefined");
-}();
-window.onload = function() {
- var arrInputs = document.getElementsByTagName("input");
- for (var i = 0; i < arrInputs.length; i++) {
-     var curInput = arrInputs[i];
-     if (!curInput.type || curInput.type == "" || curInput.type == "text")
-         HandlePlaceholder(curInput);
- }
-};
+    <!-- 首页-功能入口 end -->
+    <!--首页-新闻资讯 start！-->
+    <div class="index-article index-highDynamic">
+        <div class="g-wrapper">
+            <div class="hd">
+                <h5>高考资讯</h5>
+            </div>
+            <div class="bd">
+                <div class="index-article__tabs">
+                    <ul class="cf" id="J-highDynamic-tabs">
+                        <li><a href="javascript:;">最新公告</a></li>
+                        <li><a href="javascript:;">关于志愿</a></li>
+                        <li><a href="javascript:;">历届高考资讯</a></li>
+                        <li><a href="javascript:;">考前准备</a></li>
+                        <li><a href="javascript:;">新闻资讯</a></li>
+                    </ul>
+                </div>
+                <div class="high-cont" id="J-highDynamic-cont">
+                    <!--高中动态-->
+                    <div class="high-cont__list">
+                        <ul class="cf">
+                            <!--左侧-->
+                            <li class="cont--left">
+                                <div class="left--pic"><img src="images/ebqlrlob3q2aemwuaakt_ta3frs547.png" width="356" height="236" alt="中国大学十大失宠专业排行榜出炉！"/></div>
+                                <h3>这些大学名字就差一两个字，含金量完全...</h3>
+                                <p>时间：2017-11-27 17:30:06.07</p>
+                                <div class="left--txt"> 毕竟地球人都知道，北京=中国首都，那么北京师范大学=首都师范大学，看起来好像并没有什么毛病。而事实上，这是两所完全不...
+                                    [<a href="/news/detail/13471">查看全文</a>] </div>
+                            </li>
+                            <!--右侧-->
+                            <li class="cont--right">
+                                <ul class="right--wrap cf">
+                                    <li> <a href="/news/detail/13467">
+                                            <dl>
+                                                <dt><img src="images/ebqlrlonws-aaanzaag5eqrroxg310.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>盘点非“211工程”的名牌高校，这些院校也很牛！</h4>
+                                                    <p> 除了211、985大学，还有什么大学可选？这是很多中等层...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13458">
+                                            <dl>
+                                                <dt><img src="images/ebqlrlobdb2akezxaai-_xtyxa4143.png" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>为什么要去大城市读大学？“择校先择城”，这是看过最赞...</h4>
+                                                    <p> 有人偏好留在家乡读大学，也有人偏好北上广等大城市，也有人...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13438">
+                                            <dl>
+                                                <dt><img src="images/20171018111948801.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>名校与非名校的差距到底是什么？“就业难”发生在二、三...</h4>
+                                                    <p> 非名校生和名校生的差距
 
-function HandlePlaceholder(oTextbox) {
- if (!_placeholderSupport) {
-     var curPlaceholder = oTextbox.getAttribute("placeholder");
-     if (curPlaceholder && curPlaceholder.length > 0) {
-         oTextbox.value = curPlaceholder;
-         oTextbox.setAttribute("old_color", oTextbox.style.color);
-         oTextbox.style.color = "#666";
-         oTextbox.onfocus = function() {
-             this.style.color = this.getAttribute("old_color");
-             if (this.value === curPlaceholder)
-                 this.value = "";
-         };
-         oTextbox.onblur = function() {
-             if (this.value === "") {
-                 this.style.color = "#666";
-                 this.value = curPlaceholder;
-             }
-         }
-     }
- }
-}
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-function tijiao()
-{
-document.getElementById('form1').submit();
-}
-</script>
+                                                        一生都无法缩...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13437">
+                                            <dl>
+                                                <dt><img src="images/20171018102958008.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>大数据时代催生这些高大上的新兴专业，你知多少？</h4>
+                                                    <p> 最近网络平台流行&ldquo;找记忆&rdq...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13427">
+                                            <dl>
+                                                <dt><img src="images/20171009115322816.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>警惕丨2018高考必须记住，不能犯如此低级错误！</h4>
+                                                    <p> 今年高考录取，一南一北出现了两大乌...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13426">
+                                            <dl>
+                                                <dt><img src="images/20170929175406082.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>都高三了还偏科，怎么办？来啦！偏科生高考备考秘籍</h4>
+                                                    <p> 偏科生：各科复习讲究均衡
+
+                                                        偏科，几乎是每个人的学习生涯...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--高考新闻-->
+                    <div class="high-cont__list">
+                        <ul class="cf">
+                            <!--左侧-->
+                            <li class="cont--left">
+                                <div class="left--pic"><img src="images/1513316643833-5e7f0.jpg" width="356" height="236" alt="中国大学十大失宠专业排行榜出炉！"/></div>
+                                <h3>2018年普通高等学校招生全国统一考...</h3>
+                                <p>时间：2017-12-15 13:08:53.723</p>
+                                <div class="left--txt"> 考试大纲是高考命题的规范性文件和标准，修订和颁布年度考试大纲是一项例行工作。现将2018年普通高等学校招生全国统一...
+                                    [<a href="/news/detail/13479">查看全文</a>] </div>
+                            </li>
+                            <!--右侧-->
+                            <li class="cont--right">
+                                <ul class="right--wrap cf">
+                                    <li> <a href="/news/detail/13473">
+                                            <dl>
+                                                <dt><img src="images/ebqlrlofzzmafqm3aadoouvao5i643.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>江苏2018年《高考说明》公布！（含考查科目内容调整...</h4>
+                                                    <p> 省教育考试院关于发布2018年高考考试说明
+
+                                                        以及...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13469">
+                                            <dl>
+                                                <dt><img src="images/ebqlrlowjhsaplvmaaeq4hv34hm013.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>江苏发布2018年《学测说明》</h4>
+                                                    <p> 2017年11月22日，《2018年江苏省普通高中学业水...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13443">
+                                            <dl>
+                                                <dt><img src="images/ebqlrlnxt_iarqxjaafchlf1sxg046.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>聚焦高考改革！到2020年，我国将全面建立新高考制度</h4>
+                                                    <p> 2017年10月19日，十九大中央国家机关代表团会议...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13441">
+                                            <dl>
+                                                <dt><img src="images/ebqlrlnxot6abg5waagf9lgs9h8263.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>江苏：2018年高考报名将于11月1日-4日进行</h4>
+                                                    <p>江苏省2018年普通高校招生考试报名工作即将开始。网上报名时...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13320">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln4oqeao5n0aaegrpjji-4309.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>2017年江苏高考文理科成绩分段统计表</h4>
+                                                    <p>江苏省2017年普通高考文理科逐分段统计表
+
+
+
+
+
+
+
+
+                                                        ...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13312">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln4ofwawm9faagbgb2gw_0618.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>江苏2017年院校批次调整名单</h4>
+                                                    <p>2017年江苏省教育考试院对江苏高校招生录取批次进行重大调整...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--高招资讯-->
+                    <div class="high-cont__list">
+                        <ul class="cf">
+                            <!--左侧-->
+                            <li class="cont--left">
+                                <div class="left--pic"><img src="images/ebqlrln8j-6adv_5aapobn4nls0399.png" width="356" height="236" alt="中国大学十大失宠专业排行榜出炉！"/></div>
+                                <h3>2017年江苏高招本一批文科投档线</h3>
+                                <p>时间：2017-07-17 09:36:39.0</p>
+                                <div class="left--txt"> [<a href="/news/detail/13349">查看全文</a>] </div>
+                            </li>
+                            <!--右侧-->
+                            <li class="cont--right">
+                                <ul class="right--wrap cf">
+                                    <li> <a href="/news/detail/13348">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln8ka-adjhaaagkkq2c--a634.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>2017年江苏高招本一批理科投档线</h4>
+                                                    <p> 江苏省2017年普通高校招生本科第一批投档...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13347">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln8kjkaartxaadb7brjxww387.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>2017年各省高招录取时间和查询途径</h4>
+                                                    <p> 地区
+                                                        录取日程
+                                                        查询途径
+                                                        ...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13334">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln8kdoapociaaprsp7kixw287.png" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>2017年江苏省高校招生录取日程安排</h4>
+                                                    <p>江苏2017高考各批次录取日程，希望江苏高考考生及家长及时关...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13267">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln8kluan5hlaampyy_9ras069.png" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>2017年全国11个省份高考部分录取批次合并</h4>
+                                                    <p>离2017年高考仅剩7天，高考结束后，考生和家长面临的下一件...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13182">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln8kf6aw0ycaagkbvyuuik881.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>2016年江苏高招本三批理科投档线</h4>
+                                                    <p> 江苏省2016年普通高校招生本科第三批投档...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13181">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln8kh2akgjkaafucemtrtc084.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>2016年江苏高招本三批文科投档线</h4>
+                                                    <p> 江苏省2016年普通高校招生本科第三批投档...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--院校资讯-->
+                    <div class="high-cont__list">
+                        <ul class="cf">
+                            <!--左侧-->
+                            <li class="cont--left">
+                                <div class="left--pic"><img src="images/ebqlrlott9kajrlhaafrgkii9sy439.jpg" width="356" height="236" alt="中国大学十大失宠专业排行榜出炉！"/></div>
+                                <h3>天津大学2018年起全面实施大类招生...</h3>
+                                <p>时间：2017-11-21 13:23:36.327</p>
+                                <div class="left--txt"> 从2018年起，天津大学将全面实施&ldquo;一流本科教育2030行动计划&rdquo;（下文简称&ldquo;2...
+                                    [<a href="/news/detail/13468">查看全文</a>] </div>
+                            </li>
+                            <!--右侧-->
+                            <li class="cont--right">
+                                <ul class="right--wrap cf">
+                                    <li> <a href="/news/detail/13451">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln5or2aneusaagxhugw05o034.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>广东5高校更名、新设、升格 少了3所高职多了4所本科</h4>
+                                                    <p> 近日广东省教育厅同意广东5所高校更名、新设、升格。其中&...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13388">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln4jiqaeca2aagjsorw74m359.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>权威发布 |“双一流”建设高校及建设学科名单公布</h4>
+                                                    <p> 日前，教育部、财政部、国家发展改革委印发《关于公布世界一...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/12947">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln4jmqajiiuaainipfiozy274.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>北外招生改革：15个专业高考成绩仅占7成</h4>
+                                                    <p>&ldquo;高考成绩占70%，外语文化能力测试占30%。&...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/12886">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln4jo-axychaagyzdzmkz4173.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>中科院大学2016招生启动 6省市理科生可报名</h4>
+                                                    <p>今天，中国科学院大学（简称&ldquo;国科大&rdquo;...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/12883">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln4jrgadha_aajqpqtb_gc499.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>复旦大学儿科学拟单列招生</h4>
+                                                    <p>全面二孩时代来临，儿科医生的紧缺越来越受关注。记者昨天获悉，...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/12865">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln4jtoaixd-aapkyephsny488.png" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>香港教育学院更名为香港教育大学</h4>
+                                                    <p>香港特区行政长官会同行政会议26日批准向香港教育学院(教院)...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--专业资讯-->
+                    <div class="high-cont__list">
+                        <ul class="cf">
+                            <!--左侧-->
+                            <li class="cont--left">
+                                <div class="left--pic"><img src="images/1513929977400-df440.png" width="356" height="236" alt="中国大学十大失宠专业排行榜出炉！"/></div>
+                                <h3>【专业解读】电子信息类专业“大扫描”</h3>
+                                <p>时间：2017-12-22 16:07:15.943</p>
+                                <div class="left--txt"> &ldquo;电子信息类&rdquo;专业是工科中的一个大家族，毕业生人数多，就业率高，多年来一直是理科考生追捧的热...
+                                    [<a href="/news/detail/13483">查看全文</a>] </div>
+                            </li>
+                            <!--右侧-->
+                            <li class="cont--right">
+                                <ul class="right--wrap cf">
+                                    <li> <a href="/news/detail/13478">
+                                            <dl>
+                                                <dt><img src="images/ebqlrlovghuaykfdaanmivyrpsw450.png" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>统计学：从数据入手 探寻事物内在规律</h4>
+                                                    <p> 统计？对统计学不了解的人，看到这个专业后，就会有这样的疑...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13457">
+                                            <dl>
+                                                <dt><img src="images/ebqlrlobygsazqgeaaf0xf5pyyu397.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>【专业解读】工业设计——设计行业的工程师！</h4>
+                                                    <p> &ldquo;工业设计&rdquo;若从字面上看，它包含...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13452">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln61-iaok9aaafzewvegxo707.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>【专业解读】常年火爆的电气工程及其自动化！工科类的“...</h4>
+                                                    <p> 从2016届本科毕业生1年后的就业率来看，本科十大专业中...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13439">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln4lc-akflwaafblmuqbwu981.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>工程力学：工程科学和技术的基础</h4>
+                                                    <p>力学位于工程、材料科学、地球物理以及宽广的应用科学和技术方面...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13436">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln4lfcayoayaarjlxud8jy351.png" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>【专业解读】 应用化学：衣食住行离不了的专业</h4>
+                                                    <p> 应用化学是与人类关系最密切的专业之一。无论是日常使用的香...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                    <li> <a href="/news/detail/13432">
+                                            <dl>
+                                                <dt><img src="images/ebqlrln4lhqadb_haafbxddt-yk306.jpg" width="150" height="100" alt=""/></dt>
+                                                <dd>
+                                                    <h4>工程造价：建筑项目的理财专家</h4>
+                                                    <p> 在建筑行业里一直流传一句行话：是赔是赚，全靠&ldquo...</p>
+                                                </dd>
+                                            </dl>
+                                        </a> </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="index-article__button"> <a class="g-button g-button-dark-line" href="/news">查看更多</a> </div>
+            </div>
+        </div>
+    </div>
+    <!--首页-高中动态 end！-->
+</div>
+<?php $this->beginBlock('footer')?>
 <script>
-
-$('#login_btn').click(function (e) {
-    e.preventDefault();
-    var user = $('#username').attr();
-    var pwd = $('#password').attr();
-    $('#login-form').submit();
-});
-$('#login-form').bind('submit', function(e) {
-    e.preventDefault();
-    $(this).ajaxSubmit({
-        type: "post",
-        dataType:"json",
-        url: "<?=Url::toRoute('site/login-succ')?>",
-        success: function(value)
-        {
-            if(value.errno == 0 || value.errno == 1){
-
-                window.location.href = "<?=Url::toRoute('site/lsucc')?>";
-            }
-            else{
-                alert("用户名或密码错误！");
-            }
-
-        }
+    Do.ready(function () {
+        $(".navbar .nav-wrap [data-homepage]").addClass("active");
     });
-});
+    // 首页-bannner
+    Do.ready('http://s.diyigaokao.com/v5/script/core/validator.js', 'http://s.diyigaokao.com/v5/script/plugin/carousel.js', function () {
+        var banner = $('#J-index-banner-slide'),
+            form = $('#J-index-banner-login'),
+            input_password = form.find('input[name="password"]'),
+            btn_smt = $('#J-index-banner-login-submit'),
+
+            // 获取url参数
+            request = function (paras) {
+                var url = window.location.href;
+                var paraString = url.substring(url.indexOf('?') + 1, url.length).split('&');
+                var paraObj = {}
+                for (i = 0; j = paraString[i]; i++) {
+                    paraObj[j.substring(0, j.indexOf('=')).toLowerCase()] = j.substring(j.indexOf('=') + 1, j.length);
+                }
+                var returnValue = paraObj[paras.toLowerCase()];
+                if (typeof (returnValue) == 'undefined') {
+                    return '';
+                } else {
+                    return returnValue;
+                }
+            },
+            // 清除input内容
+            inputClear = function (e) {
+                var input = $('input.' + e);
+                input.each(function (i) {
+                    input.eq(i).next('span.clear').on('click', function () {
+                        input.eq(i).val('').focus();
+                    });
+                });
+            };
+
+        $('a[data-userauthority]').on("click", function (c) {
+            if ($PAGE_CONFIG["UType"] == 0) {
+                c.preventDefault();
+                c.stopImmediatePropagation();
+                GaoKao.userAuthority._showLogin();
+                return
+            }
+            if (($PAGE_CONFIG["UType"] < 3 || $PAGE_CONFIG["UType"] == 5) && $(this).attr("data-userauthority") >= 5) {
+
+                c.preventDefault();
+                c.stopImmediatePropagation();
+                GaoKao.userAuthority._showVip('钻石卡');
+                return
+            }
+        });
+
+
+
+
+        // inputClear
+        inputClear('input_clear');
+
+        // 轮播
+        banner.carousel({
+            control: false
+        });
+    });
+
+
+    //首页--news
+    Do.define('tabs', {
+        path: 'js/tabs.js',
+        type: 'js'
+    });
+    Do.ready('tabs', function() {
+        $('#J-qualityCourse-tabs').tabs({
+            tabContentBox: '#J-qualityCourse-cont',
+            event: 'click',
+            initState: 0
+        });
+
+        $('#J-learnMeans-tabs').tabs({
+            tabContentBox: '#J-learnMeans-cont',
+            event: 'click',
+            initState: 0
+        });
+
+        $('#J-highDynamic-tabs').tabs({
+            tabContentBox: '#J-highDynamic-cont',
+            event: 'click',
+            initState: 0
+        });
+    });
+
 </script>
+<?php $this->endBlock('footer')?>

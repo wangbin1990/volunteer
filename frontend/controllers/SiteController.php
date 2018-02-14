@@ -17,6 +17,7 @@ use backend\models\AdminMember;
 use backend\models\AdminArticleContent;
 use backend\models\AdminArticleType;
 use common\utils\CommonFun;
+use yii\web\Response;
 use yii\web\Session;
 use common\models\adminClickTime;
 use yii\base\ErrorException;
@@ -60,14 +61,6 @@ class SiteController extends Controller
                     ]
                 ]
             ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => [
-                        'post'
-                    ]
-                ]
-            ]
         ];
     }
 
@@ -144,8 +137,20 @@ class SiteController extends Controller
 			$content_e[$key]['n'] = $i++;
         }
 
+        return $this->render('index', [
+            'schools' => $schools,
+            'content_a' => $content_a,
+            'content_b' => $content_b,
+            'content_c' => $content_c,
+            'content_d' => $content_d,
+            'content_e' => $content_e,
+            'username' => $session['username'],
+            'password' => $session['password'],
+            'img'  => app()->cache->get('index_cache'),
+        ]);
+
         if(isset($session['username']) && isset($session['password'])) {
-            return $this->renderpartial('index', [
+            return $this->render('index', [
             'schools' => $schools,
             'content_a' => $content_a,
             'content_b' => $content_b,
@@ -157,7 +162,7 @@ class SiteController extends Controller
 			'img'  => app()->cache->get('index_cache'),
         ]);
         } else {
-            return $this->renderpartial('index',[
+            return $this->render('index',[
             'schools' => $schools,
             'content_a' => $content_a,
             'content_b' => $content_b,
@@ -252,52 +257,37 @@ class SiteController extends Controller
      * 登录后，跳转
      *
      */
-    public function actionLoginSucc()
+    public function actionLogin()
     {
-        $username = Yii::$app->request->post('username');
-        $password = Yii::$app->request->post('password');
-        $rememberMe = Yii::$app->request->post('remember');
-        $rememberMe = $rememberMe == 'y' ? true : false;
-        $session = Yii::$app->session;
-        if(isset($session['username']) && isset($session['password'])) {
-            if($session['username'] == $username && $session['password'] == $password){
-                echo json_encode([
-                    'username' => $session['username'],
-                    'password' => $session['password'],
-                    'errno' => 1,
-                ]);
-            }else{
-                $_SESSION['username'] = $username;
-                $_SESSION['password'] = $password;
-                echo json_encode([
-                    'errno' => 0,
-                ]);
+
+        if (app()->request->isPost) {
+            app()->response->format = Response::FORMAT_JSON;
+            $username = Yii::$app->request->post('username');
+            $password = Yii::$app->request->post('password');
+            $rememberMe = Yii::$app->request->post('isRemeberMe');
+            $rememberMe = $rememberMe == 'y' ? true : false;
+            $session = Yii::$app->session;
+            if (app()->user->isGuest) {
+                if (AdminMember::login_new($username, $password, $rememberMe) == true) {
+                    AdminMember::updateAll([
+                        'last_ip' => CommonFun::getClientIp()
+                    ], [
+                        'name' => $username
+                    ]);
+                    $_SESSION['username'] = $username;
+                    $_SESSION['password'] = $password;
+                    return ['code' => 0, 'msg' => '登录成功', 'data' => []];
+                } else {
+                    return ['code' => -1, 'msg' => '用户或密码错误', 'data' => []];
+                }
+            } else {
+                return ['code' => -1, 'msg' => '用户已登录', 'data' => []];
             }
-
-        } else {
-           if (AdminMember::login_new($username, $password, $rememberMe) == true) {
-            AdminMember::updateAll([
-                'last_ip' => CommonFun::getClientIp()
-            ], [
-                'name' => $username
-            ]);
-            // return $this->goBack();
-            $_SESSION['username'] = $username;
-            $_SESSION['password'] = $password;
-            echo json_encode([
-                'errno' => 0,
-            ]);
-
-        } else {
-            echo json_encode([
-                'errno' => 2
-            ]);
         }
-        }
-
+        return ['code' => -1, 'msg' => '权限不允许', 'data' => []];
     }
 
-    public function actionExit()
+    public function actionLogout()
     {
        app()->user->logout();
        return $this->goHome();

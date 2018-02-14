@@ -52,6 +52,7 @@ class BackendUser extends ActiveRecord implements IdentityInterface
             if (Yii::$app->user->login($user, $rememberMe ? 3600 * 24 * 30 : 0) == true) {
                 $user->initUserModuleList();
                 $user->initUserUrls();
+                app()->session->set('userInfo', $user->toArray());
                 return true;
             }
         } 
