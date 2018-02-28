@@ -30,10 +30,11 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
 
     <!--[if lt IE 9]><script type="text/javascript" src="js/html5shiv.js"></script><![endif]-->
-    <script src="js/do.js" data-cfg-corelib="js/jquery.js"></script>
-    <script src="js/jquery.js"></script>
-    <script src="js/tabs.js"></script>
-    <script src="js/160906.js"></script>
+    <script src="<?= \yii\helpers\Url::to('@web/js/do.js', true);?>" data-cfg-corelib="<?= \yii\helpers\Url::to('@web/js/jquery.js', true);?>"></script>
+    <script src="<?= \yii\helpers\Url::to('@web/js/jquery.js', true);?>"></script>
+    <script src="<?= \yii\helpers\Url::to('@web/js/tabs.js', true);?>"></script>
+    <script src="<?= \yii\helpers\Url::to('@web/js/160906.js', true);?>"></script>
+    <script src="<?= \yii\helpers\Url::to('@web/js/chart.js', true);?>"></script>
     <?php $this->head() ?>
 </head>
 <body>
@@ -78,6 +79,7 @@ AppAsset::register($this);
                 'success': function (res) {
                     if (res.code == 0) {
                         //修改页面登录状态
+                        window.location.reload();
                     } else {
                         alert(res.msg);
                     }

@@ -11,9 +11,6 @@ $this->params['breadcrumbs'] =[
     'school',
 ]
 ?>
-
-<!-- header -->
-<?php include 'header.php';?>
 <!-- content -->
 <div id="content">
     <div class="container">
@@ -95,7 +92,7 @@ $this->params['breadcrumbs'] =[
 </div>
 
 </div>
-			<!--<div id="outer">
+			<div id="outer">
 				<ul id="tab">
 					<li class="current">学校简介</li>
 					<li>招生简章</li>
@@ -133,7 +130,7 @@ $this->params['breadcrumbs'] =[
 			})
 		}
 	});
-</script>-->
+</script>
 						
 			
 			
@@ -141,7 +138,7 @@ $this->params['breadcrumbs'] =[
                 
                     <div>
                     
-<!--                     <div class="row">
+                    <div class="row">
                         <div class="" style="margin:0 auto;width:620px;">
                         <p>2010-2016年录取分数线情况</p>
                         <table cellspacing="0" class="table table-bordered table-striped">
@@ -173,7 +170,7 @@ $this->params['breadcrumbs'] =[
                             </tbody>
                         </table>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="row">
                         <div class="" style="margin:0 auto;width:620px;">
                         <p>2010-2016年录取分数线情况</p>

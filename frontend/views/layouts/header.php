@@ -7,7 +7,14 @@
                 <ul class="cf">
                     <li class="user" id="J-g-header-user" data-url="/unreadtotal">
                         <!--未读消息-->
-                        <span class="login"><a href="javascript:vido(0)" title="请登录"><i></i>您好，[请登录]</a>&nbsp;</span> <span><a href="#" title="免费注册">[免费注册]</a></span> </li>
+                        <?php if(app()->user->getIsGuest()):?>
+                            <span class="login"><a href="javascript:vido(0)" title="请登录"><i></i>您好， [请登录]</a>&nbsp;</span>
+                            <span><a href="#" title="免费注册">[免费注册]</a></span>
+                        <?php else:?>
+                            <span ><a href="javascript:vido(0)" title="已登录"><i></i>您好， [<?= app()->user->name;?>]</a>&nbsp;</span>
+                            <span><a href="<?= \yii\helpers\Url::to('site/logout')?>" title="登出">[登出]</a></span>
+                        <?php endif;?>
+                    </li>
                     <li class="help"><a href="#" title="系统介绍"><i></i>平台介绍</a></li>
                 </ul>
             </div>
@@ -16,7 +23,7 @@
     <div class="navMenu m-menu">
         <div class="g-wrapper">
             <div class="info">
-                <h2 class="logo"> <a href="/" title=""><img src="images/logo.png" alt="" width="257"></a> </h2>
+                <h2 class="logo"> <a href="/" title=""><img src="<?= \yii\helpers\Url::to('@web/images/logo.png')?>" alt="" width="257"></a> </h2>
             </div>
             <div class="navbar">
                 <ul class="cf nav-wrap">
@@ -58,7 +65,7 @@
         </li>
         <li class="wx"> <a rel="external nofollow" class="icon" href="http://bwt.zoosnet.net/LR/Chatpre.aspx?id=BWT49140730&lng=cn&p=wangzhan" target="_blank"><i class="g-iconfont">&#57366;</i><span>关注</span></a>
             <div class="detail"> <span class="wx-title">微信扫一扫<br/>
-          高考资讯早知道</span> <span><img alt="站点首页" width="100" height="100" src="images/20170904143553.png" style="display: inline;"></span> </div>
+          高考资讯早知道</span> <span><img alt="站点首页" width="100" height="100" src="<?= \yii\helpers\Url::to('@web/images/20170904143553.png')?>" style="display: inline;"></span> </div>
         </li>
         <li class="back"> <a class="icon" href="/suggestion/box"><i class="g-iconfont">&#57398;</i><span>反馈</span></a> </li>
         <li class="gotop"> <a class="icon" href="javascript:;" id="J-g-dish-gotop" title="回顶部"><i class="g-iconfont iconfont-top">&#57363;</i></a> </li>

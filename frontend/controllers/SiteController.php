@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\controllers;
 
 use Yii;
@@ -43,7 +44,7 @@ class SiteController extends Controller
                 'only' => [
                     'logout',
                     'lsucc',
-                    'school-list',
+                    //'school-list',
                     'simulate',
                 ],
                 'rules' => [
@@ -73,68 +74,69 @@ class SiteController extends Controller
         if (app()->request->isPost) {
             app()->cache->set('index_cache', app()->request->post('img'));
         }
-        $session = Yii::$app->session;app()->user->isGuest;
+        $session = Yii::$app->session;
+        app()->user->isGuest;
         $schools = AdminSchool::getSchools(['status' => '1'], 7);
         //政策法规
         //$content_a = AdminArticleContent::getArticleContent(['type_id' => '207','status' => '1']);
-		    $content_a = AdminArticleContent::find()
-            ->where(['status' => '1','type_id' => '207'])
+        $content_a = AdminArticleContent::find()
+            ->where(['status' => '1', 'type_id' => '207'])
             ->orderBy('update_date desc')
             ->limit(7)
             ->asArray()
             ->all();
         //历届高考咨询
         //$content_b = AdminArticleContent::getArticleContent(['type_id' => '208','status' => '1'],7);
-		    $content_b = AdminArticleContent::find()
-            ->where(['status' => '1','type_id' => '208'])
+        $content_b = AdminArticleContent::find()
+            ->where(['status' => '1', 'type_id' => '208'])
             ->orderBy('update_date desc')
             ->limit(7)
             ->asArray()
             ->all();
         //关于我们
         //$content_c = AdminArticleContent::getArticleContent(['type_id' => '209','status' => '1'],7);
-			$content_c = AdminArticleContent::find()
-            ->where(['status' => '1','type_id' => '209'])
+        $content_c = AdminArticleContent::find()
+            ->where(['status' => '1', 'type_id' => '209'])
             ->orderBy('update_date desc')
             ->limit(7)
             ->asArray()
             ->all();
         //最新公告
         //$content_d = AdminArticleContent::getArticleContent(['type_id' => '210','status' => '1'],7);
-			$content_d = AdminArticleContent::find()
-            ->where(['status' => '1','type_id' => '210'])
+        $content_d = AdminArticleContent::find()
+            ->where(['status' => '1', 'type_id' => '210'])
             ->orderBy('update_date desc')
             ->limit(7)
             ->asArray()
             ->all();
-		//靠前准备
-		//$content_e = AdminArticleContent::getArticleContent(['type_id' => '211','status' => '1'],7);
-			$content_e = AdminArticleContent::find()
-            ->where(['status' => '1','type_id' => '211'])
+        //靠前准备
+        //$content_e = AdminArticleContent::getArticleContent(['type_id' => '211','status' => '1'],7);
+        $content_e = AdminArticleContent::find()
+            ->where(['status' => '1', 'type_id' => '211'])
             ->orderBy('update_date desc')
             ->limit(7)
             ->asArray()
             ->all();
-		$i = 0;
+        $i = 0;
         foreach ($content_a as $key => $value) {
-            $content_a[$key]['update_date'] = date('Y-m-d',strtotime($value['update_date']));
-			$content_a[$key]['n'] = $i++;
+            $content_a[$key]['update_date'] = date('Y-m-d', strtotime($value['update_date']));
+            $content_a[$key]['n'] = $i++;
         }
-		foreach ($content_b as $key => $value) {
-            $content_b[$key]['update_date'] = date('Y-m-d',strtotime($value['update_date']));
-			$content_b[$key]['n'] = $i++;
+        foreach ($content_b as $key => $value) {
+            $content_b[$key]['update_date'] = date('Y-m-d', strtotime($value['update_date']));
+            $content_b[$key]['n'] = $i++;
         }
-		foreach ($content_c as $key => $value) {
-            $content_c[$key]['update_date'] = date('Y-m-d',strtotime($value['update_date']));
-			$content_c[$key]['n'] = $i++;
+        foreach ($content_c as $key => $value) {
+            $content_c[$key]['update_date'] = date('Y-m-d', strtotime($value['update_date']));
+            $content_c[$key]['n'] = $i++;
         }
         foreach ($content_d as $key => $value) {
-            $content_d[$key]['update_date'] = date('Y-m-d',strtotime($value['update_date']));
-			$content_d[$key]['n'] = $i++;
+            $content_d[$key]['update_date'] = date('Y-m-d', strtotime($value['update_date']));
+            $content_d[$key]['n'] = $i++;
         }
-		foreach ($content_e as $key => $value) {
-            $content_e[$key]['update_date'] = date('Y-m-d',strtotime($value['update_date']));
-			$content_e[$key]['n'] = $i++;
+        foreach ($content_e as $key => $value) {
+            $content_e[$key]['update_date'] = date('Y-m-d', strtotime($value['update_date']));
+            $content_e[$key]['n'] = $i++;
         }
 
         return $this->render('index', [
@@ -146,30 +148,30 @@ class SiteController extends Controller
             'content_e' => $content_e,
             'username' => $session['username'],
             'password' => $session['password'],
-            'img'  => app()->cache->get('index_cache'),
+            'img' => app()->cache->get('index_cache'),
         ]);
 
-        if(isset($session['username']) && isset($session['password'])) {
+        if (isset($session['username']) && isset($session['password'])) {
             return $this->render('index', [
-            'schools' => $schools,
-            'content_a' => $content_a,
-            'content_b' => $content_b,
-            'content_c' => $content_c,
-            'content_d' => $content_d,
-			'content_e' => $content_e,
-            'username' => $session['username'],
-            'password' => $session['password'],
-			'img'  => app()->cache->get('index_cache'),
-        ]);
+                'schools' => $schools,
+                'content_a' => $content_a,
+                'content_b' => $content_b,
+                'content_c' => $content_c,
+                'content_d' => $content_d,
+                'content_e' => $content_e,
+                'username' => $session['username'],
+                'password' => $session['password'],
+                'img' => app()->cache->get('index_cache'),
+            ]);
         } else {
-            return $this->render('index',[
-            'schools' => $schools,
-            'content_a' => $content_a,
-            'content_b' => $content_b,
-            'content_c' => $content_c,
-            'content_d' => $content_d,
-			'content_e' => $content_e,
-			'img'  => app()->cache->get('index_cache'),
+            return $this->render('index', [
+                'schools' => $schools,
+                'content_a' => $content_a,
+                'content_b' => $content_b,
+                'content_c' => $content_c,
+                'content_d' => $content_d,
+                'content_e' => $content_e,
+                'img' => app()->cache->get('index_cache'),
             ]);
         }
     }
@@ -187,7 +189,7 @@ class SiteController extends Controller
 
         if (!empty($school)) {
             if ($school['status'] == 0) {
-                if (app()->user->isGuest) {
+                if (0 && app()->user->isGuest) {
                     throw new InvalidParamException('这是非免费学校，请登录');
                 } else {
                     if (!adminClickTime::checkStatus($id)) {
@@ -204,19 +206,19 @@ class SiteController extends Controller
                                 ''
                             );
                             if ($model->save()) {
-                                $adminMember->num = $num -1;
+                                $adminMember->num = $num - 1;
                                 $adminMember->update_date = date('Y-m-d H:i:s', time());
                                 $adminMember->update();
 
                             }
                         } else {
-                            throw new InvalidParamException('查看权限次数已用完');
+                            //throw new InvalidParamException('查看权限次数已用完');
                         }
                     }
                 }
 
             }
-        }else {
+        } else {
             throw new NotFoundHttpException('找不到当前的学校');
         }
 
@@ -247,10 +249,10 @@ class SiteController extends Controller
      */
     public function actionArticle($id)
     {
-        $content = AdminArticleContent::getArticleContent(['id' => $id,'status' => '1']);
-         return $this->render('article',[
+        $content = AdminArticleContent::getArticleContent(['id' => $id, 'status' => '1']);
+        return $this->render('article', [
             'content' => $content,
-            ]);
+        ]);
     }
 
     /**
@@ -289,8 +291,8 @@ class SiteController extends Controller
 
     public function actionLogout()
     {
-       app()->user->logout();
-       return $this->goHome();
+        app()->user->logout();
+        return $this->goHome();
     }
 
     public function actionLsucc()
@@ -305,7 +307,7 @@ class SiteController extends Controller
                 app()->session->setFlash('warning', '没有可筛选的学校');
             }
             //dump($cate);
-            return $this->render('login-succ',[
+            return $this->render('login-succ', [
                 'cate' => $cate,
                 'spec' => $spec,
                 'mold' => $mold,
@@ -314,6 +316,7 @@ class SiteController extends Controller
             echo "<h1><a href='index'>非法访问，请前往首页登录！</a></h1>";
         }
     }
+
     /**
      * 选择学校
      *
@@ -323,7 +326,7 @@ class SiteController extends Controller
      *            科目
      * @return string
      */
-    public function actionSchoolList($batch = null, $mold = null,$spec = null)
+    public function actionSchoolList($batch = null, $mold = null, $spec = null)
     {
         $conditions = [];
         $params = [];
@@ -332,16 +335,16 @@ class SiteController extends Controller
             $conditions[':batch'] = intval($batch);
         }
         if (isset($mold)) {
-            $mold= intval($mold);
+            $mold = intval($mold);
             $conditions[':mold'] = "{$mold}";
         }
         if ($spec != 'null') {
-            $spec= intval($spec);
+            $spec = intval($spec);
             $conditions[':spec'] = "{$spec}";
         }
         $postParams = app()->request->post();
         if (isset($postParams['location_id']) && $postParams['location_id'] > 0) {
-             $location_id = $conditions[':location_id'] = intval($postParams['location_id']);
+            $location_id = $conditions[':location_id'] = intval($postParams['location_id']);
         }
 
         if (isset($postParams['school'])) {
@@ -349,14 +352,15 @@ class SiteController extends Controller
         }
 
         if (isset($postParams['highScore']) && $postParams['highScore'] > 0) {
-             $params[':high_score'] = intval($postParams['highScore']);
+            $params[':high_score'] = intval($postParams['highScore']);
         }
         if (isset($postParams['lowScore']) && $postParams['highScore'] > 0) {
-             $params[':low_score'] = intval($postParams['lowScore']);
+            $params[':low_score'] = intval($postParams['lowScore']);
         }
         if (isset($params[':high_score'])
             && isset($params[':lowScore'])
-            && $params[':high_score'] < $params[':lowScore']) {
+            && $params[':high_score'] < $params[':lowScore']
+        ) {
             $tempScore = $params[':high_score'];
             $params[':high_score'] = $params[':low_score'];
             $params[':low_score'] = $tempScore;
@@ -374,12 +378,12 @@ class SiteController extends Controller
         }
         $schools = AdminSchool::getSchoolsByDiffScore($conditions, $params);
         if (empty($schools)) {
-            app()->session->setFlash('warning','没有搜索到的学校');
+            app()->session->setFlash('warning', '没有搜索到的学校');
         }//dump($cate);
 
         $params['school'] = isset($conditions['school']) ? $conditions['school'] : '';
         // var_dump($schools);die;
-        return $this->render('School-list', [
+        return $this->render('school-list', [
             'schools' => $schools,
             'cate' => $cate,
             'params' => $params,
@@ -397,25 +401,26 @@ class SiteController extends Controller
     public function actionSimulate()
     {
         $data = app()->request->post();
+
         if (empty($data['school'])) {
-            app()->session->setFlash('error','没有选择模拟的学校');
+            app()->session->setFlash('error', '没有选择模拟的学校');
         } else {
             $filter_school = adminClickTime::filterSchools($data['school']);
             if (!empty($filter_school)) {
                 //查询总次数
                 $adminMember = AdminMember::findOne(app()->user->id);
-                if ($adminMember['num'] >= count($filter_school) ) {             
-                    foreach($filter_school as $value) {
-                        $clickDate[] =[
+                if ($adminMember['num'] >= count($filter_school)) {
+                    foreach ($filter_school as $value) {
+                        $clickDate[] = [
                             app()->user->id,
                             (int)$value,
                             time(),
-                        ]; 
-                    } 
+                        ];
+                    }
                     $f = Yii::$app->db->createCommand()
-                        ->batchInsert('admin_click_time', ['user_id', 'school_id','click_time'], $clickDate)
+                        ->batchInsert('admin_click_time', ['user_id', 'school_id', 'click_time'], $clickDate)
                         ->execute();
-                       
+
                     if ($f) {
                         $adminMember->num = $adminMember['num'] - count($filter_school);
                         $adminMember->update_date = date('Y-m-d H:i:s', time());
@@ -441,7 +446,7 @@ class SiteController extends Controller
                         $chart[$key]['data'][$score['year']]['rank'] = $score['rank'];
                     }
                     foreach ($school['scores'] as $score) {
-                        $chart2[$key]['data'][$score['year']]= $score['diff_score'];
+                        $chart2[$key]['data'][$score['year']] = $score['diff_score'];
                     }
                     //$chart[$key]['data'] = array_column($school['scores'], 'diff_score');
                     $years = array_merge(i_array_column($school['scores'], 'year'), $years);
@@ -449,10 +454,10 @@ class SiteController extends Controller
                 $years = array_unique($years);
                 sort($years);
                 $chart1 = $chart;
-             
-                foreach ($years  as $year) {
+
+                foreach ($years as $year) {
                     foreach ($chart1 as $k => &$value) {
-                        if (!in_array($year, array_keys($value['data']))) {
+                        if (!isset($value['data']) || !in_array($year, array_keys($value['data']))) {
                             $chart[$k]['data'][$year]['diff_score'] = 0;
                             $chart[$k]['data'][$year]['plan_count'] = 0;
                             $chart[$k]['data'][$year]['rank'] = 0;
@@ -468,29 +473,30 @@ class SiteController extends Controller
                 foreach ($chart1 as &$item) {
                     ksort($item['data']);
                     $item['data'] = array_values($item['data']);
-                } 
+                }
                 foreach ($chart as &$item) {
                     ksort($item['data']);
                 }
             }
         }
-		$chart2 = $chart;
+        $chart2 = $chart;
         foreach ($chart as $key => $valuezhao) {
             $schools_d[$key]['year'] = $valuezhao['data']['2016']["diff_score"];
             $schools_d[$key]['name'] = $valuezhao['name'];
         }
-                rsort($schools_d);
-                foreach ($schools_d as $key1 => $value1) {
-                    # code...
-                    // var_dump($schools_d[$key1]['name']);
-                    foreach ($chart2 as $key2 => $value2) {
-                        // var_dump($chart2[$key2]['name']);
-                        if ($chart2[$key2]['name'] == $schools_d[$key1]['name']) {
-                            $chart[$key1] = $value2;
-                        }
-                    }
+        rsort($schools_d);
+        foreach ($schools_d as $key1 => $value1) {
+            # code...
+            // var_dump($schools_d[$key1]['name']);
+            foreach ($chart2 as $key2 => $value2) {
+                // var_dump($chart2[$key2]['name']);
+                if ($chart2[$key2]['name'] == $schools_d[$key1]['name']) {
+                    $chart[$key1] = $value2;
                 }
-        return $this->render('simulate',[
+            }
+        }
+
+        return $this->render('simulate', [
             'schools' => $schools,
             'years' => $years,
             'chart' => $chart,
@@ -513,27 +519,28 @@ class SiteController extends Controller
         // var_dump($_GET);die;
         if (empty($_GET['type_id'])) {
             $type_id = '';
-        }else{
+        } else {
             $type_id = $_GET['type_id'];
         }
-        $session = Yii::$app->session;app()->user->isGuest;
+        $session = Yii::$app->session;
+        app()->user->isGuest;
         $page = is_numeric($page) ? $page : 1;
         if (empty($type_id)) {
             $articles = AdminArticleContent::find()
-            ->where(['status' => '1'])
-            ->orderBy('update_date desc')
-            ->limit(10)
-            ->offset(($page-1) * 10)
-            ->asArray()
-            ->all();
-        }else{
+                ->where(['status' => '1'])
+                ->orderBy('update_date desc')
+                ->limit(10)
+                ->offset(($page - 1) * 10)
+                ->asArray()
+                ->all();
+        } else {
             $articles = AdminArticleContent::find()
-            ->where(['status' => '1','type_id' => $type_id])
-            ->orderBy('update_date desc')
-            ->limit(10)
-            ->offset(($page-1) * 10)
-            ->asArray()
-            ->all();
+                ->where(['status' => '1', 'type_id' => $type_id])
+                ->orderBy('update_date desc')
+                ->limit(10)
+                ->offset(($page - 1) * 10)
+                ->asArray()
+                ->all();
         }
 
 
@@ -550,15 +557,15 @@ class SiteController extends Controller
         } else {
             throw new NotFoundHttpException('找不到文章！');
         }
-        
+
         //格式化日期
         foreach ($articles as $key => $value) {
-            $articles[$key]['update_date'] = date('Y-m-d',strtotime($value['update_date']));
+            $articles[$key]['update_date'] = date('Y-m-d', strtotime($value['update_date']));
         }
         //dump(i_array_column($types,'name', 'id'));
         return $this->renderpartial('article-list', [
             'articles' => $articles,
-            'types' => i_array_column($types,'name', 'id'),
+            'types' => i_array_column($types, 'name', 'id'),
             'pagination' => $pagination,
             'username' => $session['username'],
             'password' => $session['password'],
@@ -567,24 +574,25 @@ class SiteController extends Controller
 
     public function actionFreeList($page = 1)
     {
-        $session = Yii::$app->session;app()->user->isGuest;
+        $session = Yii::$app->session;
+        app()->user->isGuest;
         $page = is_numeric($page) ? $page : 1;
         $counts = AdminSchool::find()
             ->where(['status' => '1'])
             ->count();
         $schools = AdminSchool::getSchools(['status' => '1']);
         $pagination = new Pagination(['totalCount' => $counts, 'defaultPageSize' => 10]);
-        if(isset($session['username']) && isset($session['password'])) {
+        if (isset($session['username']) && isset($session['password'])) {
             return $this->renderpartial('free-list', [
-            'schools' => $schools,
-            'pagination' => $pagination,
-            'username' => $session['username'],
-            'password' => $session['password'],
-        ]);
+                'schools' => $schools,
+                'pagination' => $pagination,
+                'username' => $session['username'],
+                'password' => $session['password'],
+            ]);
         } else {
-            return $this->renderpartial('free-list',[
-            'schools' => $schools,
-            'pagination' => $pagination,
+            return $this->renderpartial('free-list', [
+                'schools' => $schools,
+                'pagination' => $pagination,
             ]);
         }
     }
