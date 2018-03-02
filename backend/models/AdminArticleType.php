@@ -57,6 +57,14 @@ class AdminArticleType extends \backend\models\BaseModel
         ];
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getContents()
+    {
+        return $this->hasMany(AdminArticleContent::className(), ['type_id' => 'id']);
+    }
+
   /**
      * 返回数据库字段信息，仅在生成CRUD时使用，如不需要生成CRUD，请注释或删除该getTableColumnInfo()代码
      * COLUMN_COMMENT可用key如下:

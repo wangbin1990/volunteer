@@ -238,3 +238,10 @@ CREATE TABLE `admin_user_role` (
 INSERT  INTO `admin_user_role`(`id`,`user_id`,`role_id`,`create_user`,`create_date`,`update_user`,`update_date`) VALUES (1,156,1,'admin','2016-08-12 17:03:13','admin','2016-08-12 17:03:13'),(2,158,2,'test','2016-08-13 16:34:20','test','2016-08-13 16:34:20');
 
 
+
+
+
+/*2018年3月2日 11:32:05添加*/
+
+ALTER TABLE `admin_article_content`
+ADD COLUMN `thumbnail_image`  varchar(255) NOT NULL DEFAULT '' COMMENT '缩略图链接' AFTER `intro`;

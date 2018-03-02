@@ -111,10 +111,12 @@ class AdminArticleContentController extends BaseController
         $model = new AdminArticleContent();
         if ($model->load(Yii::$app->request->post())) {
         
-              $model->create_user = Yii::$app->user->identity->uname;
-              $model->create_date = date('Y-m-d H:i:s');
-              $model->update_user = Yii::$app->user->identity->uname;
-              $model->update_date = date('Y-m-d H:i:s');        
+            $model->create_user = Yii::$app->user->identity->uname;
+            $model->create_date = date('Y-m-d H:i:s');
+            $model->update_user = Yii::$app->user->identity->uname;
+            $model->update_date = date('Y-m-d H:i:s');
+            $model->thumbnail_image = $this->getImageUrl($model->thumbnail_image);
+
             if($model->validate() == true && $model->save()){
                 $msg = array('errno'=>0, 'msg'=>'保存成功');
                 echo json_encode($msg);
@@ -140,9 +142,9 @@ class AdminArticleContentController extends BaseController
         $id = Yii::$app->request->post('id');
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
-        
-              $model->update_user = Yii::$app->user->identity->uname;
-              $model->update_date = date('Y-m-d H:i:s');        
+            $model->thumbnail_image = $this->getImageUrl($model->thumbnail_image);
+            $model->update_user = Yii::$app->user->identity->uname;
+            $model->update_date = date('Y-m-d H:i:s');
         
             if($model->validate() == true && $model->save()){
                 $msg = array('errno'=>0, 'msg'=>'保存成功');
@@ -166,6 +168,15 @@ class AdminArticleContentController extends BaseController
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    protected function getImageUrl($urlSource)
+    {
+        $preg = '#<img.+src=\"(\/.+\.jpg)\"#';
+        if (preg_match($preg, $urlSource, $matches)) {
+            return $matches[1];
+        }
+        return '';
     }
 
 

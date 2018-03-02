@@ -206,14 +206,32 @@ $(document).ready(function(){
               </div>
               <div class="clearfix"></div>
           </div>
+        <div id="controller_id_div" class="form-group">
+            <label for="name" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("intro")?></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="intro" name="AdminArticleContent[intro]" placeholder="文章简介" />
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div id="url_div" class="form-group">
+            <label for="sort" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("thumbnail_image")?></label>
+            <div class="col-sm-10">
+                <?= CKEditor::widget([
+                    'editorOptions' => [
+                        'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+                        'inline' => false, //по умолчанию false
+                        'filebrowserImageUploadUrl' => Url::to(['admin-school/upload']),
+                        'language' => 'zh-cn',
+                        'height' => 200,
+                    ],
+                    'name' => "AdminArticleContent[thumbnail_image]",
+                    'id' => 'thumbnail_image',
+                ]);
 
-          <div id="controller_id_div" class="form-group">
-              <label for="name" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("intro")?></label>
-              <div class="col-sm-10">
-                  <input type="text" class="form-control" id="intro" name="AdminArticleContent[intro]" placeholder="文章简介" />
-              </div>
-              <div class="clearfix"></div>
-          </div>
+                ?>
+            </div>
+            <div class="clearfix"></div>
+        </div>
 
           <div id="url_div" class="form-group">
               <label for="sort" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("content")?></label>
@@ -234,8 +252,6 @@ $(document).ready(function(){
               </div>
               <div class="clearfix"></div>
           </div>
-
-
           <div id="url_div" class="form-group">
               <label for="sort" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("sort")?></label>
               <div class="col-sm-10">
@@ -324,6 +340,7 @@ function orderby(field, op){
         $("#status").val('');
         $("#sort").val('');
         $("#content").val('');
+        $("#thumbnail_image").val('');
         $("#intro").val('');
         $("#type_id").val('');
     $("#create_user").val('');
@@ -339,6 +356,8 @@ function orderby(field, op){
         $("#status").val(data.status);
         $("#sort").val(data.sort);
         CKEDITOR.instances.content.setData(data.content);
+        var img = '<img src="' + data.thumbnail_image + '">';
+        CKEDITOR.instances.thumbnail_image.setData(img);
         $("#type_id").val(data.type_id);
       $("#create_user").val(data.create_user);
       $("#create_date").val(data.create_date);
@@ -351,6 +370,7 @@ function orderby(field, op){
       $("#status").attr({readonly:true,disabled:true});
       $("#sort").attr({readonly:true,disabled:true});
       $("#content").attr({readonly:true,disabled:true});
+      $("#thumbnail_image").attr({readonly:true,disabled:true});
       $("#intro").attr({readonly:true,disabled:true});
       $("#type_id").attr({readonly:true,disabled:true});
       $("#create_user").attr({readonly:true,disabled:true});
@@ -369,6 +389,7 @@ function orderby(field, op){
       $("#status").attr({readonly:false,disabled:false});
       $("#sort").attr({readonly:false,disabled:false});
       $("#content").attr({readonly:false,disabled:false});
+      $("#thumbnail_image").attr({readonly:false,disabled:false});
       $("#intro").attr({readonly:false,disabled:false});
       $("type_id").attr({readonly:false,disabled:false});
       $("#create_user").attr({readonly:false,disabled:false});
@@ -492,7 +513,7 @@ $('#admin-article-content-form').bind('submit', function(e) {
         dataType:"json",
         url: action,
         data:{id:id},
-        success: function(value) 
+        success: function(value)
         {
             if(value.errno == 0){
                 $('#edit_dialog').modal('hide');
@@ -503,7 +524,7 @@ $('#admin-article-content-form').bind('submit', function(e) {
                 var json = value.data;
                 for(var key in json){
                     $('#' + key).attr({'data-placement':'bottom', 'data-content':json[key], 'data-toggle':'popover'}).addClass('popover-show').popover('show');
-                    
+
                 }
             }
 
@@ -511,14 +532,45 @@ $('#admin-article-content-form').bind('submit', function(e) {
     });
 });
 
-var $modalElement = this.$element;  
-$(document).on('focusin.modal', function (e) {  
-    var $parent = $(e.target.parentNode);  
+
+$('#admin-article-content-form').bind('submit', function(e) {
+    e.preventDefault();
+    var id = $("#id").val();
+    var action = id == "" ? "<?=Url::toRoute('admin-article-content/create')?>" : "<?=Url::toRoute('admin-article-content/update')?>";
+    $(this).ajaxSubmit({
+        type: "post",
+        dataType:"json",
+        url: action,
+        data:{id:id},
+        success: function(value)
+        {
+
+
+            if(value.errno == 0){
+                $('#edit_dialog').modal('hide');
+                admin_tool.alert('msg_info', '添加成功', 'success');
+                window.location.reload();
+            }
+            else{
+                var json = value.data;
+                for(var key in json){
+                    $('#' + key).attr({'data-placement':'bottom', 'data-content':json[key], 'data-toggle':'popover'}).addClass('popover-show').popover('show');
+
+                }
+            }
+
+        }
+    });
+});
+
+var $modalElement = this.$element;
+$(document).on('focusin.modal', function (e) {
+    var $parent = $(e.target.parentNode);
     if ($modalElement[0] !== e.target && !$modalElement.has(e.target).length
-        &&  
-        !$parent.hasClass('cke_dialog_ui_input_select') && !$parent.hasClass('cke_dialog_ui_input_text')) {  
-        $modalElement.focus()  
-    }  
-}); 
+        &&
+        !$parent.hasClass('cke_dialog_ui_input_select') && !$parent.hasClass('cke_dialog_ui_input_text')) {
+        $modalElement.focus()
+    }
+});
 </script>
 <?php $this->endBlock(); ?>

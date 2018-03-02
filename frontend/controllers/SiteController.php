@@ -79,73 +79,20 @@ class SiteController extends Controller
         $schools = AdminSchool::getSchools(['status' => '1'], 7);
         //政策法规
         //$content_a = AdminArticleContent::getArticleContent(['type_id' => '207','status' => '1']);
-        $content_a = AdminArticleContent::find()
-            ->where(['status' => '1', 'type_id' => '207'])
-            ->orderBy('update_date desc')
-            ->limit(7)
-            ->asArray()
-            ->all();
-        //历届高考咨询
-        //$content_b = AdminArticleContent::getArticleContent(['type_id' => '208','status' => '1'],7);
-        $content_b = AdminArticleContent::find()
-            ->where(['status' => '1', 'type_id' => '208'])
-            ->orderBy('update_date desc')
-            ->limit(7)
-            ->asArray()
-            ->all();
-        //关于我们
-        //$content_c = AdminArticleContent::getArticleContent(['type_id' => '209','status' => '1'],7);
-        $content_c = AdminArticleContent::find()
-            ->where(['status' => '1', 'type_id' => '209'])
-            ->orderBy('update_date desc')
-            ->limit(7)
-            ->asArray()
-            ->all();
-        //最新公告
-        //$content_d = AdminArticleContent::getArticleContent(['type_id' => '210','status' => '1'],7);
-        $content_d = AdminArticleContent::find()
-            ->where(['status' => '1', 'type_id' => '210'])
-            ->orderBy('update_date desc')
-            ->limit(7)
-            ->asArray()
-            ->all();
-        //靠前准备
-        //$content_e = AdminArticleContent::getArticleContent(['type_id' => '211','status' => '1'],7);
-        $content_e = AdminArticleContent::find()
-            ->where(['status' => '1', 'type_id' => '211'])
-            ->orderBy('update_date desc')
-            ->limit(7)
-            ->asArray()
-            ->all();
-        $i = 0;
-        foreach ($content_a as $key => $value) {
-            $content_a[$key]['update_date'] = date('Y-m-d', strtotime($value['update_date']));
-            $content_a[$key]['n'] = $i++;
-        }
-        foreach ($content_b as $key => $value) {
-            $content_b[$key]['update_date'] = date('Y-m-d', strtotime($value['update_date']));
-            $content_b[$key]['n'] = $i++;
-        }
-        foreach ($content_c as $key => $value) {
-            $content_c[$key]['update_date'] = date('Y-m-d', strtotime($value['update_date']));
-            $content_c[$key]['n'] = $i++;
-        }
-        foreach ($content_d as $key => $value) {
-            $content_d[$key]['update_date'] = date('Y-m-d', strtotime($value['update_date']));
-            $content_d[$key]['n'] = $i++;
-        }
-        foreach ($content_e as $key => $value) {
-            $content_e[$key]['update_date'] = date('Y-m-d', strtotime($value['update_date']));
-            $content_e[$key]['n'] = $i++;
-        }
+        $allTypes = AdminArticleType::find()->where(['status' => 1])->all();
 
+        $articles = [];
+        foreach ($allTypes as $type) {
+            $articles[$type['name']] = $type->getContents()
+                ->where(['status' => 1])
+                ->asArray()
+                ->orderBy('update_date desc')
+                ->limit(7)
+                ->all();
+        }
         return $this->render('index', [
             'schools' => $schools,
-            'content_a' => $content_a,
-            'content_b' => $content_b,
-            'content_c' => $content_c,
-            'content_d' => $content_d,
-            'content_e' => $content_e,
+            'articles' => $articles,
             'username' => $session['username'],
             'password' => $session['password'],
             'img' => app()->cache->get('index_cache'),

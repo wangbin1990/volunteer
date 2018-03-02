@@ -37,7 +37,7 @@ class AdminArticleContent extends \backend\models\BaseModel
             [['create_date', 'update_date'], 'safe'],
             [['content','intro'], 'string'],
             [['type_id'], 'integer'],
-            [['status', 'create_user', 'update_user'], 'string', 'max' => 50],
+            [['status', 'create_user', 'update_user', 'thumbnail_image'], 'string', 'max' => 50],
             [['sort'], 'string', 'max' => 15]
         ];
     }
@@ -59,6 +59,7 @@ class AdminArticleContent extends \backend\models\BaseModel
             'content' => '文章内容',
             'intro' => '文章简介',
             'type_id' => '类型ID ',
+            'thumbnail_image' => '文章简介图',
         ];
     }
 
@@ -70,6 +71,7 @@ class AdminArticleContent extends \backend\models\BaseModel
             ->asArray()
             ->all();
     }
+
 
   /**
      * 返回数据库字段信息，仅在生成CRUD时使用，如不需要生成CRUD，请注释或删除该getTableColumnInfo()代码
