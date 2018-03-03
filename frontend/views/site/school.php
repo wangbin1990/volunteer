@@ -130,15 +130,9 @@ $this->params['breadcrumbs'] =[
 			})
 		}
 	});
-</script>
-						
-			
-			
-			
-                
-                    <div>
-                    
-                    <div class="row">
+</script>             
+                    <div>               
+<!--                     <div class="row">
                         <div class="" style="margin:0 auto;width:620px;">
                         <p>2010-2016年录取分数线情况</p>
                         <table cellspacing="0" class="table table-bordered table-striped">
@@ -223,7 +217,7 @@ $this->params['breadcrumbs'] =[
                             </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- 曲线图 -->
                     <div>
                             <div class="detail-section" style="width:300px;float:left;">

@@ -36,34 +36,34 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => [
-                    'logout',
-                    'lsucc',
-                    //'school-list',
-                    'simulate',
-                ],
-                'rules' => [
-                    [
-                        'actions' => [
-                            'logout',
-                            'lsucc',
-                            'school-list',
-                            'simulate',
-                        ],
-                        'allow' => true,
-                        'roles' => [
-                            '@'
-                        ]
-                    ]
-                ]
-            ],
-        ];
-    }
+    // public function behaviors()
+    // {
+    //     return [
+    //         'access' => [
+    //             'class' => AccessControl::className(),
+    //             'only' => [
+    //                 'logout',
+    //                 'lsucc',
+    //                 //'school-list',
+    //                 'simulate',
+    //             ],
+    //             'rules' => [
+    //                 [
+    //                     'actions' => [
+    //                         'logout',
+    //                         'lsucc',
+    //                         'school-list',
+    //                         'simulate',
+    //                     ],
+    //                     'allow' => true,
+    //                     'roles' => [
+    //                         '@'
+    //                     ]
+    //                 ]
+    //             ]
+    //         ],
+    //     ];
+    // }
 
 
     /**
@@ -245,7 +245,7 @@ class SiteController extends Controller
     public function actionLsucc()
     {
         $session = Yii::$app->session;
-        if (!app()->user->isGuest) {
+        // if (!app()->user->isGuest) {
             $schoolObj = new AdminSchool();
             $cate = $schoolObj->getCateByName($schoolObj->getRelitaveName('batch'));
             $spec = $schoolObj->getSpecByName($schoolObj->getRelitaveName('spec'));
@@ -259,9 +259,10 @@ class SiteController extends Controller
                 'spec' => $spec,
                 'mold' => $mold,
             ]);
-        } else {
-            echo "<h1><a href='index'>非法访问，请前往首页登录！</a></h1>";
-        }
+        // } 
+        // else {
+        //     echo "<h1><a href='index'>非法访问，请前往首页登录！</a></h1>";
+        // }
     }
 
     /**

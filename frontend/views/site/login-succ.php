@@ -14,19 +14,14 @@ $this->params['breadcrumbs'] =[
 ?>
 
 <!-- header -->
-<?php include 'header.php';?>
 
-<!-- content -->
 <div id="content">
-    <div class="container">
-        <div class="wrapper">
-            <div class="mainContent" style="width: auto;">
-                <div class="article">
-                    <p style="font-size: 36px;line-height: 1.2em;margin-bottom: 10px;text-align:center;">欢迎来到贵州高考志愿咨询数据平台</p>
-                    <hr style="margin-bottom:20px;">
-                </div>
-                <div class="demo-content">
-                    <form class="" action="<?=Url::toRoute('site/school-list')?>">
+     <div class="list-banner" style="background-image:url(http://localhost/frontend/web/images/list-banner.jpg);height:300px" ></div>
+     <div class="main">
+         <div class="container">
+               <h3>选择学校</h3>
+                 <form class="" action="<?=Url::toRoute('site/school-list')?>">
+               <div class="list-comparison comparison01">
                         <div class="row">
                           <div class="control-group" style="margin: 0 auto;padding-bottom: 10px;width:166px;">
                             <label class="control-label"><?= $cate['name'] ?>：</label>
@@ -42,14 +37,13 @@ $this->params['breadcrumbs'] =[
                           </div>
                         </div>
 
-
-                      <div class="row">
+                                              <div class="row">
                           <div class="control-group" style="margin: 0 auto;padding-bottom: 10px;width:166px;">
                             <label class="control-label"><?= $spec['name'] ?>：</label>
                             <div class="controls" style="width:168px">
                               <select name="spec" class="input-normal"> 
                                  <?php if(!empty($spec)):?>
-								    <option value="null" selected="true">全部</option>
+                    <option value="null" selected="true">全部</option>
                                     <?php foreach($spec['children'] as $item):?>
                                     <option value="<?= $item['id'] ?>"><?= $item['name']?></option>
                                     <?php endforeach;?>
@@ -82,8 +76,9 @@ $this->params['breadcrumbs'] =[
                             </div>
                         </div>
                     </form>
+          <div class="clearfix"></div>
                 </div>
-            </div>
-        </div>
-    </div>
+         </div>
+
+     </div>
 </div>

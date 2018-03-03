@@ -67,7 +67,7 @@
 }
 
 .login-bg .login .form {
-	width: 320px;
+	/*width: 320px;*/
 	height: 365px;
 	background-color: #fff;
 	border-radius: 3px;
@@ -252,7 +252,7 @@
 }
 
 .index-banner.index-banner__page .login .form {
-	width: 320px;
+	/*width: 320px;*/
 	height: 365px;
 	background-color: #fff;
 	border-radius: 3px;

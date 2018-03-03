@@ -4,6 +4,6 @@ return [
     'url' => [
         'image' => 'css/images',
     ],
-    'adminImgUrl' => 'http://admin.volunteer.com',
+    'adminImgUrl' => 'localhost/backend/web/index.php',
 
 ];

@@ -58,7 +58,7 @@ $this->params['breadcrumbs'] =[
           <tr>
             <?php foreach($years as $year):?>
             <th style="text-align:center;"><?= $year?><br>
-			    
+          
                   <strong style="color:red;font-size:10px;">分差</strong>
                    |
                    <strong style="color:#20B2AA;font-size:10px;">计划数</strong>

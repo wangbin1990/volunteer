@@ -12,7 +12,7 @@
                 <fieldset id="J-index-banner-login" data-action="">
                     <div class="collection">
                         <div class="action">
-                            <a href="/sjdb1.html"><button id="J-index-banner-login-submit" class="g-button g-button-main" type="button">免&nbsp;&nbsp;费&nbsp;&nbsp;登&nbsp;&nbsp;录</button></a>
+                            <a href="http://www.gzgkzysjpt.com/frontend/web/index.php/site/lsucc"><button id="J-index-banner-login-submit" class="g-button g-button-main" type="button">免&nbsp;&nbsp;费&nbsp;&nbsp;登&nbsp;&nbsp;录</button></a>
                         </div>
                         <div class="action">
                             <button id="login-submit-btn" class="g-button g-button-main" type="button">会&nbsp;&nbsp;员&nbsp;&nbsp;登&nbsp;&nbsp;录</button>
