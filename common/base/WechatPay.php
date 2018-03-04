@@ -29,9 +29,10 @@ class WechatPay extends \yii\base\Component {
      * @param $memberId
      * @param $totalFee
      * @param $remark
+     * @param $name
      * @return mixed
      */
-    public function goPay($memberId, $totalFee, $remark = '')
+    public function goPay($memberId, $totalFee, $remark = '', $name = '')
     {
         $notify = new NativePay();
         $input = new WxPayUnifiedOrder();
@@ -46,9 +47,9 @@ class WechatPay extends \yii\base\Component {
         $input->SetTrade_type("NATIVE");
         $input->SetNotify_url(app()->params['wxPayNotifyUrl'] . 'api/wxpay-notify'); //回调地址写成前台的地址
         $input->SetProduct_id("123456789");
-
+        $name = $name ?: app()->user->uname;
         //业务参数
-        $attach = implode(';', [$memberId, app()->user->uname, $remark]);
+        $attach = implode(';', [$memberId, $name, $remark]);
         $input->SetAttach($attach);
         $input->SetTotal_fee($totalFee * 100);
 

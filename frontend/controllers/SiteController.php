@@ -36,34 +36,36 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
-    // public function behaviors()
-    // {
-    //     return [
-    //         'access' => [
-    //             'class' => AccessControl::className(),
-    //             'only' => [
-    //                 'logout',
-    //                 'lsucc',
-    //                 //'school-list',
-    //                 'simulate',
-    //             ],
-    //             'rules' => [
-    //                 [
-    //                     'actions' => [
-    //                         'logout',
-    //                         'lsucc',
-    //                         'school-list',
-    //                         'simulate',
-    //                     ],
-    //                     'allow' => true,
-    //                     'roles' => [
-    //                         '@'
-    //                     ]
-    //                 ]
-    //             ]
-    //         ],
-    //     ];
-    // }
+     public function behaviors()
+     {
+         return [
+             'access' => [
+                 'class' => AccessControl::className(),
+                 'only' => [
+                     'logout',
+                     'lsucc',
+                     'school-list',
+                     'simulate',
+                     'get-pay-code',
+                 ],
+                 'rules' => [
+                     [
+                         'actions' => [
+                             'logout',
+                             'lsucc',
+                             'school-list',
+                             'simulate',
+                             'get-pay-code'
+                         ],
+                         'allow' => true,
+                         'roles' => [
+                             '@'
+                         ]
+                     ]
+                 ]
+             ],
+         ];
+     }
 
 
     /**
@@ -551,5 +553,33 @@ class SiteController extends Controller
                 'pagination' => $pagination,
             ]);
         }
+    }
+
+    /**
+     * 异步获取支付信息
+     *
+     * @param $amount
+     * @param $remark
+     * @return array
+     */
+    public function actionGetPayCode($amount, $remark = '')
+    {
+        app()->response->format = Response::FORMAT_JSON;
+        if (!is_numeric($amount) || $amount <= 0) {
+            return [
+                'data' => [],
+                'message' => '金额错误',
+                'code' => -1,
+            ];
+        }
+        if (!AdminMember::findOne(app()->user->id)) {
+            return [
+                'data' => [],
+                'message' => '会员不存在',
+                'code' => -1,
+            ];
+        }
+
+        return app()->wxpay->goPay(app()->user->id, $amount, $remark, app()->user->name);
     }
 }

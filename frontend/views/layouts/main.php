@@ -56,6 +56,7 @@ AppAsset::register($this);
     $(document).ready(function(){
         $(".login-close-btn a").click(function(){
             $(".login-bg").hide();
+            $(".login-balance-bg").hide();
         });
         $(".user .login a").click(function(){
             $(".login-bg").show();
@@ -63,6 +64,11 @@ AppAsset::register($this);
         $("#login-submit-btn").click(function(){
             $(".login-bg").show();
         })
+
+        $(".user .add_balance").click(function(){
+            $(".login-balance-bg").show();
+        })
+
     });
 
 
@@ -91,7 +97,30 @@ AppAsset::register($this);
         }
     });
 
+    //获取支付图片
+    function getPayCode (amount, remark)
+    {
+        $.ajax({
+            type: "GET",
+            url: "<?=\yii\helpers\Url::toRoute('site/get-pay-code')?>",
+            data: {"amount":amount, "remark":remark},
+            cache: false,
+            dataType:"json",
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                admin_tool.alert('msg_info', '出错了，' + textStatus, 'warning');
+            },
+            success: function(data){
+                if (data.code !== 0) {
+                    alert(data.message);
+                    return;
+                }
+                var url ="http://paysdk.weixin.qq.com/example/qrcode.php?data=" + encodeURIComponent(data.data);
+                $('#payImage').css('display', 'block');
+                $('#payImage').attr('src', url);
 
+            }
+        });
+    }
 </script>
 
 <!--共用-边工具条 end-->

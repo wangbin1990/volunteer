@@ -12,6 +12,8 @@
                             <span><a href="#" title="免费注册">[免费注册]</a></span>
                         <?php else:?>
                             <span ><a href="javascript:vido(0)" title="已登录"><i></i>您好， [<?= app()->user->name;?>]</a>&nbsp;</span>
+                            <span><a href="javascript:vido(0)" title="余额">[余额：<?= app()->user->wallet_balance ?>]</a></span>
+                            <span class="add_balance"><a href="javascript:vido(0)" title="充值">[充值]</a></span>
                             <span><a href="<?= \yii\helpers\Url::to('site/logout')?>" title="登出">[登出]</a></span>
                         <?php endif;?>
                     </li>
@@ -110,6 +112,61 @@
                     <button id="J-index-banner-login-submit" class="g-button g-button-main" type="button">登&nbsp;&nbsp;录</button>
                 </div>
                 <div class="other"> <a class="qq" href="#">快速开通<i></i></a> <a class="register" href="/register">免费注册</a> </div>
+            </fieldset>
+        </div>
+        <div class="bg bg_bottom"></div>
+    </div>
+</div>
+
+<div class="login-balance-bg">
+    <div class="login">
+        <div class="bg bg_top">
+            <div class="login-close-btn"><a href="javascript:vido(0)">X</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form">
+            <h2>扫码支付</h2>
+            <fieldset id="J-index-banner-login" data-action="/login">
+                <div class="collection">
+                    <div class="portion name">
+                        <dl>
+                            <dt></dt>
+                            <dd>
+                                <label><i></i></label>
+                                <input id="name" class="g-input input_clear" readonly type="text" name="username" placeholder="账号" value="<?= app()->user->name?>" required data-validator="请输入账号">
+                                <span class="clear"></span> </dd>
+                        </dl>
+                    </div>
+                    <div class="portion password">
+                        <dl>
+                            <dt></dt>
+                            <dd>
+                                <label><i></i></label>
+                                <input id="banlance" class="g-input input_clear" type="text" name="password" placeholder="金额" value="" required data-validator="请输入密码">
+                                <span class="clear"></span> </dd>
+                        </dl>
+                    </div>
+                    <div class="portion password">
+                        <dl>
+                            <dt></dt>
+                            <dd>
+                                <label><i></i></label>
+                                <input id="remark" class="g-input input_clear" type="text" name="remark" placeholder="备注" value="" required data-validator="请输入密码">
+                                <span class="clear"></span> </dd>
+                        </dl>
+                    </div>
+                    <div class="portion password">
+                        <dl>
+                            <dt></dt>
+                            <dd>
+                                <img id="payImage" alt="模式二扫码支付" src="" style="width: 150px; height: 150px; display: none; margin: 0px auto;">
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="action">
+                    <button id="J-index-banner-login-submit" class="g-button g-button-main" type="button"  onclick="return getPayCode($('#banlance').val(), $('#remark').val())" >确&nbsp;&nbsp;定</button>
+                </div>
             </fieldset>
         </div>
         <div class="bg bg_bottom"></div>
