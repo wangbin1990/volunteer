@@ -12,7 +12,7 @@ $this->title = '贵州高考志愿咨询数据平台';
 <div class="clear"></div>
 
         <div id="content">
-             <div class="list-banner" style="background-image:url(http://localhost/frontend/web/images/list-banner.jpg);height:300px" ></div>
+             <div class="list-banner" style="background-image:url(/frontend/web/images/list-banner.jpg);height:300px" ></div>
     <div class="container" style="width: 1200px;padding-top: 20px;">
         <div class="wrapper">
             <div class="mainContent" style="width: auto;">

@@ -55,8 +55,8 @@ select,input{height: 30px;border: 1px solid #ccc;border-radius: 5px;padding: 2px
 .main .list-news ul li{margin: 35px 0;border-bottom:1px solid #ccc;padding-bottom: 15px;}
 .main .list-news .imgs{float: left;width:300px;}
 .main .list-news .imgs img{width:280px;}
-.main .list-news .text {float: left;width:75%;}
-.main .list-news .list-new-date {margin: 10px 0;font-weight: 600;width:80%;float: left;}
+/*.main .list-news .text {float: left;width:75%;}*/
+.main .list-news .list-new-date {margin: 10px 0;font-weight: 600;float: left;}
 .main .list-news .list-new-more {width:20%;float: right;margin: 10px 0;text-align: right;}
 .main .list-news .news-content {margin: 35px 0}
 .main .list-comparison{margin: 30px 0;}
