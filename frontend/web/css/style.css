@@ -12,8 +12,8 @@ select,input{height: 30px;border: 1px solid #ccc;border-radius: 5px;padding: 2px
 .main-moni ul li{float: left;width:25%;line-height: 18px;text-align: center;}
 .main-moni ul li span{font-size: 18px;line-height: 18px;font-weight: 700;color:#ed0202}
 .main-moni .btn-box{margin: 35px auto;text-align: center;}
-.main-moni .btn{width: 85px;height: 35px;line-height: 35px;background:#ed0202;color:#fff; border: 0;border-radius:5px;}
-.main-moni .btn:hover{width: 85px;height: 35px;line-height: 35px;background:#870707;color:#fff; border: 0;border-radius:5px;}
+.main-moni .btn{width: 85px;height: 35px;line-height: 23px;background:#ed0202;color:#fff; border: 0;border-radius:5px;}
+.main-moni .btn:hover{width: 85px;height: 35px;line-height: 23px;background:#870707;color:#fff; border: 0;border-radius:5px;}
 
 .main-moni .fencha-box{position: fixed;width: 100%;height: 100%;background: rgba(13, 13, 13, 0.45);top:0;left:0;z-index: 9999;display: none}
 .main-moni .fencha-box .fenccha-nei{position: relative;width: 100%;height: 100%;}

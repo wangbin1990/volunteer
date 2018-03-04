@@ -25,7 +25,7 @@ $this->params['breadcrumbs'] =[
             <div class="list-comparison comparison02">
                 <form id ="searchForm" action=""  method="post">
                     <div class="area fl">
-                        <h4>地区：</h4>
+                        <label>地区：</label>
                         <select name="location_id">
                             <option value=0 <?php if($location_id == 0):?>selected=selected<?php endif;?>>请选择</option>
                             <?php foreach($locationCate['children'] as $location):?>
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'] =[
                         <button onclick="$('#searchForm').submit()";">确定</button>
                     </div>
                     <div class="fencha fl">
-                        <h4>分差：</h4>
+                        <label>分差：</label>
                         <input type="text" <?php if(isset($params[':low_score'])):?>value="<?= $params[':low_score']?>" <?php endif;?> name="lowScore" placeholder="最低分差">
                         ——
                         <input type="text" <?php if(isset($params[':high_score'])):?>value="<?= $params[':high_score']?>" <?php endif;?> name="highScore" placeholder="最高分差">

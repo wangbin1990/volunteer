@@ -23,30 +23,30 @@
     <div class="navMenu m-menu">
         <div class="g-wrapper">
             <div class="info">
-                <h2 class="logo"> <a href="/" title=""><img src="<?= \yii\helpers\Url::to('@web/images/logo.png')?>" alt="" width="257"></a> </h2>
+                <h2 class="logo"> <a href="/frontend/web" title=""><img src="<?= \yii\helpers\Url::to('@web/images/logo.png')?>" alt="" width="257"></a> </h2>
             </div>
             <div class="navbar">
                 <ul class="cf nav-wrap">
-                    <li data-homepage><a href="/" title="首页">首页</a></li>
-                    <li data-learning> <a href="sjdb1.html" title="数据查询">数据查询<i></i></a>
+                    <li data-homepage><a href="/frontend/web" title="首页">首页</a></li>
+                    <li data-learning> <a href="/frontend/web/index.php/site/lsucc" title="数据查询">数据查询<i></i></a>
                         <div class="submenu-pop submenu-fln">
                             <ul class="cf">
-                                <li><a href="lnfsx.html" title="历年分数线">历年分数线</a></li>
-                                <li><a href="sjdb1.html" title="中国名校展播">学校查询</a></li>
-                                <li><a href="sjdb1.html" title="自我评估">分差查询</a></li>
+                                <li><a href="#" title="历年分数线">历年分数线</a></li>
+                                <li><a href="/frontend/web/index.php/site/lsucc" title="中国名校展播">学校查询</a></li>
+                                <li><a href="/frontend/web/index.php/site/lsucc" title="自我评估">分差查询</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li data-learning> <a href="sjdb1.html" title="院校数据对比">院校数据对比</a> </li>
-                    <li data-zhiyuan> <a href="zymn1.html" title="志愿填报">志愿模拟</a> </li>
-                    <li data-helpcenter> <a href="news1.html" title="新闻资讯">新闻资讯<i></i></a>
+                    <li data-learning> <a href="/frontend/web/index.php/site/lsucc" title="院校数据对比">院校数据对比</a> </li>
+                    <li data-zhiyuan> <a href="/frontend/web/index.php/site/volunteer-simulation" title="志愿填报">志愿模拟</a> </li>
+                    <li data-helpcenter> <a href="/frontend/web/index.php/site/article-list" title="新闻资讯">新闻资讯<i></i></a>
                         <div class="submenu-pop submenu-fln submenu-help">
                             <ul>
-                                <li><a href="news1.html" title="最新公告">最新公告</a></li>
-                                <li><a href="news1.html" title="关于志愿">关于志愿</a></li>
-                                <li><a href="news1.html" title="历届高考资讯">历届高考资讯</a></li>
+                                <li><a href="/frontend/web/index.php/site/article-list" title="最新公告">最新公告</a></li>
+                                <li><a href="/frontend/web/index.php/site/article-list" title="关于志愿">关于志愿</a></li>
+                                <li><a href="/frontend/web/index.php/site/article-list" title="历届高考资讯">历届高考资讯</a></li>
                                 <li class="key-green"><a href="news1.html" title="前准备">考前准备<i></i></a></li>
-                                <li><a href="news1.html" title="新闻动态">新闻动态</a></li>
+                                <li><a href="/frontend/web/index.php/site/article-list" title="新闻动态">新闻动态</a></li>
                             </ul>
                         </div>
                     </li>

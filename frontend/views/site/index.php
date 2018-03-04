@@ -12,7 +12,7 @@
                 <fieldset id="J-index-banner-login" data-action="">
                     <div class="collection">
                         <div class="action">
-                            <a href="http://www.gzgkzysjpt.com/frontend/web/index.php/site/lsucc"><button id="J-index-banner-login-submit" class="g-button g-button-main" type="button">免&nbsp;&nbsp;费&nbsp;&nbsp;登&nbsp;&nbsp;录</button></a>
+                            <a href="/frontend/web/index.php/site/lsucc"><button id="J-index-banner-login-submit" class="g-button g-button-main" type="button">免&nbsp;&nbsp;费&nbsp;&nbsp;登&nbsp;&nbsp;录</button></a>
                         </div>
                         <div class="action">
                             <button id="login-submit-btn" class="g-button g-button-main" type="button">会&nbsp;&nbsp;员&nbsp;&nbsp;登&nbsp;&nbsp;录</button>
@@ -56,22 +56,22 @@
         <div class="bd">
             <div class="g-wrapper">
                 <ul class="service-list cf">
-                    <li><a href="/zymn1.html">
+                    <li><a href="/frontend/web/index.php/site/volunteer-simulation">
                             <div class="icon"><i></i><span class="g-iconfont">&#57367;</span></div>
                             <h3>志愿模拟</h3>
                             <p>多种填报模式，99.9%成功率</p>
                         </a></li>
-                    <li><a href="sjdb1.html">
+                    <li><a href="/frontend/web/index.php/site/lsucc">
                             <div class="icon"><i></i><span class="g-iconfont">&#57368;</span></div>
                             <h3>历年数据查询</h3>
                             <p>5年官方权威数据</p>
                         </a> </li>
-                    <li><a href="sjdb1.html">
+                    <li><a href="/frontend/web/index.php/site/lsucc">
                             <div class="icon"><i></i><span class="g-iconfont">&#57369;</span></div>
                             <h3>按地区筛选学校</h3>
                             <p>地区精准定位筛选</p>
                         </a></li>
-                    <li> <a href="sjdb1.html">
+                    <li> <a href="/frontend/web/index.php/site/lsucc">
                             <div class="icon"><i></i><span class="g-iconfont">&#57376;</span></div>
                             <h3>按分差筛选学校</h3>
                             <p>历年院校分差数据</p>
@@ -106,9 +106,10 @@
                             <li class="cont--left">
                                 <?php $leftArticle = array_shift($oneArticles);?>
                                 <div class="left--pic"><img src="<?= app()->params['adminImgUrl'] . $leftArticle['thumbnail_image']?>" width="356" height="236" alt="中国大学十大失宠专业排行榜出炉！"/></div>
-                                <h3><?= mb_substr($leftArticle['title'], 0 , 19) . '...';?></h3>
+                                <h3 style="width:356px;overflow:hidden;text-overflow:ellipsis; "><?= $leftArticle['title'];?></h3>
                                 <p>时间：<?= $leftArticle['update_date']?></p>
-                                <div class="left--txt"> <?= mb_substr($leftArticle['intro'], 0 , 55) . '...'; ?>
+                                <div class="left--txt" style="width:356px;overflow:hidden;text-overflow:ellipsis;display: -webkit-box;
+    -webkit-line-clamp: 3;-webkit-box-orient: vertical;"> <?= $leftArticle['intro']; ?>
                                     [<a href="<?= \yii\helpers\Url::toRoute("site/article/{$leftArticle['id']}")?>">查看全文</a>] </div>
                             </li>
                             <!--右侧-->
@@ -119,8 +120,10 @@
                                             <dl>
                                                 <dt><img src="<?= app()->params['adminImgUrl'] . $article['thumbnail_image']?>" width="150" height="100" alt=""/></dt>
                                                 <dd>
-                                                    <h4><?php echo mb_substr($article['title'], 0 , 19) . '...';?></h4>
-                                                    <p> <?= mb_substr($article['intro'], 0 , 55) . '...'; ?></p>
+                                                    <h4 style="width:150px;overflow:hidden;text-overflow:ellipsis;display: -webkit-box;
+    -webkit-line-clamp: 2;-webkit-box-orient: vertical; "><?= $article['title'];?></h4>
+                                                    <p style="width:150px;overflow:hidden;text-overflow:ellipsis;display: -webkit-box;
+    -webkit-line-clamp: 3;-webkit-box-orient: vertical;"> <?= $article['intro']; ?></p>
                                                 </dd>
                                             </dl>
                                         </a>
@@ -132,7 +135,7 @@
                     </div>
                     <?php endforeach;?>
                 </div>
-                <div class="index-article__button"> <a class="g-button g-button-dark-line" href="/news">查看更多</a> </div>
+                <div class="index-article__button"> <a class="g-button g-button-dark-line" href="/frontend/web/index.php/site/article-list">查看更多</a> </div>
             </div>
             <?php endif;?>
         </div>

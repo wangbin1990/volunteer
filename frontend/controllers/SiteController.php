@@ -203,6 +203,14 @@ class SiteController extends Controller
     }
 
     /**
+     * 志愿模拟
+     */
+    public function actionVolunteerSimulation()
+    {
+        return $this->render('volunteer-simulation');
+    }
+
+    /**
      * 登录后，跳转
      *
      */
@@ -510,7 +518,7 @@ class SiteController extends Controller
         foreach ($articles as $key => $value) {
             $articles[$key]['update_date'] = date('Y-m-d', strtotime($value['update_date']));
         }
-        //dump(i_array_column($types,'name', 'id'));
+        // dump(i_array_column($types,'name', 'id'));
         return $this->renderpartial('article-list', [
             'articles' => $articles,
             'types' => i_array_column($types, 'name', 'id'),
