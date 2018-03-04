@@ -521,7 +521,7 @@ class SiteController extends Controller
             $articles[$key]['update_date'] = date('Y-m-d', strtotime($value['update_date']));
         }
         // dump(i_array_column($types,'name', 'id'));
-        return $this->renderpartial('article-list', [
+        return $this->render('article-list', [
             'articles' => $articles,
             'types' => i_array_column($types, 'name', 'id'),
             'pagination' => $pagination,
