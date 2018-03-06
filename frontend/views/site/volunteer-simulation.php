@@ -39,7 +39,7 @@ $this->title = '贵州高考志愿咨询数据平台';
                             <div class="text">
                              <p>您的分数线已经超过2018年一本线：</p>
                              <h1>65 分</h1>
-                             <div class="btn-box"><a href="#"><button type="submit" class="btn submit02">确定</button></a></div>
+                             <div class="btn-box"><a href="/frontend/web/index.php/site/select-school"><button type="submit" class="btn submit02">确定</button></a></div>
                             </div>
                             <div class="close-btn"><a href="javascript:vido(0)">X</a></div>
                        </div>
@@ -90,8 +90,7 @@ $this->title = '贵州高考志愿咨询数据平台';
               alert("请输入正确的分数!");
            }
            else{
-              alert("志愿模拟正在开发中");
-            // $(".fencha-box").show();
+             $(".fencha-box").show();
            }
            });
          $(".close-btn").click(function(){

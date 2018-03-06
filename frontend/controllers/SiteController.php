@@ -213,6 +213,14 @@ class SiteController extends Controller
     }
 
     /**
+     * 志愿模拟进入选择学校页面
+     */
+    public function actionSelectSchool()
+    {
+        return $this->render('select-school');
+    }
+
+    /**
      * 登录后，跳转
      *
      */
