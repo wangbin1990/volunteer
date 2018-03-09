@@ -24,11 +24,11 @@ $this->params['breadcrumbs'] =[
    
 ]
 ?>
-<!-- header -->
-<?php include 'header.php';?>
 <!-- content -->
 <div id="content">
+    <div class="list-banner"><img src="/frontend/web/images/list-banner.jpg" alt=""></div>
     <div class="container">
+    <h3 style="padding-top:20px;">数据对比</h3>
         <div class="wrapper">
             <div class="mainContent" style="width: auto;">
           <div class="row">
@@ -37,17 +37,15 @@ $this->params['breadcrumbs'] =[
       <form class="form-horizontal">
         <div class="row show-grid" style="background:#13140D1A;">
           <div class="span8" style="width: 218px;padding-top: 6px;padding-left: 6px;">
-                     <span style="font-size: 28px;line-height: 1.2em;color: #000;font-weight: 600;">模拟志愿</span>
                      <?php if(!$isCompare): ?><span id="print">打印</span><?php endif;?>
           </div>
         </div>
       </form>
     </div>
   </div>
-  <hr/>
-<div class="row">
+<div class="row" style="padding-top:20px;">
 <div style="margin: 0 auto;">
-  <div class="span12 offset3 doc-content" style="width:  888px;margin-left: 52px;">
+  <div class="span12 offset3 doc-content">
       <table class="table table-striped table-bordered table-condensed">
         <thead>
           <tr>
@@ -62,7 +60,7 @@ $this->params['breadcrumbs'] =[
                   <strong style="color:red;font-size:10px;">分差</strong>
                    |
                    <strong style="color:#20B2AA;font-size:10px;">计划数</strong>
-                  <br>
+                   |
                    <strong style="color:#3CB371;font-size:10px;">排位</strong></td> 
             </th>
             <?php endforeach;?>
@@ -87,7 +85,7 @@ $this->params['breadcrumbs'] =[
                   <?php else:?>
                     <strong style="color:#20B2AA;">0</strong>
                    <?php endif;?>
-                   <br>
+                   |
                    <?php if(!empty($diff_score['rank'])):?>
                    <strong style="color:#3CB371"><?= $diff_score['rank']?></strong></td> 
                    <?php else:?>

@@ -67,13 +67,12 @@ $this->params['breadcrumbs'] =[
                 </div>
 
             </div>
-
-        </div>
         <?php
         echo LinkPager::widget([
             'pagination' => $pagination,
         ]);
         ?>
+        </div>
     </div>
 </div>
 
