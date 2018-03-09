@@ -245,3 +245,19 @@ INSERT  INTO `admin_user_role`(`id`,`user_id`,`role_id`,`create_user`,`create_da
 
 ALTER TABLE `admin_article_content`
 ADD COLUMN `thumbnail_image`  varchar(255) NOT NULL DEFAULT '' COMMENT '缩略图链接' AFTER `intro`;
+
+
+/*2018年3月7日 17:40:30 添加*/
+CREATE TABLE `admin_batch_score` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `year` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '年份',
+  `batch_no` tinyint(1) unsigned NOT NULL DEFAULT '2' COMMENT '1：一本，2：二本',
+  `score` smallint(4) unsigned NOT NULL DEFAULT '0' COMMENT '分数',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `update_user` varchar(255) NOT NULL DEFAULT '' COMMENT '更新人',
+  `mold` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '科目类型：0文科，1理科，2其他',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_year_batch` (`year`,`batch_no`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+

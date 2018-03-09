@@ -23,7 +23,7 @@ $this->params['breadcrumbs'] =[
         <div class="container">
             <h3>选择学校</h3>
             <div class="list-comparison comparison02">
-                <form id ="searchForm" action=""  method="post">
+                <form id ="searchForm" action=""  method="get">
                     <div class="area fl">
                         <label>地区：</label>
                         <select name="location_id">
@@ -42,12 +42,12 @@ $this->params['breadcrumbs'] =[
                         <button onclick="$('#searchForm').submit()";">确定</button>
                     </div>
                 </form>
-                <div class="comparison02-btn fl"><button >院校数据对比</button></div>
-                <div class="comparison02-moni fr"><button onclick="chkschool();">志愿模拟</button></div>
+                <div class="comparison02-btn fl"><button onclick="chkschool();">院校数据对比</button></div>
+                <div class="comparison02-moni fr"><a href="<?= Url::toRoute('site/volunteer-simulation')?>"><button >志愿模拟</button></a></div>
                 <div class="clearfix"></div>
 
                 <div class="doc-content" style="width:100%">
-                    <form id="submitForm" action="simulate" method="post">
+                    <form id="submitForm" action="<?= Url::toRoute('site/compare-school')?>" method="post">
                         <div class="row-fluid show-grid">
                             <input name='batch' value="<?= $batch?>" type="hidden">
                             <input name='mold' value="<?= $mold?>" type="hidden">
@@ -69,7 +69,11 @@ $this->params['breadcrumbs'] =[
             </div>
 
         </div>
-
+        <?php
+        echo LinkPager::widget([
+            'pagination' => $pagination,
+        ]);
+        ?>
     </div>
 </div>
 

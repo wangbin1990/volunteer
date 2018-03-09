@@ -343,7 +343,7 @@ class AdminSchool extends \backend\models\BaseModel
             ->all();
     }
 
-    public static function getSchoolsByDiffScore($condition, $params = [])
+    public static function getSchoolsByDiffScore($condition, $params = [], $pageNo = 1, $pageSize = 20)
     {
         $sql = 'SELECT DISTINCT(a.id), a.* FROM admin_school as a
             left join admin_school_score as b on a.id=b.school_id
@@ -376,9 +376,53 @@ class AdminSchool extends \backend\models\BaseModel
                 $sql .= ' GROUP BY a.id  HAVING max(b.diff_score) < :high_score';
             }
         }
+        $offset = $pageSize * ($pageNo -1);
 
-        $sql .= ' order by a.sort asc';
+        $sql .= " order by a.sort asc limit {$offset}, {$pageSize}";
          //var_dump($sql);die;
+        $condition = array_merge($condition, $params);
+        return app()->db->createCommand($sql)
+            ->bindValues($condition)
+            ->queryAll();
+
+    }
+
+    public static function getSchoolsByDiffScoreCount($condition, $params = [])
+    {
+        $sql = 'SELECT DISTINCT(a.id), a.* FROM admin_school as a
+            left join admin_school_score as b on a.id=b.school_id
+            where 1=1';
+
+        if (!empty($condition[':batch'])) {
+            $sql .= ' and a.batch=:batch';
+        }
+        if (isset($condition[':mold'])) {
+            $sql .= ' and a.mold=:mold';
+        }
+        if (isset($condition[':spec'])) {
+            $sql .= ' and a.spec=:spec';
+        }
+        if (!empty($condition[':location_id'])) {
+            $sql .= ' and a.location=:location_id';
+        }
+        if (!empty($condition['school'])) {
+            $sql .= " and a.name like '%" .$condition['school'] . "%'";
+        }
+        unset($condition['school']);
+
+        if (!empty($params)) {
+            if (isset($params[':low_score']) && isset($params[':high_score'])) {
+
+                $sql .= ' GROUP BY a.id  HAVING min(b.diff_score) between :low_score and :high_score or max(b.diff_score) between :low_score and :high_score';
+            } elseif (isset($params[':low_score'])) {
+                $sql .= ' GROUP BY a.id  HAVING min(b.diff_score) > :low_score';
+            } else {
+                $sql .= ' GROUP BY a.id  HAVING max(b.diff_score) < :high_score';
+            }
+        }
+
+        $sql .= " order by a.sort asc";
+        //var_dump($sql);die;
         $condition = array_merge($condition, $params);
         return app()->db->createCommand($sql)
             ->bindValues($condition)

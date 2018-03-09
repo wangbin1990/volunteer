@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\AdminBatchScore;
 use Yii;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
@@ -44,7 +45,7 @@ class SiteController extends Controller
                  'only' => [
                      'logout',
                      'lsucc',
-                     'school-list',
+                     //'school-list',
                      'simulate',
                      'get-pay-code',
                  ],
@@ -53,7 +54,7 @@ class SiteController extends Controller
                          'actions' => [
                              'logout',
                              'lsucc',
-                             'school-list',
+                             //'school-list',
                              'simulate',
                              'get-pay-code'
                          ],
@@ -217,7 +218,48 @@ class SiteController extends Controller
      */
     public function actionSelectSchool()
     {
-        return $this->render('select-school');
+        if (app()->request->isPost) {
+            //智能填报扣费
+            AdminMember::consumeMoney(4);
+            $data= app()->request->post();
+            $scores = AdminBatchScore::find()
+                ->select('batch_no,score')
+                ->where(['year' => intval($data['year']), 'mold' => intval($data['mold'])] )->asArray()->indexBy('batch_no')->all();
+            if (!$scores) {
+                throw new NotFoundHttpException('找不到当前年份的数据');
+            }
+            if (!isset($data['grade'])) {
+                throw new InvalidParaExcemption('输入的分数为空');
+            }
+
+            if ($data['grade'] < $scores[2]['score']) {
+                throw new InvalidParamException('分数小于二本分数线');
+            } elseif ($data['grade'] > $scores[2]['score'] && $data['grade'] < $scores[1]['score']) {
+                $data['batchIds'] = [6, 7];
+                $batch_3 = intval($data['batch_3']);
+                $data['batch_3'] = $batch_3 = ($batch_3 > 8 || $batch_3 < 0) ? 0 : $batch_3;
+                $data['batch_2'] = $batch_2 = 8 - $batch_3;
+            } elseif ($data['grade'] > $scores[1]['score']) {
+                $data['batchIds'] = [5];
+            }
+
+            $schools = [];
+            foreach ([1, 2 , 3, 4, 5, 6 , 7, 8] as $item) {
+                $data['item'] = $item;
+                if (in_array(6, $data['batchIds'])) {
+                    if($batch_2 >= $item) {
+                        $data['batchIds'] = [6];
+                    } else {
+                        $data['batchIds'] = [7];
+                    }
+                }
+                $schools[$item] = $this->getParallelSchool($data);
+            }
+            $data['schools']  = $schools;
+            return $this->render('select-school', [
+                'data' => $data,
+            ]);
+        }
     }
 
     /**
@@ -308,20 +350,25 @@ class SiteController extends Controller
             $spec = intval($spec);
             $conditions[':spec'] = "{$spec}";
         }
-        $postParams = app()->request->post();
+        $postParams = app()->request->get();
         if (isset($postParams['location_id']) && $postParams['location_id'] > 0) {
+            //按地区筛选扣费
+            AdminMember::consumeMoney(1);
             $location_id = $conditions[':location_id'] = intval($postParams['location_id']);
         }
 
         if (isset($postParams['school'])) {
             $conditions['school'] = \yii\helpers\Html::encode(trim($postParams['school']));
         }
-
         if (isset($postParams['highScore']) && $postParams['highScore'] > 0) {
             $params[':high_score'] = intval($postParams['highScore']);
         }
-        if (isset($postParams['lowScore']) && $postParams['highScore'] > 0) {
+        if (isset($postParams['lowScore']) && $postParams['lowScore'] > 0) {
             $params[':low_score'] = intval($postParams['lowScore']);
+        }
+        if(isset($postParams['highScore']) && $postParams['highScore'] > 0 || isset($postParams['lowScore']) && $postParams['lowScore'] > 0) {
+            //按分bc分差筛选扣费
+            AdminMember::consumeMoney(2);
         }
         if (isset($params[':high_score'])
             && isset($params[':lowScore'])
@@ -342,13 +389,18 @@ class SiteController extends Controller
                 $batchName = $item['name'];
             }
         }
-        $schools = AdminSchool::getSchoolsByDiffScore($conditions, $params);
+        $allSchools = AdminSchool::getSchoolsByDiffScoreCount($conditions, $params);
+        $pagination = new Pagination(['totalCount' => count($allSchools)]);
+
+        $pageNo = (isset($postParams['page']) && $postParams['page']) > 0 ? $postParams['page'] : 1;
+        $schools = AdminSchool::getSchoolsByDiffScore($conditions, $params, intval($pageNo));
+
         if (empty($schools)) {
             app()->session->setFlash('warning', '没有搜索到的学校');
-        }//dump($cate);
+        }
 
         $params['school'] = isset($conditions['school']) ? $conditions['school'] : '';
-        // var_dump($schools);die;
+
         return $this->render('school-list', [
             'schools' => $schools,
             'cate' => $cate,
@@ -358,6 +410,7 @@ class SiteController extends Controller
             'batchName' => $batchName,
             'locationCate' => $locationCate,
             'location_id' => $location_id,
+            'pagination' => $pagination,
         ]);
     }
 
@@ -371,31 +424,7 @@ class SiteController extends Controller
         if (empty($data['school'])) {
             app()->session->setFlash('error', '没有选择模拟的学校');
         } else {
-            $filter_school = adminClickTime::filterSchools($data['school']);
-            if (!empty($filter_school)) {
-                //查询总次数
-                $adminMember = AdminMember::findOne(app()->user->id);
-                if ($adminMember['num'] >= count($filter_school)) {
-                    foreach ($filter_school as $value) {
-                        $clickDate[] = [
-                            app()->user->id,
-                            (int)$value,
-                            time(),
-                        ];
-                    }
-                    $f = Yii::$app->db->createCommand()
-                        ->batchInsert('admin_click_time', ['user_id', 'school_id', 'click_time'], $clickDate)
-                        ->execute();
 
-                    if ($f) {
-                        $adminMember->num = $adminMember['num'] - count($filter_school);
-                        $adminMember->update_date = date('Y-m-d H:i:s', time());
-                        $adminMember->update();
-                    }
-                } else {
-                    throw new InvalidParamException('查看权限次数已用完');
-                }
-            }
             $schools = AdminSchool::getSchools(['in', 'id', $data['school']]);
             if (!empty($schools)) {
                 $scores = AdminSchoolScore::find()
@@ -462,7 +491,96 @@ class SiteController extends Controller
             }
         }
 
+        //院校数据对比
+        //AdminMember::consumeMoney(3);
         return $this->render('simulate', [
+            'isCompare' => 0,
+            'schools' => $schools,
+            'years' => $years,
+            'chart' => $chart,
+            'chart1' => $chart1,
+        ]);
+    }
+
+    /**
+     * 模拟志愿
+     */
+    public function actionCompareSchool()
+    {
+        $data = app()->request->post();
+        if (empty($data['school'])) {
+            app()->session->setFlash('error', '没有选择对比的学校');
+        } else {
+            $schools = AdminSchool::getSchools(['in', 'id', $data['school']]);
+            if (!empty($schools)) {
+                $scores = AdminSchoolScore::find()
+                    ->where(['in', 'school_id', $data['school']])
+                    ->asArray()
+                    ->all();
+                $years = [];
+                foreach ($schools as $key => &$school) {
+                    $school['scores'] = AdminSchool::getScores($school['id']);
+                    $chart[$key]['name'] = $school['name'];
+                    foreach ($school['scores'] as $score) {
+                        $chart[$key]['data'][$score['year']]['diff_score'] = $score['diff_score'];
+                        $chart[$key]['data'][$score['year']]['plan_count'] = $score['plan_count'];
+                        $chart[$key]['data'][$score['year']]['rank'] = $score['rank'];
+                    }
+                    foreach ($school['scores'] as $score) {
+                        $chart2[$key]['data'][$score['year']] = $score['diff_score'];
+                    }
+                    //$chart[$key]['data'] = array_column($school['scores'], 'diff_score');
+                    $years = array_merge(i_array_column($school['scores'], 'year'), $years);
+                }
+                $years = array_unique($years);
+                sort($years);
+                $chart1 = $chart;
+
+                foreach ($years as $year) {
+                    foreach ($chart1 as $k => &$value) {
+                        if (!isset($value['data']) || !in_array($year, array_keys($value['data']))) {
+                            $chart[$k]['data'][$year]['diff_score'] = 0;
+                            $chart[$k]['data'][$year]['plan_count'] = 0;
+                            $chart[$k]['data'][$year]['rank'] = 0;
+                            $value['data'][$year] = 0;
+                        } else {
+                            $value['data'][$year] = $value['data'][$year]['diff_score'];
+                        }
+                        unset($value['data']['diff_score']);
+                        unset($value['data']['plan_count']);
+                        unset($value['data']['rank']);
+                    }
+                }
+                foreach ($chart1 as &$item) {
+                    ksort($item['data']);
+                    $item['data'] = array_values($item['data']);
+                }
+                foreach ($chart as &$item) {
+                    ksort($item['data']);
+                }
+            }
+        }
+        $chart2 = $chart;
+        foreach ($chart as $key => $valuezhao) {
+            $schools_d[$key]['year'] = $valuezhao['data']['2016']["diff_score"];
+            $schools_d[$key]['name'] = $valuezhao['name'];
+        }
+        rsort($schools_d);
+        foreach ($schools_d as $key1 => $value1) {
+            # code...
+            // var_dump($schools_d[$key1]['name']);
+            foreach ($chart2 as $key2 => $value2) {
+                // var_dump($chart2[$key2]['name']);
+                if ($chart2[$key2]['name'] == $schools_d[$key1]['name']) {
+                    $chart[$key1] = $value2;
+                }
+            }
+        }
+
+        //院校数据对比
+        AdminMember::consumeMoney(3);
+        return $this->render('simulate', [
+            'isCompare' => 1,
             'schools' => $schools,
             'years' => $years,
             'chart' => $chart,
@@ -589,5 +707,111 @@ class SiteController extends Controller
         }
 
         return app()->wxpay->goPay(app()->user->id, $amount, $remark, app()->user->name);
+    }
+
+    /**
+     * 获取某年的本科分数线
+     *
+     * @param $year
+     * @param $mold
+     * @return array
+     */
+    public function actionGetBatchScore($year, $mold)
+    {
+        app()->response->format = Response::FORMAT_JSON;
+        $scores = AdminBatchScore::find()
+            ->select('batch_no,score')
+            ->where(['year' => intval($year), 'mold' => intval($mold)])->asArray()->all();
+        if(!$scores) {
+            $molds = [
+                0 => '文科',
+                1 => '理科',
+                2 => '其他科',
+            ];
+            return [
+                'data' => [],
+                'message' => "{$year}年$molds[$mold]分数为空，请联系管理员",
+                'code' => -1,
+            ];
+        }
+        return [
+            'data' => array_column($scores, 'score', 'batch_no'),
+            'message' => 'success',
+            'code' => 0,
+        ];
+    }
+
+    /**
+     * 获取平行志愿的学校
+     *
+     * @return array
+     */
+    public function getParallelSchool($data)
+    {
+        if (!isset($data['mold'], $data['item'], $data['diff_score'], $data['year'])) {
+           throw  new InvalidParamException('参数错误');
+        }
+
+        if ($data['diff_score'] >= 50) {
+            $step = 6;
+        } elseif ($data['diff_score'] >=20 && $data['diff_score'] <=49)  {
+            $step = 5;
+        } elseif ($data['diff_score'] >=0 && $data['diff_score'] <=19) {
+            $step = 4;
+        }
+        $diff_score = $data['diff_score'] + $step;
+        $max_diff =  $diff_score - ($data['item'] - 1) * ($step - 1);
+        $min_diff = $diff_score - ($data['item']) * ($step - 1);
+        $schoolIds = AdminSchoolScore::find()
+            ->select('school_id, diff_score')
+            ->where(['between', 'diff_score', $min_diff, $max_diff])
+            ->andWhere(['mold_id' => $data['mold']])
+            ->andWhere(['year' => $data['year']])
+            ->andWhere(['batch_id' => $data['batchIds']])
+            ->limit(8)
+            ->orderBy('diff_score desc')
+            ->indexBy('school_id')
+            ->asArray()
+            ->all();
+
+        $schools = AdminSchool::find()
+            ->select('id, name, mold, batch')
+            ->where(['id' => array_column($schoolIds, 'school_id')])->indexBy('id')->asArray()->all();
+
+        foreach ($schools as &$school) {
+            $school['diff_score'] = $schoolIds[$school['id']]['diff_score'];
+        }
+
+        return $schools;
+    }
+
+    /**
+     * 查看学校专业分数
+     *
+     * @param int $schoolId
+     * @return array
+     */
+    public function actionGetProfessionalScore($schoolId)
+    {
+        app()->response->format = Response::FORMAT_JSON;
+        $professionalScore = AdminSchool::find()
+            ->select('professional_score')
+            ->where(['id' => intval($schoolId)])
+            ->asArray()
+            ->one();
+        if (!$professionalScore['professional_score']) {
+            return [
+                'data' => [],
+                'message' =>"当前学校不存在专业分数",
+                'code' => -1,
+            ];
+        }
+        //查看专业录取分数扣钱
+        AdminMember::consumeMoney(5);
+        return [
+            'data' => $professionalScore,
+            'message' =>"success",
+            'code' => 0
+        ];
     }
 }

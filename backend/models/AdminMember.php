@@ -1,7 +1,13 @@
 <?php
 namespace backend\models;
 
+use common\exception\FinanceException;
+use common\models\AdminFinance;
+use common\models\AdminFinanceRecord;
 use Yii;
+use yii\base\Exception;
+use yii\web\MethodNotAllowedHttpException;
+
 /**
  * This is the model class for table "admin_user".
  *
@@ -93,5 +99,43 @@ class AdminMember extends BackendUser
             'wallet_create_time' => '充值时间',
             'prefix_name' => '前缀',
         ];
+    }
+
+    /**
+     * 会员消费金额
+     *
+     * @param int $moduleId
+     * @return float
+     */
+    public static function consumeMoney($moduleId)
+    {
+        if (app()->user->isGuest) {
+           throw new FinanceException('查看收费模块，请登录');
+        }
+        $finance = AdminFinance::findOne(['module_id' => $moduleId, 'status' => 1]);
+        if (!$finance) {
+            return 0;
+        }
+
+        $modules = app()->params['charge_module_list'];
+        $balance = app()->user->walletBalance;
+        $fee = $finance->fee;
+        $moduleName = $modules[$moduleId];
+
+        if ($balance < $fee) {
+            throw new FinanceException("余额:{$balance}不足, 无法查看{$moduleName}");
+        }
+        $adminFinanceRecord = new AdminFinanceRecord();
+        $adminFinanceRecord->operate_type = 2;
+        $adminFinanceRecord->member_id = app()->user->id;
+        $adminFinanceRecord->amount = $fee;
+        $adminFinanceRecord->operate_name = app()->user->name;
+        $adminFinanceRecord->order_sn = $moduleId . date('Y-m-d H:i:s', time());
+        $adminFinanceRecord->pay_sn = $moduleId . date('Y-m-d H:i:s', time());;
+        $adminFinanceRecord->ip = app()->request->getUserIP();
+        $adminFinanceRecord->remark = '查看：' . $moduleName . ',花费：'  . $fee;
+        $adminFinanceRecord->save();
+
+        return $finance->fee;
     }
 }

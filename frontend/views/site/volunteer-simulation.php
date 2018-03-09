@@ -16,34 +16,46 @@ $this->title = '贵州高考志愿咨询数据平台';
          <div class="container">
                <h3>志愿模拟</h3>
                <div class="main-moni">
+                   <form id="form" action="<?= Url::toRoute('site/select-school')?>" method="post">
                    <ul>
                        <li><span>年份：</span>
-                           <select>
+                           <select id="year" name="year">
                            <option value ="2018">2018</option>
                            <option value ="2017">2017</option>
-                           <option value ="2017">2016</option>
+                           <option value ="2016">2016</option>
+                           <option value ="2015">2015</option>
+                           <option value ="2014">2014</option>
+                           <option value ="2013">2013</option>
                            </select>
                         </li>
                          <li><span>考分：</span><input type="text" placeholder="考生考分" name="grade" id="grade"></li>
-                       <li><span>文理：</span><select>
-                           <option value ="文">文</option>
-                           <option value ="理">理</option>
+                       <li><span>文理：</span>
+                           <select name="mold" id="mold">
+                               <option value ="0">文</option>
+                               <option value ="1">理</option>
+                               <option value ="2">其他</option>
                            </select>
                        </li>
-                       <li><span>排位：</span><input type="text" placeholder="考生所在省份的排名"></li>
+                       <li><span>排位：</span><input type="text"  name = "sort" placeholder="考生所在省份的排名"></li>
                        <div class="clearfix"></div>
                    </ul>
-                   <div class="btn-box"><button type="submit" class="btn submit01">提 交</button></div>
+                   <div class="btn-box"><input type="button" class="btn submit01"  value="提 交"></div>
                    <div class="fencha-box">
                        <div class="fenccha-nei">
                             <div class="text">
-                             <p>您的分数线已经超过2018年一本线：</p>
-                             <h1>65 分</h1>
-                             <div class="btn-box"><a href="/frontend/web/index.php/site/select-school"><button type="submit" class="btn submit02">确定</button></a></div>
+                             <p id="msg"></p>
+                             <input type="hidden" value="40" id="diff_score" name="diff_score">
+                             <h1 id="diff_grade"> 分</h1>
+                            <div class="batch_2" style="display: none;">
+                             <input type="text"  name="batch_2" placeholder="二本数">
+                             <input  type="text" name="batch_3" placeholder="老三本数">
+                            </div>
+                            <div class="btn-box"><button type="submit" class="btn submit02" onclick="$('#form').submit();">确定</button></a></div>
                             </div>
                             <div class="close-btn"><a href="javascript:vido(0)">X</a></div>
                        </div>
                    </div>
+                   </form>
                </div>
 
          </div>
@@ -79,10 +91,10 @@ $this->title = '贵州高考志愿咨询数据平台';
         }
         //
         $(".submit01").click(function(){
-          
+            $('.batch_2').css('display', 'none');
             var grade =$("#grade").val();
             var patrn = /^[0-9]*[1-9][0-9]*$/;
-
+            var mold = $("#mold").val();
            if(grade==''||grade==null){
              alert("请输入分数!");
            }
@@ -90,7 +102,39 @@ $this->title = '贵州高考志愿咨询数据平台';
               alert("请输入正确的分数!");
            }
            else{
-             $(".fencha-box").show();
+
+               $.ajax({
+                   'url' : '<?= \yii\helpers\Url::toRoute('site/get-batch-score')?>',
+                   'dataType' : 'json',
+                   'data' : 'year=' + $('#year').val() + '&mold=' + $('#mold').val() ,
+                   'type' : 'get',
+                   'success': function (res) {
+                       if (res.code == 0) {
+                           var $grade = parseInt($('#grade').val());
+
+                           if ($grade && $grade < res['data'][2]) {
+                               alert('今年分数没有达到二本线以上');
+                               return false;
+                           } else if ($grade && $grade > res['data'][2] && $grade < res['data'][1]) {
+                               var msg = '您的分数线已超过' +  $('#year').val() + '二本线：';
+                               $grade = $grade - res['data'][2] + '分';
+                               $('.batch_2').css('display', 'block');
+                           } else if ($grade && $grade > res['data'][1]) {
+                               var msg = '您的分数线已超过' +  $('#year').val() + '一本线：' ;
+                               $grade = $grade - res['data'][1] + '分';
+
+                           }
+                           $('#diff_score').val($grade);
+                           $('#msg').html(msg)
+                           $('#diff_grade').html($grade)
+                           $(".fencha-box").show();
+                       } else {
+                           alert(res.message);
+                       }
+                   }
+               });
+
+
            }
            });
          $(".close-btn").click(function(){

@@ -12,7 +12,7 @@
                             <span><a href="#" title="免费注册">[免费注册]</a></span>
                         <?php else:?>
                             <span ><a href="javascript:vido(0)" title="已登录"><i></i>您好， [<?= app()->user->name;?>]</a>&nbsp;</span>
-                            <span><a href="javascript:vido(0)" title="余额">[余额：<?= app()->user->wallet_balance ?>]</a></span>
+                            <span><a href="javascript:vido(0)" title="余额">[余额：<?= app()->user->walletBalance ?>]</a></span>
                             <span class="add_balance"><a href="javascript:vido(0)" title="充值">[充值]</a></span>
                             <span><a href="<?= \yii\helpers\Url::toRoute('site/logout')?>" title="登出">[登出]</a></span>
                         <?php endif;?>

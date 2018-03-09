@@ -24,21 +24,21 @@ $this->params['breadcrumbs'] =[
    
 ]
 ?>
-
 <!-- header -->
 <?php include 'header.php';?>
 <!-- content -->
-
 <div id="content">
     <div class="container">
         <div class="wrapper">
             <div class="mainContent" style="width: auto;">
           <div class="row">
+
     <div class="span24 doc-content">
       <form class="form-horizontal">
         <div class="row show-grid" style="background:#13140D1A;">
           <div class="span8" style="width: 218px;padding-top: 6px;padding-left: 6px;">
-                     <span  style="font-size: 28px;line-height: 1.2em;color: #000;font-weight: 600;">模拟志愿</span>
+                     <span style="font-size: 28px;line-height: 1.2em;color: #000;font-weight: 600;">模拟志愿</span>
+                     <?php if(!$isCompare): ?><span id="print">打印</span><?php endif;?>
           </div>
         </div>
       </form>
@@ -134,9 +134,26 @@ $this->params['breadcrumbs'] =[
       chart.source(frame);
       chart.col('name',{alias: '学校'});
       chart.intervalDodge().position('年份*分数').color('name');
-      chart.render();
-      
+
+      if (0==<?= $isCompare?>) {
+          chart.render();
+      }
+
+      $("#print").click(function () {
+          printdiv('content');
+      });
+
       $('#canvas_2').css("top", null);
       $('#canvas_3').css("top", null);
+
+      /**
+       * 打印局部div
+       * @param printpage 局部div的ID
+       */
+      function printdiv(printpage) {
+          // 调用window.print方法打印新窗口
+          window.print();
+          return false;
+      }
     </script>
 <?php $this->endBlock();  ?>

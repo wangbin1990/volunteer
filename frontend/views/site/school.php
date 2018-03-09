@@ -241,6 +241,10 @@ $this->params['breadcrumbs'] =[
             </div>
         </div>
     </div>
+
+    <div class="professional_score">
+        <button class="see_professional_score">查看专业分数</button>
+    </div>
 </div>
 <?php $this->beginBlock('footer');  ?>
 <script type="text/javascript">
@@ -314,5 +318,20 @@ $this->params['breadcrumbs'] =[
     // $('#canvas_6').css({"padding-left":"80px"});
     // $('#canvas_8').css({"padding-left":"80px"});
     // $('#canvas_9').css({"padding-left":"80px"});
+
+    $(".see_professional_score").click(function () {
+        $.ajax({
+            'url' : '<?= \yii\helpers\Url::toRoute('site/get-professional-score')?>',
+            'dataType' : 'json',
+            'data' : 'schoolId=' + <?= $school['id']?>,
+            'type' : 'get',
+            'success': function (res) {
+                if (res.code == 0) {
+                } else {
+                    alert(res.message);
+                }
+            }
+        });
+    });
 </script>
 <?php $this->endBlock();  ?>
