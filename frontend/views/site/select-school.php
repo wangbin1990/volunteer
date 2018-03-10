@@ -51,7 +51,7 @@ $this->title = '贵州高考志愿咨询数据平台';
                                                     <a href="javascript:vido(0)"><i>加入填报</i></a>
                                                     <input type="checkbox"
                                                      name="checkSchool[]"
-                                                     value="<?= $school['name'] ?>" data-val="<?= $school['id'] ?>"/><?= $school['name'] ?>
+                                                     value="<?= $school['id'] ?>" data-val="<?= $school['id'] ?>"/><?= $school['name'] ?>
                                                 </div>
                                             <?php endforeach; ?>
                                             <?php else:?>
@@ -60,7 +60,7 @@ $this->title = '贵州高考志愿咨询数据平台';
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="db-btn">
-                                            <a href="javascript:"  data-submit="compareForm<?=$item ?>" onclick="chkschool1()">加入对比</a>
+                                            <a href="javascript:"  data-submit="compareForm<?=$item ?>" onclick="chkschool1(<?=$item ?>)">加入对比</a>
                                         </div>
                                     </form>
                                 </div>
@@ -115,7 +115,18 @@ $this->title = '贵州高考志愿咨询数据平台';
         }
         $("#submitForm").submit();
     }
-
+  function chkschool1($item){ //jquery获取复选框值
+    var chk_value =[];
+    $('input[name="checkSchool[]"]:checked').each(function(){
+        chk_value.push($(this).val());
+    });
+    if (chk_value.length == 0) {
+        alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value);
+        return false;
+    }
+    var id = "compareForm"+$item;
+    $("#"+id).submit();
+    }
 
     //侧边工具栏
     Do.ready(function (t) {
