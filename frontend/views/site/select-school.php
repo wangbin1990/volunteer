@@ -51,7 +51,7 @@ $this->title = '贵州高考志愿咨询数据平台';
                                                     <a href="javascript:vido(0)"><i>加入填报</i></a>
                                                     <input type="checkbox"
                                                      name="checkSchool[]"
-                                                     value="<?= $school['id'] ?>" data-val="<?= $school['id'] ?>"/><?= $school['name'] ?>
+                                                     value="<?= $school['name'] ?>" data-val="<?= $school['id'] ?>"/><?= $school['name'] ?>
                                                 </div>
                                             <?php endforeach; ?>
                                             <?php else:?>
@@ -59,9 +59,9 @@ $this->title = '贵州高考志愿咨询数据平台';
                                             <?php endif;?>
                                         </div>
                                         <div class="clearfix"></div>
-                                        <div class="db-btn">
+<!--                                         <div class="db-btn">
                                             <a href="javascript:"  data-submit="compareForm<?=$item ?>" onclick="chkschool1(<?=$item ?>)">加入对比</a>
-                                        </div>
+                                        </div> -->
                                     </form>
                                 </div>
                             </div>

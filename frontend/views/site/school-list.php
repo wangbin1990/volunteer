@@ -54,7 +54,7 @@ $this->params['breadcrumbs'] =[
                             <?php if(!empty($schools)):?>
                                 <?php foreach ($schools as $school):?>
                                 <div class="span2" style="width: 50%;font-size: 18px;margin: 0 auto;">
-                                    <input name="school[]" type="checkbox" value="<?= $school['id']?>" id="<?= $school['id']?>">
+                                    <input name="checkSchool[]" type="checkbox" value="<?= $school['id']?>" id="<?= $school['id']?>">
                                     <label for="50">
                                         <a href="<?= Url::to('school-' . $school['id'])?>" target="_blank"><?= $school['name']?></a>
                                     </label>
@@ -80,7 +80,7 @@ $this->params['breadcrumbs'] =[
 <script type="text/javascript">
   function chkschool(){ //jquery获取复选框值
     var chk_value =[];
-    $('input[name="school[]"]:checked').each(function(){
+    $('input[name="checkSchool[]"]:checked').each(function(){
         chk_value.push($(this).val());
     });
     if (chk_value.length == 0) {
@@ -90,10 +90,10 @@ $this->params['breadcrumbs'] =[
     $("#submitForm").submit();
     }
   function chkall(){
-      $("input[name='school[]']").attr("checked","true");
+      $("input[name='checkSchool[]']").attr("checked","true");
   }
 
   function chkclose(){
-      $("input[name='school[]']").removeAttr("checked");
+      $("input[name='checkSchool[]']").removeAttr("checked");
   }
 </script>
