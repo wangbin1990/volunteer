@@ -64,7 +64,7 @@ $this->params['breadcrumbs'] =[
     </script>
 
 
-<span style="cursor:pointer" id="span1"><h4>学校简介</h4></span>
+<!-- <span style="cursor:pointer" id="span1"><h4>学校简介</h4></span>
 
  <div id="div1">
 
@@ -75,16 +75,15 @@ $this->params['breadcrumbs'] =[
    <div class="school-body"><?= mb_substr($school->intro,0,900000,"utf-8"); ?></div>
 
 
-</div>
+</div> -->
 
 
-<span style="cursor:pointer" ><h4><a href="http://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--method-index,lb-1.dhtml" target="_blank">招生简章</a></h4></span>
+<!-- <span style="cursor:pointer" ><h4><a href="http://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--method-index,lb-1.dhtml" target="_blank">招生简章</a></h4></span> -->
 
  <div id="div3">
 
-   <div class="right" style="background-color:#CDCDCD;"><span id="span4" style="cursor:pointer">关闭</span>
-
-   </div>
+<!--    <div class="right" style="background-color:#CDCDCD;"><span id="span4" style="cursor:pointer">关闭</span>
+   </div> -->
 
    <div class="school-body"><?= mb_substr($school->brief_intro,0,900000,"utf-8"); ?></div>
 
@@ -94,19 +93,14 @@ $this->params['breadcrumbs'] =[
 </div>
 			<div id="outer">
 				<ul id="tab">
-					<li class="current">学校简介</li>
-					<li>招生简章</li>
-					
+					<li class="current">招生简章</li>
 				</ul>
 				<div id="school-content">
 					<ul style="display:block;">
 					 <li><?= mb_substr($school->intro,0,500,"utf-8"); ?></li>
-					 
-					 <li>更多</li>
 					</ul>
 					<ul>
 						<li><?= mb_substr($school->brief_intro,0,900000,"utf-8"); ?></li>
-						<li>更多</li>
 					</ul>
 					
 				</div>
@@ -125,7 +119,7 @@ $this->params['breadcrumbs'] =[
 				var $t = $this.index();
 				$li.removeClass();
 				$this.addClass('current');
-				$ul.css('display','none');
+				// $ul.css('display','none');
 				$ul.eq($t).css('display','block');
 			})
 		}
@@ -167,7 +161,7 @@ $this->params['breadcrumbs'] =[
                     </div>
                     <div class="row">
                         <div class="" style="margin:0 auto;width:620px;">
-                        <p>2010-2016年录取分数线情况</p>
+                        <p>2010-2016年录取分数线情况</p><a class="see_professional_score" style="float:left;">查看该校专业分数</a>
                         <table cellspacing="0" class="table table-bordered table-striped">
                             <tbody>
                               <tr>
@@ -240,10 +234,6 @@ $this->params['breadcrumbs'] =[
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="container" style="padding-bottom: 20px;">
-        <button class="see_professional_score" >查看专业分数</button>
     </div>
 </div>
 <?php $this->beginBlock('footer');  ?>
