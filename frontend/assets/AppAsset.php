@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
         'css/g-headerfooter.css',
         'css/index.css',
         'css/style.css',
+        //'css/dandelion.css',
         //'css/icon.css',
         //'css/index.css',
     ];

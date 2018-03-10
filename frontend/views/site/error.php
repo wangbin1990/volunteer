@@ -8,6 +8,7 @@ use yii\helpers\Url;
 
 $this->title = '404错误页面';
 ?>
+<link rel="stylesheet" href="<?= Url::to('@web/css/dandelion.css')?>">
 <style type="text/css">
 
 </style>
