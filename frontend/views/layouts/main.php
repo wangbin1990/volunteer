@@ -39,9 +39,11 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
+<?= Alert::widget() ?>
 <div id="header" class="grid-header">
     <?php include('header.php') ?>
 </div>
+
 <div id="content">
 
     <?= $content ?>

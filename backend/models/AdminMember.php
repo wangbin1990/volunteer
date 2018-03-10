@@ -105,10 +105,15 @@ class AdminMember extends BackendUser
      * 会员消费金额
      *
      * @param int $moduleId
+     * @param string $moduleValue
      * @return float
      */
-    public static function consumeMoney($moduleId)
+    public static function consumeMoney($moduleId, $moduleValue)
     {
+        if (!static::isConsume($moduleId, $moduleValue)) {
+            return 0;
+        }
+
         if (app()->user->isGuest) {
            throw new FinanceException('查看收费模块，请登录');
         }
@@ -133,9 +138,29 @@ class AdminMember extends BackendUser
         $adminFinanceRecord->order_sn = $moduleId . date('Y-m-d H:i:s', time());
         $adminFinanceRecord->pay_sn = $moduleId . date('Y-m-d H:i:s', time());;
         $adminFinanceRecord->ip = app()->request->getUserIP();
-        $adminFinanceRecord->remark = '查看：' . $moduleName . ',花费：'  . $fee;
+        $adminFinanceRecord->remark = '查看：' . $moduleName . ',花费：'  . $fee . '元';
         $adminFinanceRecord->save();
 
+        //设置提示消息
+        app()->session->setFlash('info', $adminFinanceRecord->remark);
+        //设置已经扣费凭证
+        app()->session->set('consumeMoney:' . $moduleId, $moduleValue);
         return $finance->fee;
+    }
+
+    /**
+     * 判断是否需要扣费
+     *
+     * @param int $moduleId
+     * @param string $moduleValue
+     * @return bool
+     */
+    public static function isConsume($moduleId, $moduleValue = '')
+    {
+        $moduleVal = app()->session->get('consumeMoney:' . $moduleId);
+        if ($moduleVal && $moduleValue == $moduleVal) {
+            return false;
+        }
+        return true;
     }
 }

@@ -7,7 +7,9 @@ use Yii;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\ContactForm;
+use yii\base\Exception;
 use yii\base\InvalidParamException;
+use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -219,8 +221,6 @@ class SiteController extends Controller
     public function actionSelectSchool()
     {
         if (app()->request->isPost) {
-            //智能填报扣费
-            AdminMember::consumeMoney(4);
             $data= app()->request->post();
             $scores = AdminBatchScore::find()
                 ->select('batch_no,score')
@@ -256,9 +256,15 @@ class SiteController extends Controller
                 $schools[$item] = $this->getParallelSchool($data);
             }
             $data['schools']  = $schools;
+            if (!empty($schools)) {
+                //智能填报扣费
+                AdminMember::consumeMoney(4, md5(json_encode($data)));
+            }
             return $this->render('select-school', [
                 'data' => $data,
             ]);
+        } else {
+            app()->response->redirect(Url::toRoute('site/volunteer-simulation'));
         }
     }
 
@@ -353,7 +359,7 @@ class SiteController extends Controller
         $postParams = app()->request->get();
         if (isset($postParams['location_id']) && $postParams['location_id'] > 0) {
             //按地区筛选扣费
-            AdminMember::consumeMoney(1);
+            AdminMember::consumeMoney(1, md5($postParams['location_id']));
             $location_id = $conditions[':location_id'] = intval($postParams['location_id']);
         }
 
@@ -368,7 +374,9 @@ class SiteController extends Controller
         }
         if(isset($postParams['highScore']) && $postParams['highScore'] > 0 || isset($postParams['lowScore']) && $postParams['lowScore'] > 0) {
             //按分bc分差筛选扣费
-            AdminMember::consumeMoney(2);
+            $val = (isset($postParams['highScore']) ? $postParams['highScore'] : '') .
+                (isset($postParams['lowScore']) ? $postParams['lowScore'] : '');
+            AdminMember::consumeMoney(2, md5($val));
         }
         if (isset($params[':high_score'])
             && isset($params[':lowScore'])
@@ -508,13 +516,14 @@ class SiteController extends Controller
     public function actionCompareSchool()
     {
         $data = app()->request->post();
-        if (empty($data['school'])) {
-            app()->session->setFlash('error', '没有选择对比的学校');
+        $data = array_filter($data);
+        if (empty($data['checkSchool'])) {
+            throw new Exception('没有选择对比的学校');
         } else {
-            $schools = AdminSchool::getSchools(['in', 'id', $data['school']]);
+            $schools = AdminSchool::getSchools(['in', 'id', $data['checkSchool']]);
             if (!empty($schools)) {
                 $scores = AdminSchoolScore::find()
-                    ->where(['in', 'school_id', $data['school']])
+                    ->where(['in', 'school_id', $data['checkSchool']])
                     ->asArray()
                     ->all();
                 $years = [];
@@ -559,26 +568,27 @@ class SiteController extends Controller
                     ksort($item['data']);
                 }
             }
-        }
-        $chart2 = $chart;
-        foreach ($chart as $key => $valuezhao) {
-            $schools_d[$key]['year'] = $valuezhao['data']['2016']["diff_score"];
-            $schools_d[$key]['name'] = $valuezhao['name'];
-        }
-        rsort($schools_d);
-        foreach ($schools_d as $key1 => $value1) {
-            # code...
-            // var_dump($schools_d[$key1]['name']);
-            foreach ($chart2 as $key2 => $value2) {
-                // var_dump($chart2[$key2]['name']);
-                if ($chart2[$key2]['name'] == $schools_d[$key1]['name']) {
-                    $chart[$key1] = $value2;
+
+            $chart2 = $chart;
+            foreach ($chart as $key => $valuezhao) {
+                $schools_d[$key]['year'] = $valuezhao['data']['2016']["diff_score"];
+                $schools_d[$key]['name'] = $valuezhao['name'];
+            }
+            rsort($schools_d);
+            foreach ($schools_d as $key1 => $value1) {
+                # code...
+                // var_dump($schools_d[$key1]['name']);
+                foreach ($chart2 as $key2 => $value2) {
+                    // var_dump($chart2[$key2]['name']);
+                    if ($chart2[$key2]['name'] == $schools_d[$key1]['name']) {
+                        $chart[$key1] = $value2;
+                    }
                 }
             }
         }
 
         //院校数据对比
-        AdminMember::consumeMoney(3);
+        AdminMember::consumeMoney(3, md5(json_encode($data)));
         return $this->render('simulate', [
             'isCompare' => 1,
             'schools' => $schools,
@@ -807,7 +817,7 @@ class SiteController extends Controller
             ];
         }
         //查看专业录取分数扣钱
-        AdminMember::consumeMoney(5);
+        AdminMember::consumeMoney(5, md5($schoolId));
         return [
             'data' => $professionalScore,
             'message' =>"success",
