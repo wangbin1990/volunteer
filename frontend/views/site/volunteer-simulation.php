@@ -7,6 +7,14 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 
 $this->title = '贵州高考志愿咨询数据平台';
+$years = \common\models\AdminBatchScore::find()
+    ->select('year')
+    ->distinct('year')
+    ->asArray()
+    ->orderBy('year desc')
+    ->all();
+$years = array_column($years, 'year');
+
 ?>
 <!-- header -->
 <div class="clear"></div>
@@ -20,12 +28,9 @@ $this->title = '贵州高考志愿咨询数据平台';
                    <ul>
                        <li><span>年份：</span>
                            <select id="year" name="year">
-                           <option value ="2018">2018</option>
-                           <option value ="2017">2017</option>
-                           <option value ="2016">2016</option>
-                           <option value ="2015">2015</option>
-                           <option value ="2014">2014</option>
-                           <option value ="2013">2013</option>
+                            <?php foreach ($years as $year):?>
+                                <option value ="<?= $year?>"><?= $year?></option>
+                            <?php endforeach;?>
                            </select>
                         </li>
                          <li><span>考分：</span><input type="text" placeholder="考生考分" name="grade" id="grade"></li>

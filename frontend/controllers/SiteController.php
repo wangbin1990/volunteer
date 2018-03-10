@@ -44,7 +44,7 @@ class SiteController extends Controller
                  'class' => AccessControl::className(),
                  'only' => [
                      'logout',
-                     'lsucc',
+                     //'lsucc',
                      //'school-list',
                      'simulate',
                      'get-pay-code',
@@ -53,7 +53,7 @@ class SiteController extends Controller
                      [
                          'actions' => [
                              'logout',
-                             'lsucc',
+                             //'lsucc',
                              //'school-list',
                              'simulate',
                              'get-pay-code'
