@@ -100,6 +100,7 @@ class AdminFinanceRecordController extends BaseController
         $models = $query
         ->offset($pagination->offset)
         ->limit($pagination->limit)
+            ->orderBy('create_time desc')
         ->all();
         foreach ($models as $model) {
             $model->create_time = date("Y-m-d H:i:s", $model->create_time);

@@ -256,8 +256,8 @@ CREATE TABLE `admin_batch_score` (
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `update_user` varchar(255) NOT NULL DEFAULT '' COMMENT '更新人',
   `mold` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '科目类型：0文科，1理科，2其他',
-  PRIMARY KEY (`id`,`mold`),
-  UNIQUE KEY `index_year_batch` (`year`,`batch_no`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_year_batch` (`year`,`batch_no`,`mold`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
