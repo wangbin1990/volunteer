@@ -50,6 +50,9 @@ class User extends \yii\web\User
      */
     public function getWalletBalance()
     {
-        return  AdminMember::findOne($this->id)->wallet_balance;
+        if (!$this->getIsGuest()) {
+            return  AdminMember::findOne($this->id)->wallet_balance;
+        }
+        return 0;
     }
 }
