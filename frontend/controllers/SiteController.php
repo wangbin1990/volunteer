@@ -428,9 +428,10 @@ class SiteController extends Controller
     public function actionSimulate()
     {
         $data = app()->request->post();
-
+        $data['school'] = array_filter($data['school']);
+        
         if (empty($data['school'])) {
-            app()->session->setFlash('error', '没有选择模拟的学校');
+            throw new Exception('没有选择对比的学校');
         } else {
 
             $schools = AdminSchool::getSchools(['in', 'id', $data['school']]);
