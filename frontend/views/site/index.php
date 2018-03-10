@@ -59,12 +59,12 @@
                     <li><a href="/frontend/web/index.php/site/volunteer-simulation">
                             <div class="icon"><i></i><span class="g-iconfont">&#57367;</span></div>
                             <h3>志愿模拟</h3>
-                            <p>多种填报模式，99.9%成功率</p>
+                            <p>多种填报模式，梯度配置，更具个性化</p>
                         </a></li>
                     <li><a href="/frontend/web/index.php/site/lsucc">
                             <div class="icon"><i></i><span class="g-iconfont">&#57368;</span></div>
                             <h3>历年数据查询</h3>
-                            <p>5年官方权威数据</p>
+                            <p>2010-2017的官方权威数据</p>
                         </a> </li>
                     <li><a href="/frontend/web/index.php/site/lsucc">
                             <div class="icon"><i></i><span class="g-iconfont">&#57369;</span></div>
