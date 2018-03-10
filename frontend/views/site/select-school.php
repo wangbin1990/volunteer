@@ -40,7 +40,7 @@ $this->title = '贵州高考志愿咨询数据平台';
                                 <div class="school-list">
                                     <form id="compareForm<?=$item ?>" action="<?= Url::toRoute('site/compare-school')?>" method="post">
                                         <div class="close-btn"><a href="javascript:vido(0)" class="">
-                                                <button>关闭</button>
+                                                <span style="float: right;">关闭</span>
                                             </a>
                                             <div class="clearfix"></div>
                                         </div>
