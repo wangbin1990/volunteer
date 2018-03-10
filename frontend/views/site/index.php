@@ -15,7 +15,12 @@
                             <a href="/frontend/web/index.php/site/lsucc"><button id="J-index-banner-login-submit" class="g-button g-button-main" type="button">免&nbsp;&nbsp;费&nbsp;&nbsp;登&nbsp;&nbsp;录</button></a>
                         </div>
                         <div class="action">
+                            <!--未读消息-->
+                        <?php if(app()->user->getIsGuest()):?>
                             <button id="login-submit-btn" class="g-button g-button-main" type="button">会&nbsp;&nbsp;员&nbsp;&nbsp;登&nbsp;&nbsp;录</button>
+                        <?php else:?>
+                            <button id="J-index-banner-login-submit" class="g-button g-button-main" type="button">您&nbsp;&nbsp;已&nbsp;&nbsp;登&nbsp;&nbsp;录</button>
+                        <?php endif;?>
                         </div>
                         <div class="portion opt">
                             <label class="g-input-checkbox">

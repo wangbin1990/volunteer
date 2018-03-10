@@ -132,7 +132,7 @@ $this->params['breadcrumbs'] =[
 	});
 </script>             
                     <div>               
-<!--                     <div class="row">
+<div class="row">
                         <div class="" style="margin:0 auto;width:620px;">
                         <p>2010-2016年录取分数线情况</p>
                         <table cellspacing="0" class="table table-bordered table-striped">
@@ -217,7 +217,7 @@ $this->params['breadcrumbs'] =[
                             </tbody>
                             </table>
                         </div>
-                    </div> -->
+                    </div>
                     <!-- 曲线图 -->
                     <div>
                             <div class="detail-section" style="width:300px;float:left;">
@@ -242,8 +242,8 @@ $this->params['breadcrumbs'] =[
         </div>
     </div>
 
-    <div class="professional_score">
-        <button class="see_professional_score">查看专业分数</button>
+    <div class="container" style="padding-bottom: 20px;">
+        <button class="see_professional_score" >查看专业分数</button>
     </div>
 </div>
 <?php $this->beginBlock('footer');  ?>
