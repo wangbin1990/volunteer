@@ -38,7 +38,10 @@ $this->title = '贵州高考志愿咨询数据平台';
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="school-list">
-                                    <form id="compareForm<?=$item ?>" action="<?= Url::toRoute('site/compare-school')?>" method="post">
+                                <?php 
+                                  echo "<from id='compareForm$item'"." action='/frontend/web/index.php/site/compare-school' method='post'>";
+                                ?>
+<!--                                     <form id="compareForm<?=$item ?>" action="<?= Url::toRoute('site/compare-school')?>" method="post"> -->
                                         <div class="close-btn"><a href="javascript:vido(0)" class="">
                                                 <span style="float: right;">关闭</span>
                                             </a>
@@ -50,18 +53,18 @@ $this->title = '贵州高考志愿咨询数据平台';
                                                 <div>
                                                     <a href="javascript:vido(0)"><i>加入填报</i></a>
                                                     <input type="checkbox"
-                                                     name="checkSchool[]"
-                                                     value="<?= $school['name'] ?>" data-val="<?= $school['id'] ?>"/><?= $school['name'] ?>
+                                                     name="school[]"
+                                                     value="<?= $school['id'] ?>" data-val="<?= $school['id'] ?>"/><?= $school['name'] ?>
                                                 </div>
                                             <?php endforeach; ?>
                                             <?php else:?>
                                             暂无学校数据
                                             <?php endif;?>
                                         </div>
-                                        <div class="clearfix"></div>
-<!--                                         <div class="db-btn">
-                                            <a href="javascript:"  data-submit="compareForm<?=$item ?>" onclick="chkschool1(<?=$item ?>)">加入对比</a>
-                                        </div> -->
+                                        <!-- <div class="db-btn"> -->
+                                            <button onclick="chkschool1(<?=$item ?>)" style="height: 30px;line-height: 25px;margin: 0 auto;width: 75px;">加入对比</button>
+                                        <!-- </div> -->
+                                         <div class="clearfix"></div>
                                     </form>
                                 </div>
                             </div>
@@ -117,7 +120,7 @@ $this->title = '贵州高考志愿咨询数据平台';
     }
   function chkschool1($item){ //jquery获取复选框值
     var chk_value =[];
-    $('input[name="checkSchool[]"]:checked').each(function(){
+    $('input[name="school[]"]:checked').each(function(){
         chk_value.push($(this).val());
     });
     if (chk_value.length == 0) {

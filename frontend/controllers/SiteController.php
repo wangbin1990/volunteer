@@ -171,7 +171,7 @@ class SiteController extends Controller
 
             }
         } else {
-            throw new NotFoundHttpException('找不到当前的学校');
+            throw new InvalidParamException('找不到当前的学校');
         }
 
         $scores = AdminSchool::getScores($id);
@@ -226,10 +226,10 @@ class SiteController extends Controller
                 ->select('batch_no,score')
                 ->where(['year' => intval($data['year']), 'mold' => intval($data['mold'])] )->asArray()->indexBy('batch_no')->all();
             if (!$scores) {
-                throw new NotFoundHttpException('找不到当前年份的数据');
+                throw new InvalidParamException('找不到当前年份的数据');
             }
             if (!isset($data['grade'])) {
-                throw new InvalidParaExcemption('输入的分数为空');
+                throw new InvalidParamException('输入的分数为空');
             }
 
             if ($data['grade'] < $scores[2]['score']) {
@@ -431,7 +431,7 @@ class SiteController extends Controller
         $data['school'] = array_filter($data['school']);
         
         if (empty($data['school'])) {
-            throw new Exception('没有选择对比的学校');
+            throw new InvalidParamException('没有选择对比的学校');
         } else {
 
             $schools = AdminSchool::getSchools(['in', 'id', $data['school']]);
@@ -519,7 +519,7 @@ class SiteController extends Controller
         $data = app()->request->post();
         $data = array_filter($data);
         if (empty($data['checkSchool'])) {
-            throw new Exception('没有选择对比的学校');
+            throw new InvalidParamException('没有选择对比的学校');
         } else {
             $schools = AdminSchool::getSchools(['in', 'id', $data['checkSchool']]);
             if (!empty($schools)) {
