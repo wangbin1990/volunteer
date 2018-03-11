@@ -36,7 +36,7 @@ $years = array_column($years, 'year');
                          <li><span>考分：</span><input type="text" placeholder="考生考分" name="grade" id="grade"></li>
                        <li><span>文理：</span>
                            <select name="mold" id="mold">
-                               <option value ="0">文</option>
+                               <option value ="0" >文</option>
                                <option value ="1">理</option>
                                <option value ="2">其他</option>
                            </select>
@@ -128,6 +128,10 @@ $years = array_column($years, 'year');
                                var msg = '您的分数线已超过' +  $('#year').val() + '一本线：' ;
                                $grade = $grade - res['data'][1] + '分';
 
+                           }else{
+                               var msg = '未找到符合条件的学校' ;
+                               alert(msg);
+                               return false;
                            }
                            $('#diff_score').val($grade);
                            $('#msg').html(msg)

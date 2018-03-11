@@ -18,7 +18,7 @@ $this->params['breadcrumbs'] =[
             <div class="mainContent" style="width: auto;float: null;">
                 <div class="article">
 				 <h4 style="font-size: 36px;line-height: 1.2em;margin-bottom: 10px;text-align:center;"><?= $school->name?></h4>
-<div style="width:100%;height:50px">
+<div style="width:100%;height:auto;">
 <script src="/frontend/web/js/jquery.tab.js"></script>
 
     <script type="text/javascript">
@@ -78,29 +78,33 @@ $this->params['breadcrumbs'] =[
 </div> -->
 
 
-<!-- <span style="cursor:pointer" ><h4><a href="http://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--method-index,lb-1.dhtml" target="_blank">招生简章</a></h4></span> -->
-
- <div id="div3">
+<span style="cursor:pointer" ><h4><a href="http://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--method-index,lb-1.dhtml" target="_blank">招生简章>></a></h4></span>
+<hr/>
+<span style="cursor:pointer;margin-top:20px;" ><h4><a href="#" onclick="showContent();" style="color:blue;">学校简介</a></h4></span>
+<hr/>
+ <!-- <div id="div3"> -->
 
 <!--    <div class="right" style="background-color:#CDCDCD;"><span id="span4" style="cursor:pointer">关闭</span>
    </div> -->
 
-   <div class="school-body"><?= mb_substr($school->brief_intro,0,900000,"utf-8"); ?></div>
+   <!-- <div class="school-body"><?= mb_substr($school->brief_intro,0,900000,"utf-8"); ?></div> -->
 
 
-</div>
+<!-- </div> -->
 
 </div>
 			<div id="outer">
-				<ul id="tab">
+<!-- 				<ul id="tab">
 					<li class="current">招生简章</li>
-				</ul>
+				</ul> -->
 				<div id="school-content">
 					<ul style="display:block;">
 					 <li><?= mb_substr($school->intro,0,500,"utf-8"); ?></li>
 					</ul>
 					<ul>
+            <div style="display: none" id="schoolContent">
 						<li><?= mb_substr($school->brief_intro,0,900000,"utf-8"); ?></li>
+            </div>
 					</ul>
 					
 				</div>
@@ -124,6 +128,14 @@ $this->params['breadcrumbs'] =[
 			})
 		}
 	});
+  function showContent(){
+    var i=document.getElementById("schoolContent");
+    if (i.style.display == "none") {  
+      i.style.display = "block";     
+    }else{     
+      i.style.display = "none";     
+    }   
+  }
 </script>             
                     <div>               
 <div class="row">
