@@ -57,10 +57,10 @@ $this->params['breadcrumbs'] =[
             <?php foreach($years as $year):?>
             <th style="text-align:center;"><?= $year?><br>
           
-                  <strong style="color:red;font-size:10px;">分差</strong>
+                  <strong style="color:red;font-size:10px;">分&nbsp;&nbsp;差</strong>
                    |
                    <strong style="color:#20B2AA;font-size:10px;">计划数</strong>
-                   |
+                   <br/>
                    <strong style="color:#3CB371;font-size:10px;">排位</strong></td> 
             </th>
             <?php endforeach;?>
@@ -85,7 +85,7 @@ $this->params['breadcrumbs'] =[
                   <?php else:?>
                     <strong style="color:#20B2AA;">0</strong>
                    <?php endif;?>
-                   |
+                   <br/>
                    <?php if(!empty($diff_score['rank'])):?>
                    <strong style="color:#3CB371"><?= $diff_score['rank']?></strong></td> 
                    <?php else:?>
