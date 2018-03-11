@@ -660,6 +660,7 @@ class SiteController extends Controller
         // dump(i_array_column($types,'name', 'id'));
         return $this->render('article-list', [
             'articles' => $articles,
+            'title' => $_GET['title'],
             'types' => i_array_column($types, 'name', 'id'),
             'pagination' => $pagination,
             'username' => $session['username'],
@@ -824,5 +825,16 @@ class SiteController extends Controller
             'message' =>"success",
             'code' => 0
         ];
+    }
+
+    /**
+     * 历年分数线
+     */
+    public function actionScoreLine()
+    {
+        $scores = AdminBatchScore::find()->all();
+        return $this->render('score_line', [
+            'score_line' => $scores,
+        ]);
     }
 }

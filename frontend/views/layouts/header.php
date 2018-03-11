@@ -17,7 +17,7 @@
                             <span><a href="<?= \yii\helpers\Url::toRoute('site/logout')?>" title="登出">[登出]</a></span>
                         <?php endif;?>
                     </li>
-                    <li class="help"><a href="#" title="系统介绍"><i></i>平台介绍</a></li>
+                    <li class="help"><a href="/frontend/web/index.php/site/article-list?type_id=209&title=关于我们" title="系统介绍"><i></i>平台介绍</a></li>
                 </ul>
             </div>
         </div>
@@ -33,7 +33,7 @@
                     <li data-learning> <a href="/frontend/web/index.php/site/lsucc" title="数据查询">数据查询<i></i></a>
                         <div class="submenu-pop submenu-fln">
                             <ul class="cf">
-                                <li><a href="#" title="历年分数线">历年分数线</a></li>
+                                <li><a href="/frontend/web/index.php/site/score-line" title="历年分数线">历年分数线</a></li>
                                 <li><a href="/frontend/web/index.php/site/lsucc" title="中国名校展播">学校查询</a></li>
                                 <li><a href="/frontend/web/index.php/site/lsucc" title="自我评估">分差查询</a></li>
                             </ul>
@@ -41,14 +41,14 @@
                     </li>
                     <li data-learning> <a href="/frontend/web/index.php/site/lsucc" title="院校数据对比">院校数据对比</a> </li>
                     <li data-zhiyuan> <a href="/frontend/web/index.php/site/volunteer-simulation" title="志愿填报">志愿模拟</a> </li>
-                    <li data-helpcenter> <a href="/frontend/web/index.php/site/article-list" title="新闻资讯">新闻资讯<i></i></a>
+                    <li data-helpcenter> <a href="/frontend/web/index.php/site/article-list?title=新闻资讯" title="新闻资讯">新闻资讯<i></i></a>
                         <div class="submenu-pop submenu-fln submenu-help">
                             <ul>
-                                <li><a href="/frontend/web/index.php/site/article-list" title="最新公告">最新公告</a></li>
-                                <li><a href="/frontend/web/index.php/site/article-list" title="关于志愿">关于志愿</a></li>
-                                <li><a href="/frontend/web/index.php/site/article-list" title="历届高考资讯">历届高考资讯</a></li>
-                                <li class="key-green"><a href="news1.html" title="前准备">考前准备<i></i></a></li>
-                                <li><a href="/frontend/web/index.php/site/article-list" title="新闻动态">新闻动态</a></li>
+                                <li><a href="/frontend/web/index.php/site/article-list?type_id=210&title=最新公告" title="最新公告">最新公告</a></li>
+                                <li><a href="/frontend/web/index.php/site/article-list?type_id=207&title=关于志愿" title="关于志愿">关于志愿</a></li>
+                                <li><a href="/frontend/web/index.php/site/article-list?type_id=208&title=历届高考资讯" title="历届高考资讯">历届高考资讯</a></li>
+                                <li class="key-green"><a href="/frontend/web/index.php/site/article-list?type_id=211&title=考前准备" title="考前准备">考前准备<i></i></a></li>
+                                <li><a href="/frontend/web/index.php/site/article-list?type_id=209&title=关于我们" title="新闻动态">关于我们</a></li>
                             </ul>
                         </div>
                     </li>

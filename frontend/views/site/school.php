@@ -146,8 +146,8 @@ $this->params['breadcrumbs'] =[
                               <tr>
                               	<th>年份	</th>
                               	<th>最高分</th>
-                              	<th>平均分</th>
                               	<th>省控线</th>
+                              	<th>平均分</th>
                               	<th>分差</th>
                               	<th>计划数</th>
                               	<th>排位	</th>

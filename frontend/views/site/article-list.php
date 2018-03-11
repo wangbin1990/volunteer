@@ -17,7 +17,7 @@ AppAsset::register($this);
      <div class="list-banner"><img src="/frontend/web/images/list-banner.jpg" alt=""></div>
      <div class="main">
          <div class="container">
-               <h3>资讯内容</h3>
+               <h3><?= $title ?></h3>
              
           <div class="list-news">
              <ul>
@@ -25,8 +25,8 @@ AppAsset::register($this);
                <li>
                <div class="clearfix">
                      <div class="imgs"><a href="#">
-                     <img src="/frontend/web/images/ebqlrlonws-aaanzaag5eqrroxg310.jpg" alt="">
-<!-- <img src="<?= app()->params['adminImgUrl'] . $article['thumbnail_image']?>" width="280" height="186" alt="中国大学十大失宠专业排行榜出炉！"> -->
+                     <!-- <img src="/frontend/web/images/ebqlrlonws-aaanzaag5eqrroxg310.jpg" alt=""> -->
+                     <img src="<?= app()->params['adminImgUrl'] . $article['thumbnail_image']?>" width="280" height="186" alt="中国大学十大失宠专业排行榜出炉！">
                      </a></div>
                      <div class="text">
                      <a href="<?= \yii\helpers\Url::toRoute("site/article/{$article['id']}")?>"><h4 style="overflow:hidden;text-overflow:ellipsis;isplay: -webkit-box;
