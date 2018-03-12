@@ -83,12 +83,16 @@ $modelLabel = new \common\models\AdminBatchScore();
                     '1' => '理科',
                     '2' => '其他',
             ];
+            $batch_no = [
+                    '1' => '一本',
+                    '2' => '二本',
+            ];
             foreach ($models as $model) {
                 echo '<tr id="rowid_' . $model->id . '">';
                 echo '  <td><label><input type="checkbox" value="' . $model->id . '"></label></td>';
                 echo '  <td>' . $model->id . '</td>';
                 echo '  <td>' . $model->year . '</td>';
-                echo '  <td>' . $model->batch_no . '</td>';
+                echo '  <td>' . $batch_no[$model->batch_no]. '</td>';
                 echo '  <td>' . $molds[$model->mold] . '</td>';
                 echo '  <td>' . $model->score . '</td>';
                 echo '  <td>' . date("Y-m-d H:i:s",$model->update_time) . '</td>';

@@ -122,7 +122,7 @@ class AdminBatchScoreController extends BaseController
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
         
-              $model->batch_no = 2;
+              // $model->batch_no = 2;
               $model->update_user = Yii::$app->user->identity->uname;
         
         

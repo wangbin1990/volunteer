@@ -30,8 +30,7 @@ class AdminBatchScore extends \backend\models\BaseModel
     {
         return [
             [['year', 'batch_no', 'score', 'update_time', 'mold'], 'integer'],
-            [['update_user'], 'string', 'max' => 255],
-            [['year', 'batch_no', 'mold'], 'unique', 'targetAttribute' => ['year', 'batch_no', 'mold'], 'message' => '请不要重复添加数据']
+            [['update_user'], 'string', 'max' => 255]
         ];
     }
 
