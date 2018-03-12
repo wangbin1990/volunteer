@@ -397,11 +397,12 @@ class SiteController extends Controller
                 $batchName = $item['name'];
             }
         }
-        $allSchools = AdminSchool::getSchoolsByDiffScoreCount($conditions, $params);
-        $pagination = new Pagination(['totalCount' => count($allSchools)]);
+        //$allSchools = AdminSchool::getSchoolsByDiffScoreCount($conditions, $params);
+        $schools = AdminSchool::getSchoolsByDiffScoreCount($conditions, $params);
+        // $pagination = new Pagination(['totalCount' => count($allSchools)]);
 
-        $pageNo = (isset($postParams['page']) && $postParams['page']) > 0 ? $postParams['page'] : 1;
-        $schools = AdminSchool::getSchoolsByDiffScore($conditions, $params, intval($pageNo));
+        // $pageNo = (isset($postParams['page']) && $postParams['page']) > 0 ? $postParams['page'] : 1;
+        // $schools = AdminSchool::getSchoolsByDiffScore($conditions, $params, intval($pageNo));
 
         if (empty($schools)) {
             app()->session->setFlash('warning', '没有搜索到的学校');
@@ -418,7 +419,7 @@ class SiteController extends Controller
             'batchName' => $batchName,
             'locationCate' => $locationCate,
             'location_id' => $location_id,
-            'pagination' => $pagination,
+            // 'pagination' => $pagination,
         ]);
     }
 
