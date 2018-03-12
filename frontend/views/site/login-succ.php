@@ -16,7 +16,7 @@ $this->params['breadcrumbs'] =[
 <!-- header -->
 
 <div id="content">
-     <div class="list-banner" style="background-image:url(http://localhost/frontend/web/images/list-banner.jpg);height:300px" ></div>
+     <div class="list-banner" style="background-image:url(/frontend/web/images/list-banner.jpg);height:300px" ></div>
      <div class="main">
          <div class="container">
                <h3>选择学校</h3>
