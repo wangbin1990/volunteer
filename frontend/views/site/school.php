@@ -78,7 +78,7 @@ $this->params['breadcrumbs'] =[
 </div> -->
 
 
-<span style="cursor:pointer" ><h4><a href="http://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--method-index,lb-1.dhtml" target="_blank">招生简章>></a></h4></span>
+<span style="cursor:pointer" ><h4><a href="http://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--method-index,lb-1.dhtml" target="_blank">招生简章>></a></h4><br/><h4><a class="see_professional_score">专业录取分数</a></h4></span>
 <hr/>
 <span style="cursor:pointer;margin-top:20px;" ><h4><a href="#" onclick="showContent();" style="color:blue;">学校简介</a></h4></span>
 <hr/>
@@ -147,7 +147,7 @@ $this->params['breadcrumbs'] =[
                               	<th>年份	</th>
                               	<th>最高分</th>
                               	<th>省控线</th>
-                              	<th>平均分</th>
+                              	<th>最低分</th>
                               	<th>分差</th>
                               	<th>计划数</th>
                               	<th>排位	</th>
@@ -173,7 +173,7 @@ $this->params['breadcrumbs'] =[
                     </div>
                     <div class="row">
                         <div class="" style="margin:0 auto;width:620px;">
-                        <p>2010-2016年录取分数线情况</p><a class="see_professional_score" style="float:left;">查看该校专业分数</a>
+                        <p>2010-2016年录取分数线情况</p>
                         <table cellspacing="0" class="table table-bordered table-striped">
                             <tbody>
                               <tr>
