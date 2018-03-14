@@ -120,15 +120,19 @@ $years = array_column($years, 'year');
                            if ($grade && $grade < res['data'][2]) {
                                alert('今年分数没有达到二本线以上');
                                return false;
-                           } else if ($grade && $grade > res['data'][2] && $grade < res['data'][1]) {
+                           } else if ($grade && $grade >= res['data'][2] && $grade < res['data'][3]) {
                                var msg = '您的分数线已超过' +  $('#year').val() + '二本线：';
                                $grade = $grade - res['data'][2] + '分';
                                $('.batch_2').css('display', 'block');
-                           } else if ($grade && $grade > res['data'][1]) {
+                           } else if ($grade && $grade >= res['data'][1]) {
                                var msg = '您的分数线已超过' +  $('#year').val() + '一本线：' ;
                                $grade = $grade - res['data'][1] + '分';
 
-                           }else{
+                           } else if ($grade && $grade < res['data'][1] && $grade >= res['data'][3]) {
+                               var msg = '您的分数线已超过' +  $('#year').val() + '隐性二本线：' ;
+                               $grade = $grade - res['data'][3] + '分';
+                               $('.batch_2').css('display', 'block');
+                           } else{
                                var msg = '未找到符合条件的学校' ;
                                alert(msg);
                                return false;

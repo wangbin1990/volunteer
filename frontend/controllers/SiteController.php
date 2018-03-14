@@ -735,7 +735,7 @@ class SiteController extends Controller
         $scores = AdminBatchScore::find()
             ->select('batch_no,score')
             ->where(['year' => intval($year), 'mold' => intval($mold)])->asArray()->all();
-        if(!$scores) {
+        if(!$scores || count($scores) < 3) {
             $molds = [
                 0 => '文科',
                 1 => '理科',
@@ -743,7 +743,7 @@ class SiteController extends Controller
             ];
             return [
                 'data' => [],
-                'message' => "{$year}年$molds[$mold]分数为空，请联系管理员",
+                'message' => "{$year}年$molds[$mold]分数为空或者不全，请联系管理员",
                 'code' => -1,
             ];
         }
