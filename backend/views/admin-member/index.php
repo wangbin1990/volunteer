@@ -209,10 +209,10 @@ $modelPrefixNames = array_column($modelPrefixNames, 'prefix');
           </div>
 
 
-          <div id="num_div" class="form-group">
-              <label for="num" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("num")?></label>
+          <div id="wallet_balance_div" class="form-group">
+              <label for="wallet_balance" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("wallet_balance")?></label>
               <div class="col-sm-10">
-                  <input type="text" class="form-control" id="num" name="AdminMember[num]" placeholder="" />
+                  <input type="text" class="form-control" id="wallet_balance" name="AdminMember[wallet_balance]" placeholder=""   />
               </div>
               <div class="clearfix"></div>
           </div>
@@ -322,10 +322,10 @@ $modelPrefixNames = array_column($modelPrefixNames, 'prefix');
           </div> -->
 
 
-          <div id="num_div" class="form-group">
-              <label for="num" class="col-sm-2 control-label">账号权限</label>
+          <div id="wallet_balance_div" class="form-group">
+              <label for="wallet_balance" class="col-sm-2 control-label">用户余额</label>
               <div class="col-sm-10">
-                  <input type="text" class="form-control" id="addnum" name="AdminMember[num]" placeholder="" value="20"/>
+                  <input type="text" class="form-control" id="addnum" name="AdminMember[wallet_balance]" placeholder="" value="50"/>
               </div>
               <div class="clearfix"></div>
           </div>
@@ -391,7 +391,7 @@ $modelPrefixNames = array_column($modelPrefixNames, 'prefix');
 		$("#name").val('');
 		$("#password").val('');
 		$("#last_ip").val('');
-		$("#num").val('');
+		$("#wallet_balance").val('50');
 		$("#status").val('10');
 		$("#prefix_name").val('');
 		$("#create_user").val('');
@@ -405,7 +405,7 @@ $modelPrefixNames = array_column($modelPrefixNames, 'prefix');
     	$("#name").val(data.name);
     	$("#password").val(data.password);
     	$("#last_ip").val(data.last_ip);
-    	$("#num").val(data.num);
+    	$("#wallet_balance").val(data.wallet_balance);
     	$("#status").val(data.status);
     	$("#prefix_name").val(data.prefix_name);
     	$("#create_user").val(data.create_user);
@@ -419,7 +419,7 @@ $modelPrefixNames = array_column($modelPrefixNames, 'prefix');
       $("#password").attr({readonly:true,disabled:true});
       $("#password").parent().parent().hide();
       $("#last_ip").attr({readonly:true,disabled:true});
-      $("#num").attr({readonly:true,disabled:true});
+      $("#wallet_balance").attr({readonly:true,disabled:true});
       $("#status").attr({readonly:true,disabled:true});
       $("#prefix_name").attr({readonly:true,disabled:true});
       $("#create_user").attr({readonly:true,disabled:true});
@@ -444,7 +444,7 @@ $modelPrefixNames = array_column($modelPrefixNames, 'prefix');
       
       $("#last_ip").attr({readonly:true,disabled:true});
       $("#last_ip").parent().parent().hide();
-      $("#num").attr({readonly:false,disabled:false});
+      $("#wallet_balance").attr({readonly:false,disabled:false});
       $("#status").attr({readonly:false,disabled:false});
       $("#prefix_name").attr({readonly:false,disabled:false});
       $("#create_user").attr({readonly:true,disabled:true});
