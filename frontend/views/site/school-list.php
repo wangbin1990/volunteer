@@ -49,6 +49,8 @@ $this->params['breadcrumbs'] =[
                 <div class="doc-content" style="width:100%">
                     <form id="submitForm" action="<?= Url::toRoute('site/compare-school')?>" method="post">
                         <div class="row-fluid show-grid">
+                            <div><a onclick="chkall()">全选</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a onclick="chkclose()">取消选择</a></div>
+                            <hr/>
                             <input name='batch' value="<?= $batch?>" type="hidden">
                             <input name='mold' value="<?= $mold?>" type="hidden">
                             <?php if(!empty($schools)):?>

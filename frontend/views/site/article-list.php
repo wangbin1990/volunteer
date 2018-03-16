@@ -42,6 +42,22 @@ AppAsset::register($this);
                <?php endforeach;?>
                </ul>
                </div>
+                         <!-- row start -->
+          <div class="row">
+            <div class="col-sm-7">
+                <div class="dataTables_paginate paging_simple_numbers" id="data_table_paginate">
+                <?= LinkPager::widget([
+                    'pagination' => $pagination,
+                    'nextPageLabel' => '»',
+                    'prevPageLabel' => '«',
+                    'firstPageLabel' => '首页',
+                    'lastPageLabel' => '尾页',
+                ]); ?>  
+                
+                </div>
+            </div>
+          </div>
+          <!-- row end -->
                </div>
                </div>
                </div>

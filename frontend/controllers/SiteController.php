@@ -620,21 +620,29 @@ class SiteController extends Controller
         }
         $session = Yii::$app->session;
         app()->user->isGuest;
-        $page = is_numeric($page) ? $page : 1;
+        // $page = is_numeric($page) ? $page : 1;
         if (empty($type_id)) {
+        $postParams = app()->request->get();
+        $allContent = AdminArticleContent::find()->all();
+        $pagination = new Pagination(['totalCount' => count($allContent)]);
+        $pageNo = (isset($postParams['page']) && $postParams['page']) > 0 ? $postParams['page'] : 1;
             $articles = AdminArticleContent::find()
                 ->where(['status' => '1'])
                 ->orderBy('update_date desc')
                 ->limit(10)
-                ->offset(($page - 1) * 10)
+                ->offset(($pageNo - 1) * 10)
                 ->asArray()
                 ->all();
         } else {
-            $articles = AdminArticleContent::find()
+                $postParams = app()->request->get();
+                $allContent = AdminArticleContent::find()->all();
+                $pagination = new Pagination(['totalCount' => count($allContent)]);
+                $pageNo = (isset($postParams['page']) && $postParams['page']) > 0 ? $postParams['page'] : 1;
+                $articles = AdminArticleContent::find()
                 ->where(['status' => '1', 'type_id' => $type_id])
                 ->orderBy('update_date desc')
                 ->limit(10)
-                ->offset(($page - 1) * 10)
+                ->offset(($pageNo - 1) * 10)
                 ->asArray()
                 ->all();
         }
@@ -647,7 +655,7 @@ class SiteController extends Controller
             ->select('name, id')
             ->asArray()
             ->all();
-        $pagination = new Pagination(['totalCount' => $counts, 'defaultPageSize' => 10]);
+        // $pagination = new Pagination(['totalCount' => $counts, 'defaultPageSize' => 10]);
         if (!empty($articles)) {
 
         } else {
