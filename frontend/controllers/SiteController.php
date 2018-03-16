@@ -635,7 +635,9 @@ class SiteController extends Controller
                 ->all();
         } else {
                 $postParams = app()->request->get();
-                $allContent = AdminArticleContent::find()->all();
+                $allContent = AdminArticleContent::find()
+                ->where(['status' => '1', 'type_id' => $type_id])
+                ->all();
                 $pagination = new Pagination(['totalCount' => count($allContent)]);
                 $pageNo = (isset($postParams['page']) && $postParams['page']) > 0 ? $postParams['page'] : 1;
                 $articles = AdminArticleContent::find()
