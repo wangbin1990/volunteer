@@ -166,6 +166,7 @@
                 </div>
                 <div class="action">
                     <button id="J-index-banner-login-submit" class="g-button g-button-main" type="button"  onclick="return getPayCode($('#banlance').val(), $('#remark').val())" >确&nbsp;&nbsp;定</button>
+                    <a href="/frontend/web">支付完成，请点击跳转>></a>
                 </div>
             </fieldset>
         </div>
