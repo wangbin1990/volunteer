@@ -786,6 +786,7 @@ class SiteController extends Controller
         $schoolIds = AdminSchoolScore::find()
             ->select('school_id, diff_score')
             ->where(['between', 'diff_score', $min_diff, $max_diff])
+            ->orWhere(['diff_score' => 0])
             ->andWhere(['mold_id' => $data['mold']])
             ->andWhere(['year' => $data['year']])
             ->andWhere(['batch_id' => $data['batchIds']])
