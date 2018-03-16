@@ -24,6 +24,8 @@ $this->params['breadcrumbs'] =[
             <h3>选择学校</h3>
             <div class="list-comparison comparison02">
                 <form id ="searchForm" action=""  method="get">
+                    <input name='batch' value="<?= $batch?>" type="hidden">
+                    <input name='mold' value="<?= $mold?>" type="hidden">
                     <div class="area fl">
                         <label>地区：</label>
                         <select name="location_id">

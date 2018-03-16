@@ -216,6 +216,15 @@ class SiteController extends Controller
     }
 
     /**
+     * 注册会员
+     */
+    public function actionRegister()
+    {
+        return $this->render('register');
+    }
+
+
+    /**
      * 志愿模拟进入选择学校页面
      */
     public function actionSelectSchool()
