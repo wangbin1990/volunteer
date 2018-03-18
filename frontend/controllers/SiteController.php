@@ -858,4 +858,34 @@ class SiteController extends Controller
             'score_line' => $scores,
         ]);
     }
+
+    /**
+     * 会员注册
+     */
+    public function actionCreate()
+    {
+        $model = new AdminMember();
+        $counts = AdminMember::find()
+            ->where(['name' => $_POST['username']])
+            ->count();
+        if ($counts >= 1) {
+                return json_encode(['code' => 2, 'msg' => '该用户名已注册！', 'data' => []]);
+        } else {
+              $model->create_user = "注册";
+              $model->create_date = date('Y-m-d H:i:s');
+              $model->update_user = "注册";
+              $model->update_date = date('Y-m-d H:i:s');
+              $model->name = $_POST['username'];
+              $model->password = $_POST['password'];
+              $model->status = 10;
+              $model->wallet_balance = 5000;
+              $model->prefix_name = $_POST['price'];
+            if($model->validate() == true && $model->save()){
+                return json_encode(['code' => 0, 'msg' => '注册成功！请前往首页进行登录！', 'data' => []]);
+            }
+            else{
+                return json_encode(['code' => 2, 'msg' => '注册失败，请稍后再试！', 'data' => []]);
+            }
+        }
+    }
 }

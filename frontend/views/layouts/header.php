@@ -9,7 +9,7 @@
                         <!--未读消息-->
                         <?php if(app()->user->getIsGuest()):?>
                             <span class="login"><a href="javascript:vido(0)" title="请登录"><i></i>您好， [请登录]</a>&nbsp;</span>
-                            <span><a href="#" title="免费注册">[免费注册]</a></span>
+                            <span><a href="<?= \yii\helpers\Url::toRoute('site/register')?>" title="免费注册">[免费注册]</a></span>
                         <?php else:?>
                             <span ><a href="javascript:vido(0)" title="已登录"><i></i>您好， [<?= app()->user->name;?>]</a>&nbsp;</span>
                             <span><a href="javascript:vido(0)" title="余额">[余额：<?= app()->user->walletBalance ?>]</a></span>
