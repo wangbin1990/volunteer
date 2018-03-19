@@ -238,31 +238,49 @@ class SiteController extends Controller
             if (!$scores) {
                 throw new InvalidParamException('找不到当前年份的数据');
             }
-            if (!isset($data['grade'])) {
-                throw new InvalidParamException('输入的分数为空');
+            if (!isset($data['grade']) || !is_numeric($data['grade'])) {
+                throw new InvalidParamException('输入的分数为空或格式不正确');
             }
 
             if ($data['grade'] < $scores[2]['score']) {
                 throw new InvalidParamException('分数小于二本分数线');
-            } elseif ($data['grade'] > $scores[2]['score'] && $data['grade'] < $scores[1]['score']) {
+            } elseif ($data['grade'] > $scores[2]['score'] && $data['grade'] < $scores[3]['score']) {
                 $data['batchIds'] = [6, 7];
                 $batch_3 = intval($data['batch_3']);
                 $data['batch_3'] = $batch_3 = ($batch_3 > 8 || $batch_3 < 0) ? 0 : $batch_3;
                 $data['batch_2'] = $batch_2 = 8 - $batch_3;
+                $data['diff_score'] = $data['grade'] - $scores[2]['score'];
             } elseif ($data['grade'] > $scores[1]['score']) {
                 $data['batchIds'] = [5];
+                $data['diff_score'] = $data['grade'] - $scores[1]['score'];
+            } elseif ($data['grade'] > $scores[3]['score'] && $data['grade'] < $scores[1]['score']) {
+                $data['batchIds'] = [6, 7];
+                $batch_3 = intval($data['batch_3']);
+                $data['batch_3'] = $batch_3 = ($batch_3 > 8 || $batch_3 < 0) ? 0 : $batch_3;
+                $data['batch_2'] = $batch_2 = 8 - $batch_3;
+                $data['batchIds'] = [6];
+                $data['diff_score3'] = $data['grade'] - $scores[2]['score'];
             }
 
             $schools = [];
             foreach ([1, 2 , 3, 4, 5, 6 , 7, 8] as $item) {
                 $data['item'] = $item;
-                if (in_array(6, $data['batchIds'])) {
+                if (in_array(7, $data['batchIds'])) {
                     if($batch_2 >= $item) {
                         $data['batchIds'] = [6];
                     } else {
                         $data['batchIds'] = [7];
                     }
                 }
+                if (isset($data['diff_score3'])) {
+                    if ($batch_2 >= $item) {
+                        $data['diff_score'] = $data['grade'] - $scores[3]['score'];
+                    } else {
+                        $data['diff_score'] = $data['grade'] - $scores[2]['score'];
+                    }
+
+                }
+
                 $schools[$item] = $this->getParallelSchool($data);
             }
             $data['schools']  = $schools;
@@ -600,7 +618,7 @@ class SiteController extends Controller
         }
 
         //院校数据对比
-        AdminMember::consumeMoney(3, md5(json_encode($data)));
+        AdminMember::consumeMoney(3, md5(json_encode($data)), count($schools));
         return $this->render('simulate', [
             'isCompare' => 1,
             'schools' => $schools,
@@ -796,6 +814,7 @@ class SiteController extends Controller
             $step = 4;
         }
         $diff_score = $data['diff_score'] + $step;
+
         $max_diff =  $diff_score - ($data['item'] - 1) * ($step - 1);
         $min_diff = $diff_score - ($data['item']) * ($step - 1);
         $schoolIds = AdminSchoolScore::find()

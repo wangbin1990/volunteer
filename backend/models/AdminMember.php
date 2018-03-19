@@ -108,7 +108,7 @@ class AdminMember extends BackendUser
      * @param string $moduleValue
      * @return float
      */
-    public static function consumeMoney($moduleId, $moduleValue)
+    public static function consumeMoney($moduleId, $moduleValue, $count = 0)
     {
         if (!static::isConsume($moduleId, $moduleValue)) {
             return 0;
@@ -124,7 +124,7 @@ class AdminMember extends BackendUser
 
         $modules = app()->params['charge_module_list'];
         $balance = app()->user->walletBalance;
-        $fee = $finance->fee;
+        $fee = $count ? $finance->fee * $count : $finance->fee;
         $moduleName = $modules[$moduleId];
 
         if ($balance < $fee) {

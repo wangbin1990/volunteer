@@ -23,7 +23,7 @@ $this->title = '贵州高考志愿咨询数据平台';
                         <?php foreach ([1, 2, 3, 4, 5, 6, 7, 8] as $item): ?>
                             <?php
                             $gray = '';
-                            if (in_array(7, $data['batchIds'])) {
+                            if (isset($data['batch_2'])) {
                                 if ($data['batch_2'] < $item) {
                                     $gray = 'gray';
                                 }

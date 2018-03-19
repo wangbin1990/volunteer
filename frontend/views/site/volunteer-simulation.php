@@ -51,6 +51,8 @@ $years = array_column($years, 'year');
                              <p id="msg"></p>
                              <input type="hidden" value="40" id="diff_score" name="diff_score">
                              <h1 id="diff_grade"> 分</h1>
+                            <p id="msg1"></p>
+                            <input type="hidden" value="40" id="diff_score1" name="diff_score1">
                             <div class="batch_2" style="display: none;">
                              <input type="text"  name="batch_2" placeholder="二本数">
                              <input  type="text" name="batch_3" placeholder="老三本数">
@@ -122,24 +124,30 @@ $years = array_column($years, 'year');
                                return false;
                            } else if ($grade && $grade >= res['data'][2] && $grade < res['data'][3]) {
                                var msg = '您的分数线已超过' +  $('#year').val() + '二本线：';
-                               $grade = $grade - res['data'][2] + '分';
+                               $grade0 = $grade - res['data'][2] + '分';
                                $('.batch_2').css('display', 'block');
                            } else if ($grade && $grade >= res['data'][1]) {
                                var msg = '您的分数线已超过' +  $('#year').val() + '一本线：' ;
-                               $grade = $grade - res['data'][1] + '分';
+                               $grade0 = $grade - res['data'][1] + '分';
 
                            } else if ($grade && $grade < res['data'][1] && $grade >= res['data'][3]) {
                                var msg = '您的分数线已超过' +  $('#year').val() + '隐性二本线：' ;
-                               $grade = $grade - res['data'][3] + '分';
+                               var $grade0 = $grade - res['data'][3] + '分';
+                               var msg1 = '您的分数线已超过' +  $('#year').val() + '二本线：' ;
+                               var $grade1 = $grade - res['data'][2] + '分';
+                               msg1 = msg1 + $grade1;
+                               $('#diff_score1').val($grade1);
+
                                $('.batch_2').css('display', 'block');
                            } else{
                                var msg = '未找到符合条件的学校' ;
                                alert(msg);
                                return false;
                            }
-                           $('#diff_score').val($grade);
+                           $('#diff_score').val($grade0);
                            $('#msg').html(msg)
-                           $('#diff_grade').html($grade)
+                           $('#msg1').html(msg1)
+                           $('#diff_grade').html($grade0)
                            $(".fencha-box").show();
                        } else {
                            alert(res.message);
