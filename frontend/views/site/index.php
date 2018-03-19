@@ -30,7 +30,7 @@
                             <a href="#" title="点击找回密码">忘记密码？</a> </div>
                     </div>
 
-                    <div class="other"> <a class="qq" href="#">快速开通<i></i></a> <a class="register" href="/register">免费注册</a> </div>
+                    <div class="other"> <a class="qq" href="#">快速开通<i></i></a> <a class="register" href="<?= \yii\helpers\Url::toRoute('site/register')?>">免费注册</a> </div>
                 </fieldset>
             </div>
             <div class="bg bg_bottom"></div>
