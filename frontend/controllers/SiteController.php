@@ -878,7 +878,7 @@ class SiteController extends Controller
               $model->name = $_POST['username'];
               $model->password = $_POST['password'];
               $model->status = 10;
-              $model->wallet_balance = 5000;
+              $model->wallet_balance = 50;
               $model->prefix_name = $_POST['price'];
             if($model->validate() == true && $model->save()){
                 return json_encode(['code' => 0, 'msg' => '注册成功！请前往首页进行登录！', 'data' => []]);
