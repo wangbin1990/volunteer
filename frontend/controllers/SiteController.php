@@ -18,6 +18,7 @@ use common\models\AdminSchool;
 use common\models\AdminSchoolScore;
 use yii\web\NotFoundHttpException;
 use backend\models\AdminMember;
+use common\models\AdminUserPrefix;
 use backend\models\AdminArticleContent;
 use backend\models\AdminArticleType;
 use common\utils\CommonFun;
@@ -868,6 +869,13 @@ class SiteController extends Controller
         $counts = AdminMember::find()
             ->where(['name' => $_POST['username']])
             ->count();
+        $prefix_name = AdminUserPrefix::find()
+            ->where(['prefix' => $_POST['prefix_name']])
+            ->count();
+
+        if ($prefix_name == 0) {
+           return json_encode(['code' => 3, 'msg' => '输入前缀不存在！', 'data' => []]);
+        }
         if ($counts >= 1) {
                 return json_encode(['code' => 2, 'msg' => '该用户名已注册！', 'data' => []]);
         } else {
@@ -879,7 +887,7 @@ class SiteController extends Controller
               $model->password = $_POST['password'];
               $model->status = 10;
               $model->wallet_balance = 50;
-              $model->prefix_name = $_POST['price'];
+              $model->prefix_name = $_POST['prefix_name'];
             if($model->validate() == true && $model->save()){
                 return json_encode(['code' => 0, 'msg' => '注册成功！请前往首页进行登录！', 'data' => []]);
             }

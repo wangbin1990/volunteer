@@ -52,7 +52,14 @@ $modelPrefixNames = array_column($modelPrefixNames, 'prefix');
 
           <input type="hidden" class="form-control" id="status" name="status" placeholder="必填" value="10" />
 
-          <div id="status_div" class="form-group">
+          <div id="password_div" class="form-group">
+              <label for="prefix_name" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("prefix_name")?></label>
+              <div class="col-sm-10">
+                  <input type="text" class="form-control" id="prefix_name" name="prefix_name" placeholder="请输入前缀" />
+              </div>
+              <div class="clearfix"></div>
+          </div>
+<!--           <div id="status_div" class="form-group">
               <label for="prefix_name" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("prefix_name")?></label>
               <div class="col-sm-10">
                   <select id="prefix_name" class="form-control" name="prefix_name">
@@ -63,7 +70,7 @@ $modelPrefixNames = array_column($modelPrefixNames, 'prefix');
                   </select>
               </div>
               <div class="clearfix"></div>
-          </div>
+          </div> -->
                           
                 </div>
       <div class="modal-footer">
@@ -83,12 +90,12 @@ $modelPrefixNames = array_column($modelPrefixNames, 'prefix');
 $('#edit_dialog_ok').click(function (e) {
     var userName= $("#register_username").val();
     var password= $("#register_password").val();
-    var price = $("#prefix_name").val();
-        if (userName && password && price) {
+    var prefix_name = $("#prefix_name").val();
+        if (userName && password && prefix_name) {
             $.ajax({
                 'url' : '<?= \yii\helpers\Url::toRoute('site/create')?>',
                 'dataType' : 'json',
-                'data' : 'username=' + userName + '&password=' + password + '&price=' + price,
+                'data' : 'username=' + userName + '&password=' + password + '&prefix_name=' + prefix_name,
                 'type' : 'post',
                 'success': function (res) {
                   console.log(res);
@@ -96,6 +103,8 @@ $('#edit_dialog_ok').click(function (e) {
                         //修改页面登录状态
                         alert(res.msg);
                         window.location.href = '/frontend/web';
+                    } else if(res.code == 2) {
+                        alert(res.msg);
                     } else {
                         alert(res.msg);
                     }
