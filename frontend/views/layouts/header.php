@@ -60,7 +60,7 @@
 </div>
 <!-- 共用-头部 end -->
 <!--共用-边工具条 start-->
-<div class="g-dish" id="J-g-dish">
+<!-- <div class="g-dish" id="J-g-dish">
     <ul>
         <li class="tel"> <a class="icon" href="javascript:;" target="_self"><i class="lady"></i><i class="g-iconfont">&#57346;</i><span>咨询</span></a>
             <div class="detail"> <span>全国服务热线</span> <b>4000-888-9999</b> <span class="weekdays">工作日 9:00~18:00</span> <span><a id="robot" href="#">咨询在线客服</a></span> <span><a href="#">加入官方服务群</a></span> </div>
@@ -72,7 +72,7 @@
         <li class="back"> <a class="icon" href="/suggestion/box"><i class="g-iconfont">&#57398;</i><span>反馈</span></a> </li>
         <li class="gotop"> <a class="icon" href="javascript:;" id="J-g-dish-gotop" title="回顶部"><i class="g-iconfont iconfont-top">&#57363;</i></a> </li>
     </ul>
-</div>
+</div> -->
 <div class="login-bg">
     <div class="login">
         <div class="bg bg_top">

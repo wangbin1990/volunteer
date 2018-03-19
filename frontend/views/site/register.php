@@ -28,7 +28,6 @@ $modelPrefixNames = array_column($modelPrefixNames, 'prefix');
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
         <h3>注册会员</h3>
       </div>
       <div class="modal-body">                    

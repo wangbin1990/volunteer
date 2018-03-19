@@ -628,6 +628,9 @@ class SiteController extends Controller
         } else {
             $type_id = $_GET['type_id'];
         }
+        $title = AdminArticleType::find()
+            ->where(['id' =>$type_id])
+            ->all();
         $session = Yii::$app->session;
         app()->user->isGuest;
         // $page = is_numeric($page) ? $page : 1;
@@ -681,7 +684,7 @@ class SiteController extends Controller
         // dump(i_array_column($types,'name', 'id'));
         return $this->render('article-list', [
             'articles' => $articles,
-            'title' => $_GET['title'],
+            'title' => $title[0]['name'],
             'types' => i_array_column($types, 'name', 'id'),
             'pagination' => $pagination,
             'username' => $session['username'],

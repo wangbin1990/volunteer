@@ -138,10 +138,11 @@
                                 </ul>
                             </li>
                         </ul>
+
+                                        <div class="index-article__button" style="display: block;"> <a class="g-button                                 g-button-dark-line" href="/frontend/web/index.php/site/article-list?type_id=<?=  $article['type_id']?>" title="关于志愿" target="_blank">查看更多</a> </div>
                     </div>
                     <?php endforeach;?>
                 </div>
-                <div class="index-article__button"> <a class="g-button g-button-dark-line" href="/frontend/web/index.php/site/article-list?type_id=207&title=关于志愿" title="关于志愿" target="_blank">查看更多</a> </div>
             </div>
             <?php endif;?>
         </div>

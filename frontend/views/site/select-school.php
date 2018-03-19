@@ -17,7 +17,7 @@ $this->title = '贵州高考志愿咨询数据平台';
         <div class="container">
             <h3>志愿模拟</h3>
             <div class="main-moni">
-                <form id="submitForm" action="<?= Url::toRoute('site/simulate')?>" method="post">
+                <form id="submitForm" action="<?= Url::toRoute('site/simulate')?>" method="post" target="_blank">
                     <div class="choose-school">
                         <h4><?= in_array(5, $data['batchIds']) ? '一' : '二' ?>本平行志愿</h4>
                         <?php foreach ([1, 2, 3, 4, 5, 6, 7, 8] as $item): ?>
@@ -38,10 +38,8 @@ $this->title = '贵州高考志愿咨询数据平台';
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="school-list">
-                                <?php 
-                                  echo "<from id='compareForm$item'"." action='/frontend/web/index.php/site/compare-school' method='post'>";
-                                ?>
-<!--                                     <form id="compareForm<?=$item ?>" action="<?= Url::toRoute('site/compare-school')?>" method="post"> -->
+
+                                    <form id="compareForm<?=$item ?>" action="<?= Url::toRoute('site/compare-school')?>" method="post" target="_blank">
                                         <div class="close-btn"><a href="javascript:vido(0)" class="">
                                                 <span style="float: right;">关闭</span>
                                             </a>
@@ -50,11 +48,15 @@ $this->title = '贵州高考志愿咨询数据平台';
                                         <div class="school-list-box">
                                             <?php if (!empty($data['schools'][$item])):?>
                                             <?php foreach ($data['schools'][$item] as $school): ?>
-                                                <div>
-                                                    <a href="javascript:vido(0)"><i>加入填报</i></a>
+                                                <div style="width: 100%;float: left;">
+                                                   <a href="javascript:vido(0)" style=""><i>加入填报</i></a>
                                                     <input type="checkbox"
                                                      name="school[]"
-                                                     value="<?= $school['id'] ?>" data-val="<?= $school['id'] ?>"/><?= $school['name'] ?>
+                                                     value="<?= $school['name'] ?>" data-val="<?= $school['id'] ?>" style="    margin-top: 10px;float:left;"/>
+                                                    <a style="color:blue;float:left;" href="<?= Url::to('school-' . $school['id'])?>" target="_blank">
+                                                     <?= $school['name'] ?>
+                                                     </a>
+
                                                 </div>
                                             <?php endforeach; ?>
                                             <?php else:?>
@@ -62,7 +64,7 @@ $this->title = '贵州高考志愿咨询数据平台';
                                             <?php endif;?>
                                         </div>
                                         <!-- <div class="db-btn"> -->
-                                            <button onclick="chkschool1(<?=$item ?>)" style="height: 30px;line-height: 25px;margin: 0 auto;width: 75px;">加入对比</button>
+<!--                                             <button onclick="chkschool1(<?=$item ?>)" style="height: 30px;line-height: 25px;margin: 0 auto;width: 75px;">加入对比</button> -->
                                         <!-- </div> -->
                                          <div class="clearfix"></div>
                                     </form>

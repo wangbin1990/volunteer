@@ -24,7 +24,7 @@ $years = array_column($years, 'year');
          <div class="container">
                <h3>志愿模拟</h3>
                <div class="main-moni">
-                   <form id="form" action="<?= Url::toRoute('site/select-school')?>" method="post">
+                   <form id="form" action="<?= Url::toRoute('site/select-school')?>" method="post" target="_blank">
                    <ul>
                        <li><span>年份：</span>
                            <select id="year" name="year">
