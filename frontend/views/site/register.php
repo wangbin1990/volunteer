@@ -43,7 +43,15 @@ $modelPrefixNames = array_column($modelPrefixNames, 'prefix');
           <div id="password_div" class="form-group">
               <label for="password" class="col-sm-2 control-label"><?php echo $modelLabel->getAttributeLabel("password")?></label>
               <div class="col-sm-10">
-                  <input type="text" class="form-control" id="register_password" name="password" placeholder="注册密码" />
+                  <input type="password" class="form-control" id="register_password" name="password" placeholder="注册密码" />
+              </div>
+              <div class="clearfix"></div>
+          </div>
+
+          <div id="password_div" class="form-group">
+              <label for="password" class="col-sm-2 control-label">确认密码</label>
+              <div class="col-sm-10">
+                  <input type="password" class="form-control" id="register_password1" name="password1" placeholder="确认密码" />
               </div>
               <div class="clearfix"></div>
           </div>
@@ -91,7 +99,9 @@ $('#edit_dialog_ok').click(function (e) {
     var userName= $("#register_username").val();
     var password= $("#register_password").val();
     var prefix_name = $("#prefix_name").val();
-        if (userName && password && prefix_name) {
+    var password1= $("#register_password1").val();
+    if(password === password1) {
+              if (userName && password && prefix_name) {
             $.ajax({
                 'url' : '<?= \yii\helpers\Url::toRoute('site/create')?>',
                 'dataType' : 'json',
@@ -111,8 +121,12 @@ $('#edit_dialog_ok').click(function (e) {
                 }
             });
         } else {
-            alert('帐号、密码、前缀不能为空');
+            alert('帐号、密码、前缀不能为空！');
             return false;
         }
+    } else {
+            alert('两次输入的密码不同！');
+            return false;
+    }
 });
 </script>
