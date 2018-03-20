@@ -663,7 +663,6 @@ function orderby(field, op){
         $("[class = spec]:checkbox").each(function (i, e) {
             for (var i = 0; i < data.spec.length; i++) {
                 if ($(this).val() == data.spec[i]) {
-                    alert(data.spec[i]);
                     $(this).attr("checked", true);
                 }
             }
@@ -716,9 +715,11 @@ function orderby(field, op){
       $("#status").attr({readonly:false,disabled:false});
       $("#spec").attr({readonly:false,disabled:false});
         $("[class = spec]:checkbox").each(function (i, e) {
-            for (var i = 0; i < data.spec.length; i++) {
-                if ($(this).val() == data.spec[i]) {
-                    $(this).attr("checked", true);
+            if (data.length > 0 &&  data.spec.length > 0) {
+                for (var i = 0; i < data.spec.length; i++) {
+                    if ($(this).val() == data.spec[i]) {
+                        $(this).attr("checked", true);
+                    }
                 }
             }
         });
@@ -864,15 +865,15 @@ $('#admin-school-form').bind('submit', function(e) {
     });
 });
 
-var $modalElement = this.$element;
-$(document).on('focusin.modal', function (e) {
-    var $parent = $(e.target.parentNode);
-    if ($modalElement[0] !== e.target && !$modalElement.has(e.target).length
-        &&
-        !$parent.hasClass('cke_dialog_ui_input_select') && !$parent.hasClass('cke_dialog_ui_input_text')) {
-        $modalElement.focus()
-    }
-});
+    var $modalElement = this.$element;
+    $(document).on('focusin.modal', function (e) {
+        var $parent = $(e.target.parentNode);
+        if ($modalElement[0] !== e.target && !$modalElement.has(e.target).length
+            &&
+            !$parent.hasClass('cke_dialog_ui_input_select') && !$parent.hasClass('cke_dialog_ui_input_text')) {
+            $modalElement.focus()
+        }
+    });
 
 </script>
 <?php $this->endBlock(); ?>

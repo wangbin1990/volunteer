@@ -101,6 +101,8 @@ class AdminSchoolController extends BaseController
     public function actionView($id)
     {
         $model = $this->findModel($id);
+        $model->spec = explode(',', $model->spec);
+
         echo json_encode($model->getAttributes());
 
     }
