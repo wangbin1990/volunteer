@@ -124,7 +124,7 @@ $modelLabel = new \common\models\AdminSchool();
               echo '<th onclick="orderby(\'website\', \'desc\')" '.CommonFun::sortClass($orderby, 'website').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('website').'</th>';
               echo '<th onclick="orderby(\'score\', \'desc\')" '.CommonFun::sortClass($orderby, 'score').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('score').'</th>';
             //echo '<th onclick="orderby(\'create_time\', \'desc\')" '.CommonFun::sortClass($orderby, 'create_time').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('create_time').'</th>';
-              echo '<th onclick="orderby(\'update_time\', \'desc\')" '.CommonFun::sortClass($orderby, 'update_time').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('update_time').'</th>';
+              // echo '<th onclick="orderby(\'update_time\', \'desc\')" '.CommonFun::sortClass($orderby, 'update_time').' tabindex="0" aria-controls="data_table" rowspan="1" colspan="1" aria-sort="ascending" >'.$modelLabel->getAttributeLabel('update_time').'</th>';
 
 			?>
 
@@ -154,7 +154,7 @@ $modelLabel = new \common\models\AdminSchool();
                 echo '  <td>' . $model->website . '</td>';
                 echo '  <td class="view_score" data-id="'. $model->id .'">' . '<button type="button" class="btn btn-primary btn-sm">编辑分数</button>'. '</td>';
                 //echo '  <td>' . $model->create_time . '</td>';
-                echo '  <td>' . $model->update_time . '</td>';
+                // echo '  <td>' . $model->update_time . '</td>';
                 echo '  <td class="center">';
 				echo '      <a id="delete_btn" onclick="addAction(' . $model->id . ')" class="btn btn-info btn-sm" href="#"> <i class="glyphicon glyphicon-plus-sign icon-white"></i>增加分数</a>';
                 echo '      <a id="view_btn" onclick="viewAction(' . $model->id . ')" class="btn btn-primary btn-sm" href="#"> <i class="glyphicon glyphicon-zoom-in icon-white"></i>查看</a>';

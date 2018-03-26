@@ -91,7 +91,6 @@ class AdminSchool extends \backend\models\BaseModel
                     'intro',
                     'brief_intro',
                     'mold',
-                    'spec',
                     'professional_score'
                 ],
                 'string'
@@ -128,7 +127,6 @@ class AdminSchool extends \backend\models\BaseModel
                 [
                     'email',
                     'website',
-                    'spec',
                 ],
                 'string',
                 'max' => 255
