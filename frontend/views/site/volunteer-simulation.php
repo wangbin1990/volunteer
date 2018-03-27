@@ -52,7 +52,7 @@ $years = array_column($years, 'year');
                              <p id="msg"></p>
                              <input type="hidden" value="40" id="diff_score" name="diff_score">
                              <h1 id="diff_grade"> 分</h1>
-                            <p id="msg1"></p>
+                            <p id="msg1" style="margin-top:5px;"></p>
                             <input type="hidden" value="40" id="diff_score1" name="diff_score1">
                             <div class="batch_2" style="display: none;">
                              <input type="text"  name="batch_2" placeholder="二本数">
