@@ -251,8 +251,14 @@ class SiteController extends Controller
                 $data['batch_2'] = $batch_2 = 8 - $batch_3;
                 $data['diff_score'] = $data['grade'] - $scores[2]['score'];
             } elseif ($data['grade'] > $scores[1]['score']) {
-                $data['batchIds'] = [5];
-                $data['diff_score'] = $data['grade'] - $scores[1]['score'];
+                if (isset($data['yiben']) && 2 == $data['yiben']) {
+                    $data['batchIds'] = [6];
+                    $data['diff_score'] = $data['grade'] - $scores[3]['score'];
+                } else {
+                    $data['batchIds'] = [5];
+                    $data['diff_score'] = $data['grade'] - $scores[1]['score'];
+                }
+
             } elseif ($data['grade'] > $scores[3]['score'] && $data['grade'] < $scores[1]['score']) {
                 $data['batchIds'] = [6, 7];
                 $batch_3 = intval($data['batch_3']);

@@ -25,6 +25,7 @@ $years = array_column($years, 'year');
                <h3>志愿模拟</h3>
                <div class="main-moni">
                    <form id="form" action="<?= Url::toRoute('site/select-school')?>" method="post" target="_blank">
+                       <input name = "yiben" id="yiben" value="1" type="hidden">
                    <ul>
                        <li><span>年份：</span>
                            <select id="year" name="year">
@@ -57,7 +58,13 @@ $years = array_column($years, 'year');
                              <input type="text"  name="batch_2" placeholder="二本数">
                              <input  type="text" name="batch_3" placeholder="老三本数">
                             </div>
-                            <div class="btn-box"><button type="submit" class="btn submit02" onclick="$('#form').submit();">确定</button></a></div>
+                            <div class="btn-box"><button type="submit" class="btn submit02" onclick="$('#yiben').val(1);$('#form').submit();">确定</button></a></div>
+                                <div id="sb" style="display: none">
+                                <p id="msg2"></p>
+                                <input type="hidden" value="40" id="diff_score2" name="diff_score2">
+                                <h1 id="diff_grade2"> 分</h1>
+                                <div class="btn-box"><button type="submit" class="btn submit02" onclick="$('#yiben').val(2);$('#form').submit();">确定</button></a></div>
+                                </div>
                             </div>
                             <div class="close-btn"><a href="javascript:vido(0)">X</a></div>
                        </div>
@@ -99,6 +106,7 @@ $years = array_column($years, 'year');
         //
         $(".submit01").click(function(){
             $('.batch_2').css('display', 'none');
+            $('#sb').hide();
             var grade =$("#grade").val();
             var patrn = /^[0-9]*[1-9][0-9]*$/;
             var mold = $("#mold").val();
@@ -130,14 +138,21 @@ $years = array_column($years, 'year');
                                var msg = '您的分数线已超过' +  $('#year').val() + '一本线：' ;
                                $grade0 = $grade - res['data'][1] + '分';
 
+                               var msg2 = '您的分数线已超过' +  $('#year').val() + '隐性二本线：' ;
+                               $grade2 = $grade - res['data'][3] + '分';
+                               $('#msg2').html(msg2);
+                               $('#diff_score2').val($grade2);
+                               $('#diff_grade2').html($grade2);
+                               $('#sb').show();
+
                            } else if ($grade && $grade < res['data'][1] && $grade >= res['data'][3]) {
                                var msg = '您的分数线已超过' +  $('#year').val() + '隐性二本线：' ;
                                var $grade0 = $grade - res['data'][3] + '分';
                                var msg1 = '您的分数线已超过' +  $('#year').val() + '二本线：' ;
                                var $grade1 = $grade - res['data'][2] + '分';
                                msg1 = msg1 + $grade1;
+                               $('#msg1').html(msg1)
                                $('#diff_score1').val($grade1);
-
                                $('.batch_2').css('display', 'block');
                            } else{
                                var msg = '未找到符合条件的学校' ;
@@ -146,7 +161,6 @@ $years = array_column($years, 'year');
                            }
                            $('#diff_score').val($grade0);
                            $('#msg').html(msg)
-                           $('#msg1').html(msg1)
                            $('#diff_grade').html($grade0)
                            $(".fencha-box").show();
                        } else {
