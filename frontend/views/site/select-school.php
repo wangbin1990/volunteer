@@ -23,7 +23,10 @@ $this->title = '贵州高考志愿咨询数据平台';
                         <?php foreach ([1, 2, 3, 4, 5, 6, 7, 8] as $item): ?>
                             <?php
                             $gray = '';
-                            if (isset($data['batch_2'])) {
+                            // if (isset($data['batch_2'])) {
+                            if (in_array(5, $data['batchIds'])) {
+                                $gray = '';
+                            } else {
                                 if ($data['batch_2'] < $item) {
                                     $gray = 'gray';
                                 }
@@ -96,8 +99,11 @@ $this->title = '贵州高考志愿咨询数据平台';
                         <div class="moni-btn"><a onclick="chkschool();">
                                 <button>确定</button>
                             </a></div>
-                        <p style="text-align: center">温馨提示：灰色志愿为老三本院校</p>
-
+                            <?php if (in_array(5, $data['batchIds'])):?>
+                        
+                             <?php else:?>
+                                      <p style="text-align: center">温馨提示：灰色志愿为老三本院校</p>      
+                             <?php endif;?>
                     </div>
                 </form>
             </div>
