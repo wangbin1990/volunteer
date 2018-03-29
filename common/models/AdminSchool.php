@@ -409,6 +409,9 @@ class AdminSchool extends \backend\models\BaseModel
         unset($condition['school']);
 
         if (!empty($params)) {
+            $year = date('Y');
+            $threeYears = implode(',', [$year - 1, $year - 2 , $year - 3]);
+            $sql .= ' AND b.year in (' . $threeYears . ')';
             if (isset($params[':low_score']) && isset($params[':high_score'])) {
 
                 $sql .= ' GROUP BY a.id  HAVING min(b.diff_score) between :low_score and :high_score or max(b.diff_score) between :low_score and :high_score';
@@ -420,7 +423,7 @@ class AdminSchool extends \backend\models\BaseModel
         }
 
         $sql .= " order by a.sort asc";
-        //var_dump($sql);die;
+        //var_export($sql);die;
         $condition = array_merge($condition, $params);
         return app()->db->createCommand($sql)
             ->bindValues($condition)

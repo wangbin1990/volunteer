@@ -245,39 +245,39 @@ class SiteController extends Controller
             if ($data['grade'] < $scores[2]['score']) {
                 throw new InvalidParamException('分数小于二本分数线');
             } elseif ($data['grade'] > $scores[2]['score'] && $data['grade'] < $scores[3]['score']) {
-                $data['batchIds'] = [6, 7];
+                $batchIds = $data['batchIds'] = [6, 7];
                 $batch_3 = intval($data['batch_3']);
                 $data['batch_3'] = $batch_3 = ($batch_3 > 8 || $batch_3 < 0) ? 0 : $batch_3;
                 $data['batch_2'] = $batch_2 = 8 - $batch_3;
                 $data['diff_score'] = $data['grade'] - $scores[2]['score'];
             } elseif ($data['grade'] > $scores[1]['score']) {
                 if (isset($data['yiben']) && 2 == $data['yiben']) {
-                    $data['batchIds'] = [6];
+                    $batchIds = $data['batchIds'] = [6];
                     $data['diff_score'] = $data['grade'] - $scores[3]['score'];
                 } else {
-                    $data['batchIds'] = [5];
+                    $batchIds = $data['batchIds'] = [5];
                     $data['diff_score'] = $data['grade'] - $scores[1]['score'];
                 }
 
             } elseif ($data['grade'] > $scores[3]['score'] && $data['grade'] < $scores[1]['score']) {
-                $data['batchIds'] = [6, 7];
                 $batch_3 = intval($data['batch_3']);
                 $data['batch_3'] = $batch_3 = ($batch_3 > 8 || $batch_3 < 0) ? 0 : $batch_3;
                 $data['batch_2'] = $batch_2 = 8 - $batch_3;
-                $data['batchIds'] = [6];
+                $batchIds = $data['batchIds'] = [6];
                 $data['diff_score3'] = $data['grade'] - $scores[2]['score'];
             }
-
             $schools = [];
             foreach ([1, 2 , 3, 4, 5, 6 , 7, 8] as $item) {
                 $data['item'] = $item;
-                if (in_array(7, $data['batchIds'])) {
+
+                if (in_array(7, $batchIds)) {
                     if($batch_2 >= $item) {
                         $data['batchIds'] = [6];
                     } else {
                         $data['batchIds'] = [7];
                     }
                 }
+
                 if (isset($data['diff_score3'])) {
                     if ($batch_2 >= $item) {
                         $data['diff_score'] = $data['grade'] - $scores[3]['score'];
@@ -386,7 +386,7 @@ class SiteController extends Controller
             $mold = intval($mold);
             $conditions[':mold'] = "{$mold}";
         }
-        if ($spec != 'null') {
+        if ($spec != null) {
             $spec = intval($spec);
             $conditions[':spec'] = "{$spec}";
         }
