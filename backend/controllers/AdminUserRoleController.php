@@ -70,6 +70,8 @@ class AdminUserRoleController extends BaseController
     {
         //$id = Yii::$app->request->post('id');
         $model = $this->findModel($id);
+        //$model->setAttribute('user_name', 11);
+        //$model->user_name = adminUser::findOne(['id' => $model->user_id])->uname;
         echo json_encode($model->getAttributes());
 
     }

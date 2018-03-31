@@ -34,6 +34,7 @@ class AdminUserRole extends \backend\models\BaseModel
     {
         return [
             [['user_id', 'role_id'], 'required'],
+            ['user_id','compare', 'compareValue' => 0, 'operator' => '>', 'message' => '请选择用户'],
             [['user_id', 'role_id'], 'integer'],
             [['create_date', 'update_date'], 'safe'],
             [['create_user', 'update_user'], 'string', 'max' => 50]
@@ -48,6 +49,7 @@ class AdminUserRole extends \backend\models\BaseModel
         return [
             'id' => '主键',
             'user_id' => '用户id',
+            'user_name' => '用户名',
             'role_id' => '角色',
             'create_user' => '创建人',
             'create_date' => '创建时间',
@@ -253,5 +255,5 @@ class AdminUserRole extends \backend\models\BaseModel
 		        );
         
     }
- 
+
 }
