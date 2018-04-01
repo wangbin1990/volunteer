@@ -398,7 +398,8 @@ class AdminSchool extends \backend\models\BaseModel
             $sql .= ' and a.mold=:mold';
         }
         if (isset($condition[':spec'])) {
-            $sql .= ' and a.spec=:spec';
+            $sql .= ' and find_in_set("'  .  $condition[':spec'] .'",a.spec)';
+            unset($condition[':spec']);
         }
         if (!empty($condition[':location_id'])) {
             $sql .= ' and a.location=:location_id';
