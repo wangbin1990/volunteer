@@ -127,6 +127,7 @@ class AdminSchool extends \backend\models\BaseModel
                 [
                     'email',
                     'website',
+                    'spec',
                 ],
                 'string',
                 'max' => 255
@@ -610,11 +611,11 @@ class AdminSchool extends \backend\models\BaseModel
                 'defaultValue' => '0',
                 'enumValues' => null,
                 'isPrimaryKey' => false,
-                'phpType' => 'integer',
-                'precision' => '4',
+                'phpType' => 'string',
+                'precision' => '255',
                 'scale' => '',
-                'size' => '4',
-                'type' => 'smallint',
+                'size' => '255',
+                'type' => 'string',
                 'unsigned' => false,
                 'label' => $this->getAttributeLabel('spec'),
                 'inputType' => 'text',
