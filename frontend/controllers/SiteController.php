@@ -520,7 +520,7 @@ class SiteController extends Controller
         }
         $chart2 = $chart;
         foreach ($chart as $key => $valuezhao) {
-            $schools_d[$key]['year'] = $valuezhao['data']['2016']["diff_score"];
+            $schools_d[$key]['year'] = $valuezhao['data']['2017']["diff_score"];
             $schools_d[$key]['name'] = $valuezhao['name'];
         }
         rsort($schools_d);
