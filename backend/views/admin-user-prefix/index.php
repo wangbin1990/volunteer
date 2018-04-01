@@ -42,9 +42,13 @@ $modelLabel = new \common\models\AdminUserPrefix();
                                 <?php ActiveForm::begin(['id' => 'admin-user-prefix-search-form', 'method'=>'get', 'options' => ['class' => 'form-inline'], 'action'=>Url::toRoute('admin-user-prefix/index')]); ?>
 
                                 <div class="form-group" style="margin: 5px;">
-                                    <label><?=$modelLabel->getAttributeLabel('id')?>:</label>
-                                    <input type="text" class="form-control" id="query[id]" name="query[id]"  value="<?=isset($query["id"]) ? $query["id"] : "" ?>">
+                                    <label><?=$modelLabel->getAttributeLabel('prefix')?>:</label>
+                                    <input type="text" class="form-control" id="query[prefix]" name="query[prefix]"  value="<?=isset($query["prefix"]) ? $query["prefix"] : "" ?>">
                                 </div>
+                                <div class="form-group" style="margin: 5px;">
+                                    <label><?=$modelLabel->getAttributeLabel('update_user')?>:</label>
+                                    <input type="text" class="form-control" id="query[update_user]" name="query[update_user]"  value="<?=isset($query["update_user"]) ? $query["update_user"] : "" ?>">
+                                </div>            
                                 <div class="form-group">
                                     <a onclick="searchAction()" class="btn btn-primary btn-sm" href="#"> <i class="glyphicon glyphicon-zoom-in icon-white"></i>搜索</a>
                                 </div>

@@ -38,8 +38,8 @@ $modelLabel = new \backend\models\AdminUser();
                 <?php ActiveForm::begin(['id' => 'admin-user-search-form', 'method'=>'get', 'options' => ['class' => 'form-inline'], 'action'=>Url::toRoute('admin-user/index')]); ?>     
                 
                   <div class="form-group" style="margin: 5px;">
-                      <label><?=$modelLabel->getAttributeLabel('id')?>:</label>
-                      <input type="text" class="form-control" id="query[id]" name="query[id]"  value="<?=isset($query["id"]) ? $query["id"] : "" ?>">
+                      <label><?=$modelLabel->getAttributeLabel('uname')?>:</label>
+                      <input type="text" class="form-control" id="query[uname]" name="query[uname]"  value="<?=isset($query["uname"]) ? $query["uname"] : "" ?>">
                   </div>
               <div class="form-group">
               	<a onclick="searchAction()" class="btn btn-primary btn-sm" href="#"> <i class="glyphicon glyphicon-zoom-in icon-white"></i>搜索</a>
