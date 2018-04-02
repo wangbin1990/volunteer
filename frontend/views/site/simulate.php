@@ -51,7 +51,7 @@ $this->params['breadcrumbs'] =[
           <tr>
             <th rowspan="3"></th>
             <th rowspan="3" style="text-align:center;">学校名称</th>
-            <th colspan="7" style="text-align:center;">分差、计划数、排位变化对比</th>
+            <th colspan="8" style="text-align:center;">分差、计划数、排位变化对比</th>
           </tr>
           <tr>
             <?php foreach($years as $year):?>

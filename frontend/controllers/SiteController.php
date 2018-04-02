@@ -386,9 +386,11 @@ class SiteController extends Controller
             $mold = intval($mold);
             $conditions[':mold'] = "{$mold}";
         }
-        if ($spec != null) {
+        if ($spec != 'null') {
             $spec = intval($spec);
             $conditions[':spec'] = "{$spec}";
+        } else {
+            $conditions[':spec'] = "9,10,11,12,63";
         }
         $postParams = app()->request->get();
         if (isset($postParams['location_id']) && $postParams['location_id'] > 0) {
@@ -607,7 +609,7 @@ class SiteController extends Controller
 
             $chart2 = $chart;
             foreach ($chart as $key => $valuezhao) {
-                $schools_d[$key]['year'] = $valuezhao['data']['2016']["diff_score"];
+                $schools_d[$key]['year'] = $valuezhao['data']['2017']["diff_score"];
                 $schools_d[$key]['name'] = $valuezhao['name'];
             }
             rsort($schools_d);
