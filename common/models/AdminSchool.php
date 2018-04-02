@@ -400,8 +400,7 @@ class AdminSchool extends \backend\models\BaseModel
         }
         if (isset($condition[':spec'])) {
             // $sql .= ' and find_in_set("'  .  $condition[':spec'] .'",a.spec)';
-            $sql .= ' and a.spec in ('.$condition[':spec'].')';
-            // echo "<pre>";var_dump($sql);die;
+            $sql .= " and a.spec like '%" .$condition[':spec'] . "%'";
             unset($condition[':spec']);
         }
         if (!empty($condition[':location_id'])) {

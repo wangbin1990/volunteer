@@ -388,7 +388,7 @@ class SiteController extends Controller
         }
         if ($spec != 'null') {
             $spec = intval($spec);
-            $conditions[':spec'] = "{$spec}";
+            $conditions[':spec'] = "$spec";
         } else {
             $conditions[':spec'] = "9,10,11,12,63";
         }
