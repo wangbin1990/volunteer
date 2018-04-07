@@ -390,7 +390,8 @@ class SiteController extends Controller
             $spec = intval($spec);
             $conditions[':spec'] = "$spec";
         } else {
-            $conditions[':spec'] = "9,10,11,12,63";
+            // $conditions[':spec'] = "9,10,11,12,63";
+            $conditions[':spec'] = "no";
         }
         $postParams = app()->request->get();
         if (isset($postParams['location_id']) && $postParams['location_id'] > 0) {
