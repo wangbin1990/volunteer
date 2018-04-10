@@ -250,13 +250,21 @@ class SiteController extends Controller
                 $data['batch_3'] = $batch_3 = ($batch_3 > 8 || $batch_3 < 0) ? 0 : $batch_3;
                 $data['batch_2'] = $batch_2 = 8 - $batch_3;
                 $data['diff_score'] = $data['grade'] - $scores[2]['score'];
+                $data['type'] = 3;
             } elseif ($data['grade'] > $scores[1]['score']) {
                 if (isset($data['yiben']) && 2 == $data['yiben']) {
                     $batchIds = $data['batchIds'] = [6];
                     $data['diff_score'] = $data['grade'] - $scores[3]['score'];
+                    if ($data['diff_score'] >= 70) {
+                        $data['type'] = 2;
+                    } else {
+                        $data['type'] = 1;
+                    }
+
                 } else {
                     $batchIds = $data['batchIds'] = [5];
                     $data['diff_score'] = $data['grade'] - $scores[1]['score'];
+                    $data['type'] = 1;
                 }
 
             } elseif ($data['grade'] > $scores[3]['score'] && $data['grade'] < $scores[1]['score']) {
@@ -265,9 +273,10 @@ class SiteController extends Controller
                 $data['batch_2'] = $batch_2 = 8 - $batch_3;
                 $batchIds = $data['batchIds'] = [6];
                 $data['diff_score3'] = $data['grade'] - $scores[2]['score'];
+                $data['type'] = 1;
             }
             $schools = [];
-            foreach ([1, 2 , 3, 4, 5, 6 , 7, 8] as $item) {
+            foreach ([1, 2, 3, 4, 5, 6, 7, 8] as $item) {
                 $data['item'] = $item;
 
                 if (in_array(7, $batchIds)) {
@@ -275,16 +284,22 @@ class SiteController extends Controller
                         $data['batchIds'] = [6];
                     } else {
                         $data['batchIds'] = [7];
+                        $data['type'] = 1;
+                        //todo
+                        $data['item'] = $data['batch_3'] - 8 + $item;
                     }
                 }
 
                 if (isset($data['diff_score3'])) {
                     if ($batch_2 >= $item) {
                         $data['diff_score'] = $data['grade'] - $scores[3]['score'];
+                        $data['batchIds'] = [6];
                     } else {
+                        //todo
+                        $data['item'] = $data['batch_3'] - 8 + $item;
                         $data['diff_score'] = $data['grade'] - $scores[2]['score'];
+                        $data['batchIds'] = [7];
                     }
-
                 }
 
                 $schools[$item] = $this->getParallelSchool($data);
@@ -815,29 +830,57 @@ class SiteController extends Controller
            throw  new InvalidParamException('参数错误');
         }
 
-        if ($data['diff_score'] >= 50) {
-            $step = 6;
-        } elseif ($data['diff_score'] >=20 && $data['diff_score'] <=49)  {
-            $step = 5;
-        } elseif ($data['diff_score'] >=0 && $data['diff_score'] <=19) {
-            $step = 4;
-        }
-        $diff_score = $data['diff_score'] + $step;
+        if ($data['type'] == 1) {
+            if ($data['diff_score'] >= 50) {
+                $step = 6;
+            } elseif ($data['diff_score'] >=20 && $data['diff_score'] <=49)  {
+                $step = 5;
+            } elseif ($data['diff_score'] >=0 && $data['diff_score'] <=19) {
+                $step = 4;
+            }
 
-        $max_diff =  $diff_score - ($data['item'] - 1) * ($step - 1);
-        $min_diff = $diff_score - ($data['item']) * ($step - 1);
-        $schoolIds = AdminSchoolScore::find()
+            $diff_score = $data['diff_score'] + $step;
+
+            $max_diff =  $diff_score - ($data['item'] - 1) * ($step - 1);
+            $min_diff = $diff_score - ($data['item']) * ($step - 1);
+            if ($max_diff <= 0) {
+                $offset = ($data['item'] - 1) * 4;
+            }
+
+        } elseif ($data['type'] == 2) {
+            if ($data['item'] < 4) {
+                $min_diff = 70;
+                $max_diff = 7000;
+                $offset = ($data['item'] - 1) * 8;
+
+            } else {
+                $max_diff =  70 - ($data['item'] - 4) * 5 - 0.01;
+                $min_diff = 70 - ($data['item']-3) * 5;
+            }
+
+        } elseif ($data['type'] == 3) {
+            $max_diff = -1;
+            $min_diff = -2;
+            $offset = ($data['item'] - 1) * 8;
+        }
+
+
+        $schoolQuery = AdminSchoolScore::find()
             ->select('school_id, diff_score')
             ->where(['between', 'diff_score', $min_diff, $max_diff])
             ->orWhere(['diff_score' => 0])
             ->andWhere(['mold_id' => $data['mold']])
             ->andWhere(['year' => $data['year']])
             ->andWhere(['batch_id' => $data['batchIds']])
-            ->limit(8)
-            ->orderBy('diff_score desc')
-            ->indexBy('school_id')
-            ->asArray()
-            ->all();
+            ->limit(8);
+        if(isset($offset)) {
+            $schoolQuery->offset($offset);
+        }
+
+        $schoolIds = $schoolQuery->orderBy('diff_score desc')
+        ->indexBy('school_id')
+        ->asArray()
+        ->all();
 
         $schools = AdminSchool::find()
             ->select('id, name, mold, batch')

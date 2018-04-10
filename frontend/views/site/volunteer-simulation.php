@@ -131,6 +131,7 @@ $years = array_column($years, 'year');
                                alert('今年分数没有达到二本线以上');
                                return false;
                            } else if ($grade && $grade >= res['data'][2] && $grade < res['data'][3]) {
+                               $('#msg1').hide();
                                var msg = '您的分数线已超过' +  $('#year').val() + '二本线：';
                                $grade0 = $grade - res['data'][2] + '分';
                                $('.batch_2').css('display', 'block');
@@ -151,6 +152,7 @@ $years = array_column($years, 'year');
                                var msg1 = '您的分数线已超过' +  $('#year').val() + '二本线：' ;
                                var $grade1 = $grade - res['data'][2] + '分';
                                msg1 = msg1 + $grade1;
+                               $('#msg1').show();
                                $('#msg1').html(msg1)
                                $('#diff_score1').val($grade1);
                                $('.batch_2').css('display', 'block');
