@@ -849,7 +849,7 @@ class SiteController extends Controller
             if ($data['item'] < 4) {
                 $min_diff = 70;
                 $max_diff = 7000;
-                $offset = ($data['item'] - 1) * 8;
+                //$offset = ($data['item'] - 1) * 8;
 
             } else {
                 $max_diff =  70 - ($data['item'] - 4) * 5 - 0.01;
@@ -859,7 +859,13 @@ class SiteController extends Controller
         } elseif ($data['type'] == 3) {
             $max_diff = -1;
             $min_diff = -2;
-            $offset = ($data['item'] - 1) * 8;
+            $data['year'] = [
+            $data['year'] = [
+                $data['year'],
+                $data['year'] - 1,
+                $data['year'] - 2,
+            ];
+            //$offset = ($data['item'] - 1) * 8;
         }
 
 
