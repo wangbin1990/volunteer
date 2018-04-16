@@ -271,7 +271,7 @@ class SiteController extends Controller
                 $batch_3 = intval($data['batch_3']);
                 $data['batch_3'] = $batch_3 = ($batch_3 > 8 || $batch_3 < 0) ? 0 : $batch_3;
                 $data['batch_2'] = $batch_2 = 8 - $batch_3;
-                $batchIds = $data['batchIds'] = [6];
+                $batchIds = $data['batchIds'] = [6, 7];
                 $data['diff_score3'] = $data['grade'] - $scores[2]['score'];
                 $data['type'] = 1;
             }
@@ -842,7 +842,7 @@ class SiteController extends Controller
             $max_diff =  $diff_score - ($data['item'] - 1) * ($step - 1);
             $min_diff = $diff_score - ($data['item']) * ($step - 1);
             if ($max_diff <= 0) {
-                $offset = ($data['item'] - 1) * 4;
+                $offset = abs(floor($max_diff / $step)) * 8;
             }
 
         } elseif ($data['type'] == 2) {
@@ -862,6 +862,12 @@ class SiteController extends Controller
             $offset = ($data['item'] - 1) * 8;
         }
 
+
+        $data['year'] = [
+            $data['year'] - 1,
+            $data['year'] - 2,
+            $data['year'] - 3,
+        ];
 
         $schoolQuery = AdminSchoolScore::find()
             ->select('school_id, diff_score')

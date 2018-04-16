@@ -11,7 +11,7 @@ $this->params['breadcrumbs'] =[
       'label' => '筛选学校',
       'url' => ['site/lsucc'],
     ],
-    '  志愿模拟',
+    '智能填报系统',
 ]
 ?>
 <!-- content -->
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'] =[
                     </div>
                 </form>
                 <div class="comparison02-btn fl"><button onclick="chkschool();">院校数据对比</button></div>
-                <div class="comparison02-moni fr"><a href="<?= Url::toRoute('site/volunteer-simulation')?>"><button >志愿模拟</button></a></div>
+                <div class="comparison02-moni fr"><a href="<?= Url::toRoute('site/volunteer-simulation')?>"><button >智能填报系统</button></a></div>
                 <div class="clearfix"></div>
 
                 <div class="doc-content" style="width:100%">

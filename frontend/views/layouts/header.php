@@ -2,17 +2,17 @@
 <div class="g-header">
     <div class="navTop m-nav">
         <div class="g-wrapper">
-            <div class="m-nav__info"> <small>欢迎访问本网站! &nbsp; 贵州高考志愿咨询数据平台</small> </div>
+            <div class="m-nav__info" style="font-size: 16px;"> <small>欢迎访问本网站! &nbsp; 贵州高考志愿咨询数据平台</small> </div>
             <div class="links">
-                <ul class="cf">
+                <ul class="cf" style="font-size: 16px;">
                     <li class="user" id="J-g-header-user" data-url="/unreadtotal">
                         <!--未读消息-->
                         <?php if(app()->user->getIsGuest()):?>
                             <span class="login"><a href="javascript:vido(0)" title="请登录"><i></i>您好， [请登录]</a>&nbsp;</span>
                             <span><a href="<?= \yii\helpers\Url::toRoute('site/register')?>" title="免费注册">[免费注册]</a></span>
                         <?php else:?>
-                            <span ><a href="javascript:vido(0)" title="已登录"><i></i>您好， [<?= app()->user->name;?>]</a>&nbsp;</span>
-                            <span><a href="javascript:vido(0)" title="余额">[余额：<?= app()->user->walletBalance ?>]</a></span>
+                            <span ><a href="javascript:vido(0)" title="已登录"><i></i><span style="color: #337ab7;">您好，</span> [<span style="color: red;"><?= app()->user->name;?> </span>]</a>&nbsp;</span>
+                            <span><a href="javascript:vido(0)" title="余额">[<span style="color: #337ab7;">余额：</span><span style="color: red;"><?= app()->user->walletBalance ?></span>] </a></span>
                             <span class="add_balance"><a href="javascript:vido(0)" title="充值">[充值]</a></span>
                             <span><a href="<?= \yii\helpers\Url::toRoute('site/logout')?>" title="登出">[退出]</a></span>
                         <?php endif;?>
@@ -40,7 +40,7 @@
                         </div>
                     </li>
                     <li data-learning> <a href="/frontend/web/index.php/site/lsucc" title="院校数据对比" target="_blank">院校数据对比</a> </li>
-                    <li data-zhiyuan> <a href="/frontend/web/index.php/site/volunteer-simulation" title="志愿填报" target="_blank">志愿模拟</a> </li>
+                    <li data-zhiyuan> <a href="/frontend/web/index.php/site/volunteer-simulation" title="志愿填报" target="_blank">智能填报系统</a> </li>
                     <li data-helpcenter> <a href="/frontend/web/index.php/site/article-list?title=新闻资讯" title="新闻资讯" target="_blank">新闻资讯<i></i></a>
                         <div class="submenu-pop submenu-fln submenu-help">
                             <ul>

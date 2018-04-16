@@ -73,7 +73,20 @@ $years = array_column($years, 'year');
                </div>
 
          </div>
-
+                   <div class="fencha-box" id="show" style="display: none;">
+                       <div class="fenccha-nei">
+                            <div class="text">
+                            <div class="btn-box"><button type="submit" class="btn submit02" onclick="$('#yiben').val(1);$('#form').submit();">确定</button></a></div>
+                                <div id="sb" style="display: none">
+                                <p id="msg2"></p>
+                                <input type="hidden" value="40" id="diff_score2" name="diff_score2">
+                                <h1 id="diff_grade2"> 分</h1>
+                                <div class="btn-box"><button type="submit" class="btn submit02" onclick="$('#yiben').val(2);$('#form').submit();">确定</button></a></div>
+                                </div>
+                            </div>
+                            <div class="close-btn"><a href="javascript:vido(0)">X</a></div>
+                       </div>
+                   </div>
      </div>
      </div>
 <div class="clear"></div>
@@ -107,6 +120,7 @@ $years = array_column($years, 'year');
         $(".submit01").click(function(){
             $('.batch_2').css('display', 'none');
             $('#sb').hide();
+
             var grade =$("#grade").val();
             var patrn = /^[0-9]*[1-9][0-9]*$/;
             var mold = $("#mold").val();
@@ -117,7 +131,6 @@ $years = array_column($years, 'year');
               alert("请输入正确的分数!");
            }
            else{
-
                $.ajax({
                    'url' : '<?= \yii\helpers\Url::toRoute('site/get-batch-score')?>',
                    'dataType' : 'json',

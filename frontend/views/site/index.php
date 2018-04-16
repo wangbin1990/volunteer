@@ -64,7 +64,7 @@
                 <ul class="service-list cf">
                     <li><a href="/frontend/web/index.php/site/volunteer-simulation">
                             <div class="icon"><i></i><span class="g-iconfont">&#57367;</span></div>
-                            <h3>志愿模拟</h3>
+                            <h3>智能填报系统</h3>
                             <p>多种填报模式，梯度配置，更具个性化</p>
                         </a></li>
                     <li><a href="/frontend/web/index.php/site/lsucc">
