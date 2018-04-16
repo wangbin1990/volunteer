@@ -842,14 +842,14 @@ class SiteController extends Controller
             $max_diff =  $diff_score - ($data['item'] - 1) * ($step - 1);
             $min_diff = $diff_score - ($data['item']) * ($step - 1);
             if ($max_diff <= 0) {
-                $offset = ($data['item'] - 1) * 4;
+                $offset = abs(floor($max_diff / $step)) * 8;
             }
 
         } elseif ($data['type'] == 2) {
             if ($data['item'] < 4) {
                 $min_diff = 70;
                 $max_diff = 7000;
-                $offset = ($data['item'] - 1) * 8;
+                //$offset = ($data['item'] - 1) * 8;
 
             } else {
                 $max_diff =  70 - ($data['item'] - 4) * 5 - 0.01;
@@ -859,7 +859,13 @@ class SiteController extends Controller
         } elseif ($data['type'] == 3) {
             $max_diff = -1;
             $min_diff = -2;
-            $offset = ($data['item'] - 1) * 8;
+            $data['year'] = [
+            $data['year'] = [
+                $data['year'],
+                $data['year'] - 1,
+                $data['year'] - 2,
+            ];
+            //$offset = ($data['item'] - 1) * 8;
         }
 
 
