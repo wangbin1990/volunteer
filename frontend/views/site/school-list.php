@@ -34,20 +34,36 @@ $this->params['breadcrumbs'] =[
                                 <option value="<?= $location['id']?>" <?php if($location_id == $location['id']):?>selected=selected<?php endif;?>><?= $location['name']?></option>
                             <?php endforeach;?>
                         </select>
-                        <button onclick="$('#searchForm').submit()";">确定</button>
+                        <a onclick="javascript:show(4);">确定</a>
                     </div>
                     <div class="fencha fl">
                         <label>分差：</label>
                         <input type="text" <?php if(isset($params[':low_score'])):?>value="<?= $params[':low_score']?>" <?php endif;?> name="lowScore" placeholder="最低分差">
                         ——
                         <input type="text" <?php if(isset($params[':high_score'])):?>value="<?= $params[':high_score']?>" <?php endif;?> name="highScore" placeholder="最高分差">
-                        <button onclick="$('#searchForm').submit()";">确定</button>
+                        <!-- <button onclick="$('#searchForm').submit();">确定</button> -->
+                        <a onclick="javascript:show(7);">确定</a>
                     </div>
                 </form>
                 <div class="comparison02-btn fl"><button onclick="chkschool();">院校数据对比</button></div>
                 <div class="comparison02-moni fr"><a href="<?= Url::toRoute('site/volunteer-simulation')?>"><button >智能填报系统</button></a></div>
+                
+
                 <div class="clearfix"></div>
 
+                <div style="color: #3c763d;background-color: #dff0d8;border-color: #d6e9c6;margin-top:50px;     padding: 15px;margin-bottom: 20px;border: 1px solid transparent;border-radius: 4px;display: none;" id="dialog">
+                    <span id="showData"></span>
+                    <span>是否确认？</span>
+                    <a href="javascript:$('#searchForm').submit();">确认</a>
+                    <a href="javascript:close();">取消</a>
+                </div>
+
+                <div style="color: #3c763d;background-color: #dff0d8;border-color: #d6e9c6;margin-top:50px;     padding: 15px;margin-bottom: 20px;border: 1px solid transparent;border-radius: 4px;display: none;" id="dialog1">
+                    <span id="showData1"></span>
+                    <span>是否确认？</span>
+                    <a href="javascript:$('#submitForm').submit();">确认</a>
+                    <a href="javascript:close1();">取消</a>
+                </div>
                 <div class="doc-content" style="width:100%">
                     <form id="submitForm" action="<?= Url::toRoute('site/compare-school')?>" method="post">
                         <div class="row-fluid show-grid">
@@ -86,7 +102,8 @@ $this->params['breadcrumbs'] =[
     	alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value);
     	return false;
     }
-    $("#submitForm").submit();
+    this.show1(8);
+    // $("#submitForm").submit();
     }
   function chkall(){
       $("input[name='checkSchool[]']").attr("checked","true");
@@ -94,5 +111,55 @@ $this->params['breadcrumbs'] =[
 
   function chkclose(){
       $("input[name='checkSchool[]']").removeAttr("checked");
+  }
+  function show(id) {
+    $.ajax({
+       'url' : '<?= \yii\helpers\Url::toRoute('site/finance')?>',
+       'dataType' : 'json',
+       'data' : 'id=' + id,
+       'type' : 'post',
+       'success': function (res) {
+         console.log(res);
+           if (res.code == 0) {
+               //修改页面登录状态
+               document.getElementById("showData").innerHTML = "收费版块，该模块将花费："+ res.data + "元";
+               document.getElementById("dialog").style.display = "block"
+           } else if(res.code == 2) {
+               alert(res.msg);
+           } else {
+               alert(res.msg);
+           }
+       }
+   });
+  }
+
+    function show1(id) {
+    $.ajax({
+       'url' : '<?= \yii\helpers\Url::toRoute('site/finance')?>',
+       'dataType' : 'json',
+       'data' : 'id=' + id,
+       'type' : 'post',
+       'success': function (res) {
+         console.log(res);
+           if (res.code == 0) {
+               //修改页面登录状态
+               document.getElementById("showData1").innerHTML = "收费版块，该模块将花费："+ res.data + "元/每个学校";
+               document.getElementById("dialog1").style.display = "block"
+           } else if(res.code == 2) {
+               alert(res.msg);
+           } else {
+               alert(res.msg);
+           }
+       }
+   });
+  }
+
+  function close() {
+     var ui = document.getElementById("dialog");
+     ui.style.display="none";
+  }
+  function close1() {
+     var ui = document.getElementById("dialog1");
+     ui.style.display="none";
   }
 </script>

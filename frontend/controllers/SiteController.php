@@ -27,6 +27,7 @@ use yii\web\Session;
 use common\models\adminClickTime;
 use yii\base\ErrorException;
 use yii\data\Pagination;
+use common\models\AdminFinance;
 
 
 /**
@@ -860,20 +861,19 @@ class SiteController extends Controller
             $max_diff = -1;
             $min_diff = -2;
             $data['year'] = [
-            $data['year'] = [
                 $data['year'],
                 $data['year'] - 1,
                 $data['year'] - 2,
             ];
             //$offset = ($data['item'] - 1) * 8;
+        } else {
+            $data['year'] = [
+                $data['year'] - 1,
+                $data['year'] - 2,
+                $data['year'] - 3,
+            ];
         }
 
-
-        $data['year'] = [
-            $data['year'] - 1,
-            $data['year'] - 2,
-            $data['year'] - 3,
-        ];
 
         $schoolQuery = AdminSchoolScore::find()
             ->select('school_id, diff_score')
@@ -978,6 +978,15 @@ class SiteController extends Controller
             else{
                 return json_encode(['code' => 2, 'msg' => '注册失败，请稍后再试！', 'data' => []]);
             }
+        }
+    }
+
+    public function actionFinance() {
+        if (($model = AdminFinance::findOne($_POST['id'])) !== null) {
+            // echo "<pre>";var_dump($model["fee"]);die;
+                return json_encode(['code' => 0, 'msg' => '注册成功！请前往首页进行登录！', 'data' => $model["fee"]]);
+        } else{
+            return json_encode(['code' => 2, 'msg' => '该功能暂时未开放！', 'data' => []]);
         }
     }
 }
