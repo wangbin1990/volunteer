@@ -402,9 +402,13 @@ class SiteController extends Controller
             $mold = intval($mold);
             $conditions[':mold'] = "{$mold}";
         }
-        if ($spec != null) {
+
+        if ($spec != "null") {
             $spec = intval($spec);
             $conditions[':spec'] = "$spec";
+        } else {
+            //$conditions[':spec'] = "9,10,11,12,63";
+            unset($conditions[':spec']);
         }
 
         $postParams = app()->request->get();
