@@ -256,6 +256,9 @@ class SiteController extends Controller
                 $data['diff_score'] = $data['grade'] - $scores[2]['score'];
                 $data['type'] = 3;
             } elseif ($data['grade'] > $scores[1]['score']) {
+                if (isset($data['batch_2']))  {
+                    $data['batch_2'] = '';
+                }
                 if (isset($data['yiben']) && 2 == $data['yiben']) {
                     $batchIds = $data['batchIds'] = [6];
                     $data['diff_score'] = $data['grade'] - $scores[3]['score'];
@@ -313,6 +316,7 @@ class SiteController extends Controller
                 //智能填报扣费
                 AdminMember::consumeMoney(4, md5(json_encode($data)));
             }
+
             return $this->render('select-school', [
                 'data' => $data,
             ]);
