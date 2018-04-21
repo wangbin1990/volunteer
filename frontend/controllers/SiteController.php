@@ -864,13 +864,10 @@ class SiteController extends Controller
         } elseif ($data['type'] == 3) {
             $max_diff = -1;
             $min_diff = -2;
-            $data['year'] = [
-                $data['year'],
-                $data['year'] - 1,
-                $data['year'] - 2,
-            ];
             //$offset = ($data['item'] - 1) * 8;
-        } else {
+        }
+
+
             $data['year'] = [
                 $data['year'] - 1,
                 $data['year'] - 2,
