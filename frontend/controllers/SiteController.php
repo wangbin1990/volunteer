@@ -72,6 +72,9 @@ class SiteController extends Controller
          ];
      }
 
+    public function actionTest(){
+        return $this->render('about');
+    }
 
     /**
      * 志愿系统首页
@@ -873,7 +876,6 @@ class SiteController extends Controller
                 $data['year'] - 2,
                 $data['year'] - 3,
             ];
-        }
 
 
         $schoolQuery = AdminSchoolScore::find()
