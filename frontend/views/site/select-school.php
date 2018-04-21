@@ -27,7 +27,7 @@ $this->title = '贵州高考志愿咨询数据平台';
                             if (in_array(5, $data['batchIds'])) {
                                 $gray = '';
                             } else {
-                                if ($data['batch_2'] < $item) {
+                                if ($data['batch_2'] && $data['batch_2'] < $item) {
                                     $gray = 'gray';
                                 }
                             }
