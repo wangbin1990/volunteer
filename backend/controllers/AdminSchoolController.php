@@ -268,8 +268,11 @@ class AdminSchoolController extends BaseController
     /**
      *
      */
-    public function actionUpload()
+    public function actionUpload($CKEditorFuncNum = 1)
     {
+        if (!is_numeric($CKEditorFuncNum)) {
+            $CKEditorFuncNum = 1;
+        }
         if (Yii::$app->request->isPost) {
             $image = UploadedFile::getInstanceByName('upload');
 
@@ -278,7 +281,7 @@ class AdminSchoolController extends BaseController
             if ($image->saveAs($basePath . $fileName)) {
                 $imageurl = app()->params['imgUrl']() . $fileName;
                 return "<script type=\"text/javascript\">
-                    window.parent.CKEDITOR.tools.callFunction(1,'" . $imageurl . "');</script>";
+                    window.parent.CKEDITOR.tools.callFunction({$CKEditorFuncNum},'" . $imageurl . "');</script>";
             }
         }
         return false;
