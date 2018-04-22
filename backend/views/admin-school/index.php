@@ -872,15 +872,15 @@ $('#admin-school-form').bind('submit', function(e) {
     });
 });
 
-    // var $modalElement = this.$element;
-    // $(document).on('focusin.modal', function (e) {
-    //     var $parent = $(e.target.parentNode);
-    //     if ($modalElement[0] !== e.target && !$modalElement.has(e.target).length
-    //         &&
-    //         !$parent.hasClass('cke_dialog_ui_input_select') && !$parent.hasClass('cke_dialog_ui_input_text')) {
-    //         $modalElement.focus()
-    //     }
-    // });
+     var $modalElement = this.$element;
+     $(document).on('focusin.modal', function (e) {
+         var $parent = $(e.target.parentNode);
+         if ($modalElement[0] !== e.target && !$modalElement.has(e.target).length
+             &&
+             !$parent.hasClass('cke_dialog_ui_input_select') && !$parent.hasClass('cke_dialog_ui_input_text')) {
+             $modalElement.focus()
+         }
+     });
 
 </script>
 <?php $this->endBlock(); ?>
