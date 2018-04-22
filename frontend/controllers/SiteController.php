@@ -989,9 +989,9 @@ class SiteController extends Controller
     }
 
     public function actionFinance() {
-        if (($model = AdminFinance::findOne($_POST['id'])) !== null) {
+        if (($model = AdminFinance::findOne(['module_id' => $_POST['id'], 'status' => 1])) !== null) {
             // echo "<pre>";var_dump($model["fee"]);die;
-                return json_encode(['code' => 0, 'msg' => '注册成功！请前往首页进行登录！', 'data' => $model["fee"]]);
+                return json_encode(['code' => 0, 'msg' => '获取成功！', 'data' => $model["fee"]]);
         } else{
             return json_encode(['code' => 2, 'msg' => '该功能暂时未开放！', 'data' => []]);
         }

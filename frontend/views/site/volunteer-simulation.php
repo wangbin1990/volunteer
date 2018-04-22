@@ -45,7 +45,7 @@ $years = array_column($years, 'year');
                        <li><span>排位：</span><input type="text"  name = "sort" placeholder="考生所在省份的排名"></li>
                        <div class="clearfix"></div>
                    </ul>
-                   <div class="btn-box"><input type="button" class="btn"  value="提 交" onclick="show1(10);"></div>
+                   <div class="btn-box"><input type="button" class="btn"  value="提 交" onclick="show1(4);"></div>
                 <div style="color: #3c763d;background-color: #dff0d8;border-color: #d6e9c6;margin-top:50px;     padding: 15px;margin-bottom: 20px;border: 1px solid transparent;border-radius: 4px;display: none;" id="dialog1">
                     <span id="showData1"></span>
                     <span>是否确认？</span>

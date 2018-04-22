@@ -34,7 +34,7 @@ $this->params['breadcrumbs'] =[
                                 <option value="<?= $location['id']?>" <?php if($location_id == $location['id']):?>selected=selected<?php endif;?>><?= $location['name']?></option>
                             <?php endforeach;?>
                         </select>
-                        <a onclick="javascript:show(4);">确定</a>
+                        <a onclick="javascript:show(1);">确定</a>
                     </div>
                     <div class="fencha fl">
                         <label>分差：</label>
@@ -42,7 +42,7 @@ $this->params['breadcrumbs'] =[
                         ——
                         <input type="text" <?php if(isset($params[':high_score'])):?>value="<?= $params[':high_score']?>" <?php endif;?> name="highScore" placeholder="最高分差">
                         <!-- <button onclick="$('#searchForm').submit();">确定</button> -->
-                        <a onclick="javascript:show(7);">确定</a>
+                        <a onclick="javascript:show(2);">确定</a>
                     </div>
                 </form>
                 <div class="comparison02-btn fl"><button onclick="chkschool();">院校数据对比</button></div>
@@ -102,7 +102,7 @@ $this->params['breadcrumbs'] =[
     	alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value);
     	return false;
     }
-    this.show1(8);
+    this.show1(3);
     // $("#submitForm").submit();
     }
   function chkall(){
