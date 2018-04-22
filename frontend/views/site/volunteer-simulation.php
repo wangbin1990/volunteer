@@ -45,7 +45,13 @@ $years = array_column($years, 'year');
                        <li><span>排位：</span><input type="text"  name = "sort" placeholder="考生所在省份的排名"></li>
                        <div class="clearfix"></div>
                    </ul>
-                   <div class="btn-box"><input type="button" class="btn submit01"  value="提 交"></div>
+                   <div class="btn-box"><input type="button" class="btn"  value="提 交" onclick="show1(10);"></div>
+                <div style="color: #3c763d;background-color: #dff0d8;border-color: #d6e9c6;margin-top:50px;     padding: 15px;margin-bottom: 20px;border: 1px solid transparent;border-radius: 4px;display: none;" id="dialog1">
+                    <span id="showData1"></span>
+                    <span>是否确认？</span>
+                    <a class="submit01">确认</a>
+                    <a href="javascript:close1();">取消</a>
+                </div>
                    <div class="fencha-box">
                        <div class="fenccha-nei">
                             <div class="text">
@@ -92,7 +98,31 @@ $years = array_column($years, 'year');
 <div class="clear"></div>
 <!--版权-->
   <script>
+        function show1(id) {
+            $.ajax({
+               'url' : '<?= \yii\helpers\Url::toRoute('site/finance')?>',
+               'dataType' : 'json',
+               'data' : 'id=' + id,
+               'type' : 'post',
+               'success': function (res) {
+                 console.log(res);
+                   if (res.code == 0) {
+                       //修改页面登录状态
+                       document.getElementById("showData1").innerHTML = "收费版块，该模块将花费："+ res.data + "元/点击";
+                       document.getElementById("dialog1").style.display = "block"
+                   } else if(res.code == 2) {
+                       alert(res.msg);
+                   } else {
+                       alert(res.msg);
+                   }
+               }
+           });
+        }
 
+        function close1() {
+          var ui = document.getElementById("dialog1");
+          ui.style.display="none";
+        }
 
     //侧边工具栏
     Do.ready(function(t) {
@@ -116,7 +146,7 @@ $years = array_column($years, 'year');
             scrollTop();
             preventClick();
         }
-        //
+        
         $(".submit01").click(function(){
             $('.batch_2').css('display', 'none');
             $('#sb').hide();
