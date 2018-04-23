@@ -883,7 +883,8 @@ class SiteController extends Controller
 
 
         $schoolQuery = AdminSchoolScore::find()
-            ->select('school_id, diff_score')
+            ->distinct('school_id')
+            ->select('school_id')
             ->where(['between', 'diff_score', $min_diff, $max_diff])
             ->orWhere(['diff_score' => 0])
             ->andWhere(['mold_id' => $data['mold']])
@@ -904,7 +905,7 @@ class SiteController extends Controller
             ->where(['id' => array_column($schoolIds, 'school_id')])->indexBy('id')->asArray()->all();
 
         foreach ($schools as &$school) {
-            $school['diff_score'] = $schoolIds[$school['id']]['diff_score'];
+            //$school['diff_score'] = $schoolIds[$school['id']]['diff_score'];
         }
 
         return $schools;
