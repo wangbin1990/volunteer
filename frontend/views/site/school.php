@@ -80,14 +80,13 @@ $this->params['breadcrumbs'] =[
 
 <span style="cursor:pointer" ><h4><a href="http://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--method-index,lb-1.dhtml" target="_blank">招生简章>></a></h4><br/><h4><a class="see_professional_score">专业录取分数</a></h4></span>
           <ul>
-            <div style="display: none" id="see_professional_score">
             <hr/>
-            <a onclick="cancle();" style="color:#666;padding-top:5px;">关闭</a>
-          
+            <div style="display: none" id="see_professional_score">
+            <a onclick="cancle();" style="color:#666;padding-top:5px;margin-bottom: 10px;">关闭</a>
+            
             <li><?= mb_substr($school->professional_score,0,900000,"utf-8"); ?></li>
             </div>
           </ul>
-<hr/>
 <span style="cursor:pointer;margin-top:20px;" ><h4><a href="#" onclick="showContent();" style="color:blue;">学校简介</a></h4></span>
 <hr/>
  <!-- <div id="div3"> -->

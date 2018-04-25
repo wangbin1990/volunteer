@@ -87,7 +87,7 @@ class AdminUserController extends BaseController
             if(empty($model->status) == true){
               $model->status = 10;
             }
-            $model->password = Yii::$app->security->generatePasswordHash($model->password);
+            //$model->password = Yii::$app->security->generatePasswordHash($model->password);
             $model->create_user = Yii::$app->user->identity->uname;
             $model->create_date = date('Y-m-d H:i:s');
             $model->update_user = Yii::$app->user->identity->uname;

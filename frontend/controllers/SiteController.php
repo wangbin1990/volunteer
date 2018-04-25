@@ -889,8 +889,7 @@ class SiteController extends Controller
             ->orWhere(['diff_score' => 0])
             ->andWhere(['mold_id' => $data['mold']])
             ->andWhere(['year' => $data['year']])
-            ->andWhere(['batch_id' => $data['batchIds']])
-            ->limit(8);
+            ->andWhere(['batch_id' => $data['batchIds']]);
         if(isset($offset)) {
             $schoolQuery->offset($offset);
         }
