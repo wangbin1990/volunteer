@@ -370,6 +370,7 @@ function deleteAction(id){
 					    admin_tool.alert('msg_info', '出错了，' + textStatus, 'warning');
 					},
 				   success: function(data){
+            console.log(data);
 					   for(i = 0; i < ids.length; i++){
 						   $('#rowid_' + ids[i]).remove();
 					   }

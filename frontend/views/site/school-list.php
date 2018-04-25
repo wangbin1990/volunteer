@@ -28,21 +28,21 @@ $this->params['breadcrumbs'] =[
                     <input name='mold' value="<?= $mold?>" type="hidden">
                     <div class="area fl">
                         <label>地区：</label>
-                        <select name="location_id">
+                        <select name="location_id" id="location_id">
                             <option value=0 <?php if($location_id == 0):?>selected=selected<?php endif;?>>请选择</option>
                             <?php foreach($locationCate['children'] as $location):?>
                                 <option value="<?= $location['id']?>" <?php if($location_id == $location['id']):?>selected=selected<?php endif;?>><?= $location['name']?></option>
                             <?php endforeach;?>
                         </select>
-                        <a onclick="javascript:show(1);">确定</a>
+                        <a onclick="javascript:check_location();">确定</a>
                     </div>
                     <div class="fencha fl">
                         <label>分差：</label>
-                        <input type="text" <?php if(isset($params[':low_score'])):?>value="<?= $params[':low_score']?>" <?php endif;?> name="lowScore" placeholder="最低分差">
+                        <input type="text" id="low_score" <?php if(isset($params[':low_score'])):?>value="<?= $params[':low_score']?>" <?php endif;?> name="lowScore" placeholder="最低分差">
                         ——
-                        <input type="text" <?php if(isset($params[':high_score'])):?>value="<?= $params[':high_score']?>" <?php endif;?> name="highScore" placeholder="最高分差">
+                        <input type="text" id="high_score" <?php if(isset($params[':high_score'])):?>value="<?= $params[':high_score']?>" <?php endif;?> name="highScore" placeholder="最高分差">
                         <!-- <button onclick="$('#searchForm').submit();">确定</button> -->
-                        <a onclick="javascript:show(2);">确定</a>
+                        <a onclick="javascript:check_score();">确定</a>
                     </div>
                 </form>
                 <div class="comparison02-btn fl"><button onclick="chkschool();">院校数据对比</button></div>
@@ -105,6 +105,37 @@ $this->params['breadcrumbs'] =[
     this.show1(3);
     // $("#submitForm").submit();
     }
+
+  function check_location() {
+    var v = document.getElementById("location_id").value;
+    if(v == 0) {
+      alert("请选择地区！");
+      return false;
+    } else {
+      show(1);
+    }
+  }
+
+  function check_score() {
+    var low_score = document.getElementById("low_score").value;
+    var high_score = document.getElementById("high_score").value;
+    if(low_score == '' || low_score <= 0 || isNaN(low_score)) {
+      alert("最低分请输入合法分数！")
+      return false;
+    }
+    if(high_score == '' || high_score <= 0 || isNaN(high_score)) {
+      alert("最高分请输入合法分数！")
+      return false;
+    }
+
+    if(high_score < low_score) {
+      alert("最高分不能低于最低分！")
+      return false;
+    }
+
+    show(2);
+
+  }
   function chkall(){
       $("input[name='checkSchool[]']").attr("checked","true");
   }
