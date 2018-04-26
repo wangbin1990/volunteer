@@ -38,6 +38,8 @@ class SiteController extends Controller
 
     public $enableCsrfValidation = false;
 
+    private static $zeroSchoolIds = [];
+
     /**
      * @inheritdoc
      */
@@ -839,6 +841,7 @@ class SiteController extends Controller
         if (!isset($data['mold'], $data['item'], $data['diff_score'], $data['year'])) {
            throw  new InvalidParamException('参数错误');
         }
+        $needZero = true;
 
         if ($data['type'] == 1) {
             if ($data['diff_score'] >= 50) {
@@ -853,11 +856,15 @@ class SiteController extends Controller
 
             $max_diff =  $diff_score - ($data['item'] - 1) * ($step - 1);
             $min_diff = $diff_score - ($data['item']) * ($step - 1);
+            if ($data['item'] > 1) {
+                $max_diff = $max_diff - 0.01;
+            }
             if ($max_diff <= 0) {
-                $offset = abs(floor($max_diff / $step)) * 8;
+                //$offset = abs(floor($max_diff / $step)) * 8;
             }
 
         } elseif ($data['type'] == 2) {
+            $needZero =false;
             if ($data['item'] < 4) {
                 $min_diff = 70;
                 $max_diff = 7000;
@@ -882,22 +889,35 @@ class SiteController extends Controller
             ];
 
 
-        $schoolQuery = AdminSchoolScore::find()
+        $schoolIds  = AdminSchoolScore::find()
             ->distinct('school_id')
             ->select('school_id')
-            ->where(['between', 'diff_score', $min_diff, $max_diff])
-            ->orWhere(['diff_score' => 0])
-            ->andWhere(['mold_id' => $data['mold']])
+            ->Where(['mold_id' => $data['mold']])
             ->andWhere(['year' => $data['year']])
-            ->andWhere(['batch_id' => $data['batchIds']]);
-        if(isset($offset)) {
-            $schoolQuery->offset($offset);
-        }
+            ->andWhere(['batch_id' => $data['batchIds']])
+            ->andWhere(['between', 'diff_score', $min_diff, $max_diff])
+            ->orderBy('diff_score desc')
+            ->indexBy('school_id')
+            ->asArray()
+            ->all();
 
-        $schoolIds = $schoolQuery->orderBy('diff_score desc')
-        ->indexBy('school_id')
-        ->asArray()
-        ->all();
+        if (empty($schoolIds) && $needZero) {
+            //->limit(8);
+            if (empty(static::$zeroSchoolIds)) {
+                $schoolIds = AdminSchoolScore::find()
+                    ->distinct('school_id')
+                    ->select('school_id')
+                    ->Where(['mold_id' => $data['mold']])
+                    ->andWhere(['year' => $data['year']])
+                    ->andWhere(['batch_id' => $data['batchIds']])
+                    ->andWhere(['diff_score' => 0])
+                    ->indexBy('school_id')
+                    ->asArray()
+                    ->all();
+                static::$zeroSchoolIds = $schoolIds;
+            }
+            $schoolIds = static::$zeroSchoolIds;
+        }
 
         $schools = AdminSchool::find()
             ->select('id, name, mold, batch')
