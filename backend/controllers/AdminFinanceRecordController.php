@@ -259,10 +259,33 @@ class AdminFinanceRecordController extends BaseController
             throw new UserException('数据为空');
         }
         $query = AdminFinanceRecord::find()->where(['id' => $ids])->all();
+        foreach ($query as $model) {
+            $model->create_time = date("Y-m-d H:i:s", $model->create_time);
+            $model->operate_type = $model->operate_type==2 ? '消费' : '充值';
+            $model->member_id = AdminMember::findOne($model->member_id)->name;
+            $model->amount = $model->amount."元";
+        }
         return \moonland\phpexcel\Excel::widget([
             'models' => $query,
             'mode' => 'export', //default value as 'export'
-            'columns' => ['id', 'member_id', 'amount', 'remark', 'operate_name', 'order_sn', 'pay_sn'],
+            'columns' => ['id', 'member_id', 'amount','operate_type', 'remark', 'operate_name', 'order_sn', 'pay_sn','create_time'],
+        ]);
+
+    }
+
+    public function actionExportall()
+    {
+        $query = AdminFinanceRecord::find()->all();
+        foreach ($query as $model) {
+            $model->create_time = date("Y-m-d H:i:s", $model->create_time);
+            $model->operate_type = $model->operate_type==2 ? '消费' : '充值';
+            $model->member_id = AdminMember::findOne($model->member_id)->name;
+            $model->amount = $model->amount."元";
+        }
+        return \moonland\phpexcel\Excel::widget([
+            'models' => $query,
+            'mode' => 'export', //default value as 'export'
+            'columns' => ['id', 'member_id', 'amount','operate_type', 'remark', 'operate_name', 'order_sn', 'pay_sn','create_time'],
         ]);
 
     }

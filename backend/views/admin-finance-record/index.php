@@ -28,8 +28,9 @@ $prefixNames = array_column($membersModel, 'prefix_name', 'id');
         <div class="box-header">
           <h3 class="box-title">数据列表</h3>
           <div class="box-tools">
-            <div class="input-group input-group-sm" style="width: 200px;">
+            <div class="input-group input-group-sm" style="width: 300px;">
                 <button id="export_btn" onclick="exportDate()" type="button" class="btn btn-xs btn-primary">导&nbsp;&emsp;出</button>&nbsp;|&nbsp;
+                <button id="export_btn" onclick="exportAllDate()" type="button" class="btn btn-xs btn-primary">导出全部</button>&nbsp;|&nbsp;
                 <button id="create_btn" type="button" class="btn btn-xs btn-primary">添&nbsp;&emsp;加</button>
         			|
         		<button id="delete_btn" type="button" class="btn btn-xs btn-danger">批量删除</button>
@@ -255,7 +256,7 @@ $prefixNames = array_column($membersModel, 'prefix_name', 'id');
              var checkboxs = $('#data_table :checked');
              if(checkboxs.size() > 0){
                  var c = 0;
-                 for(i = 1; i < checkboxs.size(); i++){
+                 for(i = 0; i < checkboxs.size(); i++){
                      var id = checkboxs.eq(i).val();
                      if(id != ""){
                          ids[c++] = id;
@@ -272,6 +273,12 @@ $prefixNames = array_column($membersModel, 'prefix_name', 'id');
          else{
              alert('请先选择要导出的数据');
          }
+     }
+
+     function exportAllDate() {
+         admin_tool.confirm('请确认是否导出全部', function(){
+             window.location.href= "<?=Url::toRoute('admin-finance-record/exportall')?>";
+         });
      }
 
 function orderby(field, op){
