@@ -28,7 +28,8 @@ $prefixNames = array_column($membersModel, 'prefix_name', 'id');
         <div class="box-header">
           <h3 class="box-title">数据列表</h3>
           <div class="box-tools">
-            <div class="input-group input-group-sm" style="width: 150px;">
+            <div class="input-group input-group-sm" style="width: 200px;">
+                <button id="export_btn" onclick="exportDate()" type="button" class="btn btn-xs btn-primary">导&nbsp;&emsp;出</button>&nbsp;|&nbsp;
                 <button id="create_btn" type="button" class="btn btn-xs btn-primary">添&nbsp;&emsp;加</button>
         			|
         		<button id="delete_btn" type="button" class="btn btn-xs btn-danger">批量删除</button>
@@ -245,6 +246,33 @@ $prefixNames = array_column($membersModel, 'prefix_name', 'id');
 <!-- <body></body>后代码块 -->
 
 <script>
+     function exportDate() {
+         var ids = [];
+         if(!!id == true){
+             ids[0] = id;
+         }
+         else{
+             var checkboxs = $('#data_table :checked');
+             if(checkboxs.size() > 0){
+                 var c = 0;
+                 for(i = 1; i < checkboxs.size(); i++){
+                     var id = checkboxs.eq(i).val();
+                     if(id != ""){
+                         ids[c++] = id;
+                     }
+                 }
+             }
+         }
+         console.log(ids);
+         if(ids.length > 0){
+             admin_tool.confirm('请确认是否导出', function(){
+                 window.location.href= "<?=Url::toRoute('admin-finance-record/export')?>" + "&ids=" + ids.join(',');
+             });
+         }
+         else{
+             alert('请先选择要导出的数据');
+         }
+     }
 
 function orderby(field, op){
 	 var url = window.location.search;
@@ -381,7 +409,7 @@ function deleteAction(id){
 		});
 	}
 	else{
-		admin_tool.alert('msg_info', '请先选择要删除的数据', 'warning');
+		alert('请先选择要删除的数据');
 	}
     
 }

@@ -249,4 +249,21 @@ class AdminFinanceRecordController extends BaseController
 
         return app()->wxpay->goPay($memberId, $amount, $remark);
     }
+
+    /**
+     * @param $ids
+     */
+    public function actionExport($ids)
+    {
+        if (!($ids =explode(',', $ids))) {
+            throw new UserException('数据为空');
+        }
+        $query = AdminFinanceRecord::find()->where(['id' => $ids])->all();
+        return \moonland\phpexcel\Excel::widget([
+            'models' => $query,
+            'mode' => 'export', //default value as 'export'
+            'columns' => ['id', 'member_id', 'amount', 'remark', 'operate_name', 'order_sn', 'pay_sn'],
+        ]);
+
+    }
 }
