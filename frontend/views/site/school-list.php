@@ -120,7 +120,7 @@ $this->params['breadcrumbs'] =[
   function check_score() {
     var low_score = document.getElementById("low_score").value;
     var high_score = document.getElementById("high_score").value;
-    if(low_score == '' || low_score <= 0 || isNaN(low_score)) {
+    if(low_score == '' || low_score < 0) {
       alert("最低分请输入合法分数！")
       return false;
     }
