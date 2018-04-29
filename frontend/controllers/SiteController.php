@@ -480,6 +480,7 @@ class SiteController extends Controller
             'params' => $params,
             'batch' => $batch,
             'mold' => $mold,
+            'spec' => $spec,
             'batchName' => $batchName,
             'locationCate' => $locationCate,
             'location_id' => $location_id,

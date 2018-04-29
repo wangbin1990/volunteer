@@ -26,6 +26,7 @@ $this->params['breadcrumbs'] =[
                 <form id ="searchForm" action=""  method="get">
                     <input name='batch' value="<?= $batch?>" type="hidden">
                     <input name='mold' value="<?= $mold?>" type="hidden">
+                    <input name='spec' value="<?= $spec?>" type="hidden">
                     <div class="area fl">
                         <label>地区：</label>
                         <select name="location_id" id="location_id">
