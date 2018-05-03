@@ -75,7 +75,7 @@ class AdminArticleContentController extends BaseController
             'pageSizeParam'=>'per-page']
         );
         
-        $orderby = Yii::$app->request->get('orderby', '');
+        $orderby = Yii::$app->request->get('orderby', 'update_date desc');
         if(empty($orderby) == false){
             $query = $query->orderBy($orderby);
             $query1 = $query1->orderBy($orderby);
