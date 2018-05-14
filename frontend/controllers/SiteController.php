@@ -883,18 +883,28 @@ class SiteController extends Controller
         }
 
 
-            $data['year'] = [
-                $data['year'] - 1,
-                $data['year'] - 2,
-                $data['year'] - 3,
-            ];
+        $data['year1'] = [
+            $data['year'] - 1,
+            $data['year'] - 2,
+        ];
+
+        $data['year2'] = [
+            $data['year'] - 2,
+            $data['year'] - 3,
+        ];
+        $data['year3'] = [
+            $data['year'] - 1,
+            $data['year'] - 3,
+        ];
 
 
         $schoolIds  = AdminSchoolScore::find()
             ->distinct('school_id')
             ->select('school_id')
-            ->Where(['mold_id' => $data['mold']])
-            ->andWhere(['year' => $data['year']])
+            ->orWhere(['year' => $data['year1']])
+            ->orWhere(['year' => $data['year2']])
+            ->orWhere(['year' => $data['year3']])
+            ->andWhere(['mold_id' => $data['mold']])
             ->andWhere(['batch_id' => $data['batchIds']])
             ->andWhere(['between', 'diff_score', $min_diff, $max_diff])
             ->orderBy('diff_score desc')
@@ -908,8 +918,10 @@ class SiteController extends Controller
                 $schoolIds = AdminSchoolScore::find()
                     ->distinct('school_id')
                     ->select('school_id')
-                    ->Where(['mold_id' => $data['mold']])
-                    ->andWhere(['year' => $data['year']])
+                    ->orWhere(['year' => $data['year1']])
+                    ->orWhere(['year' => $data['year2']])
+                    ->orWhere(['year' => $data['year3']])
+                    ->andWhere(['mold_id' => $data['mold']])
                     ->andWhere(['batch_id' => $data['batchIds']])
                     ->andWhere(['diff_score' => 0])
                     ->indexBy('school_id')
