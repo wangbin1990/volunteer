@@ -87,6 +87,12 @@ $this->params['breadcrumbs'] =[
             <li><?= mb_substr($school->professional_score,0,900000,"utf-8"); ?></li>
             </div>
           </ul>
+                          <div style="color: #3c763d;background-color: #dff0d8;border-color: #d6e9c6;margin-top:50px;     padding: 15px;margin-bottom: 20px;border: 1px solid transparent;border-radius: 4px;display: none;" id="dialog">
+                    <span id="showData"></span>
+                    <span>是否确认？</span>
+                    <a href="javascript:showData();">确认</a>
+                    <a href="javascript:close();">取消</a>
+                </div>
 <span style="cursor:pointer;margin-top:20px;" ><h4><a href="#" onclick="showContent();" style="color:blue;">学校简介</a></h4></span>
 <hr/>
  <!-- <div id="div3"> -->
@@ -329,7 +335,36 @@ $this->params['breadcrumbs'] =[
     // $('#canvas_9').css({"padding-left":"80px"});
 
     $(".see_professional_score").click(function () {
-        $.ajax({
+      show(1);
+    });
+
+    function cancle() {
+      document.getElementById("see_professional_score").style.display = 'none';
+    }
+
+    function show(id) {
+    $.ajax({
+       'url' : '<?= \yii\helpers\Url::toRoute('site/finance')?>',
+       'dataType' : 'json',
+       'data' : 'id=' + id,
+       'type' : 'post',
+       'success': function (res) {
+         console.log(res);
+           if (res.code == 0) {
+               //修改页面登录状态
+               document.getElementById("showData").innerHTML = "收费版块，该模块将花费："+ res.data + "元";
+               document.getElementById("dialog").style.display = "block"
+           } else if(res.code == 2) {
+               alert(res.msg);
+           } else {
+               alert(res.msg);
+           }
+       }
+   });
+  }
+
+  function showData(){
+            $.ajax({
             'url' : '<?= \yii\helpers\Url::toRoute('site/get-professional-score')?>',
             'dataType' : 'json',
             'data' : 'schoolId=' + <?= $school['id']?>,
@@ -343,10 +378,12 @@ $this->params['breadcrumbs'] =[
                 }
             }
         });
-    });
+        close();
+  }
 
-    function cancle() {
-      document.getElementById("see_professional_score").style.display = 'none';
-    }
+    function close() {
+     var ui = document.getElementById("dialog");
+     ui.style.display="none";
+  }
 </script>
 <?php $this->endBlock();  ?>
