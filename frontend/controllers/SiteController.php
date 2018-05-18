@@ -882,28 +882,26 @@ class SiteController extends Controller
             //$offset = ($data['item'] - 1) * 8;
         }
 
+        $year1 = $data['year'] - 1;
+        $year2 = $data['year'] - 2;
+        $year3 = $data['year'] - 3;
 
-        $data['year1'] = [
-            $data['year'] - 1,
-            $data['year'] - 2,
-        ];
-
-        $data['year2'] = [
-            $data['year'] - 2,
-            $data['year'] - 3,
-        ];
-        $data['year3'] = [
-            $data['year'] - 1,
-            $data['year'] - 3,
-        ];
-
-
-        $schoolIds  = AdminSchoolScore::find()
+        $schoolIds1  = AdminSchoolScore::find()
             ->distinct('school_id')
             ->select('school_id')
-            ->orWhere(['year' => $data['year1']])
-            ->orWhere(['year' => $data['year2']])
-            ->orWhere(['year' => $data['year3']])
+            ->andWhere(['year' => $year1])
+            ->andWhere(['mold_id' => $data['mold']])
+            ->andWhere(['batch_id' => $data['batchIds']])
+            ->andWhere(['between', 'diff_score', $min_diff, $max_diff])
+            ->orderBy('diff_score desc')
+            ->indexBy('school_id')
+            ->asArray()
+            ->all();
+        
+        $schoolIds2  = AdminSchoolScore::find()
+            ->distinct('school_id')
+            ->select('school_id')
+            ->andWhere(['year' => $year2])
             ->andWhere(['mold_id' => $data['mold']])
             ->andWhere(['batch_id' => $data['batchIds']])
             ->andWhere(['between', 'diff_score', $min_diff, $max_diff])
@@ -912,21 +910,71 @@ class SiteController extends Controller
             ->asArray()
             ->all();
 
+        $schoolIds3  = AdminSchoolScore::find()
+            ->distinct('school_id')
+            ->select('school_id')
+            ->andWhere(['year' => $year3])
+            ->andWhere(['mold_id' => $data['mold']])
+            ->andWhere(['batch_id' => $data['batchIds']])
+            ->andWhere(['between', 'diff_score', $min_diff, $max_diff])
+            ->orderBy('diff_score desc')
+            ->indexBy('school_id')
+            ->asArray()
+            ->all();
+        $schoolIds1 = array_column($schoolIds1, 'school_id');
+        $schoolIds2 = array_column($schoolIds2, 'school_id');
+        $schoolIds3 = array_column($schoolIds3, 'school_id');
+        $schoolIds1 = array_intersect($schoolIds1, $schoolIds2);
+        $schoolIds2 = array_intersect($schoolIds2, $schoolIds3);
+        $schoolIds3 = array_intersect($schoolIds1, $schoolIds3);
+        $schoolIds = array_merge($schoolIds1, $schoolIds2, $schoolIds3);
+        $schoolIds = array_values($schoolIds);
+
         if (empty($schoolIds) && $needZero) {
             //->limit(8);
             if (empty(static::$zeroSchoolIds)) {
-                $schoolIds = AdminSchoolScore::find()
+                $schoolIds1 = AdminSchoolScore::find()
                     ->distinct('school_id')
                     ->select('school_id')
-                    ->orWhere(['year' => $data['year1']])
-                    ->orWhere(['year' => $data['year2']])
-                    ->orWhere(['year' => $data['year3']])
+                    ->andWhere(['year' => $year1])
                     ->andWhere(['mold_id' => $data['mold']])
                     ->andWhere(['batch_id' => $data['batchIds']])
                     ->andWhere(['diff_score' => 0])
                     ->indexBy('school_id')
                     ->asArray()
                     ->all();
+
+                $schoolIds2 = AdminSchoolScore::find()
+                    ->distinct('school_id')
+                    ->select('school_id')
+                    ->andWhere(['year' => $year2])
+                    ->andWhere(['mold_id' => $data['mold']])
+                    ->andWhere(['batch_id' => $data['batchIds']])
+                    ->andWhere(['diff_score' => 0])
+                    ->indexBy('school_id')
+                    ->asArray()
+                    ->all();
+
+                $schoolIds3 = AdminSchoolScore::find()
+                    ->distinct('school_id')
+                    ->select('school_id')
+                    ->andWhere(['year' => $year3])
+                    ->andWhere(['mold_id' => $data['mold']])
+                    ->andWhere(['batch_id' => $data['batchIds']])
+                    ->andWhere(['diff_score' => 0])
+                    ->indexBy('school_id')
+                    ->asArray()
+                    ->all();
+
+                $schoolIds1 = array_column($schoolIds1, 'school_id');
+                $schoolIds2 = array_column($schoolIds2, 'school_id');
+                $schoolIds3 = array_column($schoolIds3, 'school_id');
+                $schoolIds1 = array_intersect($schoolIds1, $schoolIds2);
+                $schoolIds2 = array_intersect($schoolIds2, $schoolIds3);
+                $schoolIds3 = array_intersect($schoolIds1, $schoolIds3);
+                $schoolIds = array_merge($schoolIds1, $schoolIds2, $schoolIds3);
+                $schoolIds = array_values($schoolIds);
+
                 static::$zeroSchoolIds = $schoolIds;
             }
             $schoolIds = static::$zeroSchoolIds;
@@ -934,7 +982,7 @@ class SiteController extends Controller
 
         $schools = AdminSchool::find()
             ->select('id, name, mold, batch')
-            ->where(['id' => array_column($schoolIds, 'school_id')])->indexBy('id')->asArray()->all();
+            ->where(['id' => $schoolIds])->indexBy('id')->asArray()->all();
 
         foreach ($schools as &$school) {
             //$school['diff_score'] = $schoolIds[$school['id']]['diff_score'];
