@@ -57,7 +57,7 @@ $this->title = '贵州高考志愿咨询数据平台';
                                                     <input type="checkbox"
                                                      name="school[]"
                                                      value="<?= $school['name'] ?>" data-val="<?= $school['id'] ?>" style="    margin-top: 10px;float:left;"/>
-                                                    <a style="color:blue;float:left;" href="<?= Url::to('school-' . $school['id'])?>" target="_blank">
+                                                    <a style="color:blue;float:left;width: 164px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;display: block;" href="<?= Url::to('school-' . $school['id'])?>" title="<?= $school['name'] ?>" target="_blank">
                                                      <?= $school['name'] ?>
                                                      </a>
 

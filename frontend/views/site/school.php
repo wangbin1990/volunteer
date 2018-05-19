@@ -153,7 +153,7 @@ $this->params['breadcrumbs'] =[
                     <div>               
 <div class="row">
                         <div class="" style="margin:0 auto;width:620px;">
-                        <p>2010-2016年录取分数线情况</p>
+                        <p>2010-2017年录取分数线情况</p>
                         <table cellspacing="0" class="table table-bordered table-striped">
                             <thead>
                               <tr>
@@ -186,7 +186,7 @@ $this->params['breadcrumbs'] =[
                     </div>
                     <div class="row">
                         <div class="" style="margin:0 auto;width:620px;">
-                        <p>2010-2016年录取分数线情况</p>
+                        <p>2010-2017年录取分数线情况</p>
                         <table cellspacing="0" class="table table-bordered table-striped">
                             <tbody>
                               <tr>
