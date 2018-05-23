@@ -143,9 +143,11 @@ class AdminSchoolController extends BaseController
         $id = Yii::$app->request->post('id');
         $model = $this->findModel($id);
         $data = Yii::$app->request->post();
-
+        
         if (!empty($data['AdminSchool']['spec'])) {
             $data['AdminSchool']['spec']  = implode(',', $data['AdminSchool']['spec']);
+        } else {
+             $data['AdminSchool']['spec'] = "0";
         }
         $data['AdminSchool']['update_time'] = date('Y-m-d H:i:s', time());
 
