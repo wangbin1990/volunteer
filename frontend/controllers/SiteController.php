@@ -921,14 +921,15 @@ class SiteController extends Controller
             ->indexBy('school_id')
             ->asArray()
             ->all();
+
         $schoolIds1 = array_column($schoolIds1, 'school_id');
         $schoolIds2 = array_column($schoolIds2, 'school_id');
         $schoolIds3 = array_column($schoolIds3, 'school_id');
-        $schoolIds1 = array_intersect($schoolIds1, $schoolIds2);
-        $schoolIds2 = array_intersect($schoolIds2, $schoolIds3);
-        $schoolIds3 = array_intersect($schoolIds1, $schoolIds3);
-        $schoolIds = array_merge($schoolIds1, $schoolIds2, $schoolIds3);
-        $schoolIds = array_values($schoolIds);
+        $schoolIds11 = array_intersect($schoolIds1, $schoolIds2);
+        $schoolIds22 = array_intersect($schoolIds2, $schoolIds3);
+        $schoolIds33 = array_intersect($schoolIds1, $schoolIds3);
+        $schoolIds = array_merge($schoolIds11, $schoolIds22, $schoolIds33);
+        $schoolIds = array_values(array_unique($schoolIds));
 
         if (empty($schoolIds) && $needZero) {
             //->limit(8);
