@@ -311,7 +311,8 @@ class SiteController extends Controller
                     }
                 }
 
-                $schools[$item] = $this->getParallelSchool($data);
+                $schools[$item] = $this->getParallelSchool($data, $item);
+
             }
             $data['schools']  = $schools;
             if (!empty($schools)) {
@@ -837,7 +838,7 @@ class SiteController extends Controller
      *
      * @return array
      */
-    public function getParallelSchool($data)
+    public function getParallelSchool($data, $item = 1)
     {
         if (!isset($data['mold'], $data['item'], $data['diff_score'], $data['year'])) {
            throw  new InvalidParamException('参数错误');
@@ -975,10 +976,7 @@ class SiteController extends Controller
                 $schoolIds3 = array_intersect($schoolIds1, $schoolIds3);
                 $schoolIds = array_merge($schoolIds1, $schoolIds2, $schoolIds3);
                 $schoolIds = array_values($schoolIds);
-
-                static::$zeroSchoolIds = $schoolIds;
             }
-            $schoolIds = static::$zeroSchoolIds;
         }
 
         $schools = AdminSchool::find()
